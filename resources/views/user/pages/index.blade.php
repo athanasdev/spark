@@ -9,14 +9,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Crypo</title>
-  <link rel="icon" href="client/assets/img/favicon.png" type="image/x-icon">
-  <link rel="stylesheet" href="client/assets/css/style.css">
+  <link rel="icon" href="/client/assets/img/favicon.png" type="image/x-icon">
+  <link rel="stylesheet" href="/client/assets/css/style.css">
 </head>
 
 <body id="dark">
   <header class="dark-bb">
     <nav class="navbar navbar-expand-lg">
-      <a class="navbar-brand" href="index.html"><img src="client/assets/img/logo-light.svg" alt="logo"></a>
+      <a class="navbar-brand" href="index.html"><img src="/client/assets/img/logo-light.svg" alt="logo"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerMenu"
         aria-controls="headerMenu" aria-expanded="false" aria-label="Toggle navigation">
         <i class="icon ion-md-menu"></i>
@@ -141,12 +141,12 @@
           <li class="nav-item dropdown header-img-icon">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
-              <img src="client/assets/img/avatar.svg" alt="avatar">
+              <img src="/client/assets/img/avatar.svg" alt="avatar">
             </a>
             <div class="dropdown-menu">
               <div class="dropdown-header d-flex flex-column align-items-center">
                 <div class="figure mb-3">
-                  <img src="client/assets/img/avatar.svg" alt="">
+                  <img src="/client/assets/img/avatar.svg" alt="">
                 </div>
                 <div class="info text-center">
                   <p class="name font-weight-bold mb-0">Tony Stark</p>
@@ -951,7 +951,7 @@
           <!-- TradingView Widget BEGIN -->
           <div class="tradingview-widget-container">
             <div id="tradingview_e8053"></div>
-            <script src="../s3.tradingview.com/tv.js"></script>
+            <script src="/client/assets/js/tv.js"></script>
             <script>
               new TradingView.widget(
                 {
@@ -1608,13 +1608,13 @@
     </div>
   </div>
 
-  <script src="client/assets/js/jquery-3.4.1.min.js"></script>
-  <script src="client/assets/js/popper.min.js"></script>
-  <script src="client/assets/js/bootstrap.min.js"></script>
-  <script src="client/assets/js/amcharts-core.min.js"></script>
-  <script src="client/assets/js/amcharts.min.js"></script>
-  <script src="client/assets/js/jquery.mCustomScrollbar.js"></script>
-  <script src="client/assets/js/custom.js"></script>
+  <script src="/client/assets/js/jquery-3.4.1.min.js"></script>
+  <script src="/client/assets/js/popper.min.js"></script>
+  <script src="/client/assets/js/bootstrap.min.js"></script>
+  <script src="/client/assets/js/amcharts-core.min.js"></script>
+  <script src="/client/assets/js/amcharts.min.js"></script>
+  <script src="/client/assets/js/jquery.mCustomScrollbar.js"></script>
+  <script src="/client/assets/js/custom.js"></script>
   <script>
     $('tbody, .market-news ul').mCustomScrollbar({
       theme: 'minimal',
