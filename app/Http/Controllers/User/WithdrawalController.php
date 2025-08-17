@@ -312,7 +312,7 @@ class WithdrawalController extends Controller
     public function setup()
     {
         $user = Auth::user();
-        return view('user.layouts.setup_withdraw_details', compact('user'));
+        return view('user.pages.wallet.withdraw-setup', compact('user'));
     }
 
     public function storeSetup(Request $request)

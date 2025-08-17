@@ -16,7 +16,7 @@ class CustomPasswordResetController extends Controller
     // Show the form where user enters email and token/password inputs
     public function showRequestForm()
     {
-        return view('auth.forgot-password');
+        return view('user.pages.reset.reset');
     }
 
     // Send reset code to user email if email exists

@@ -18,7 +18,7 @@ class UserAuthController extends Controller
     public function showRegisterForm(Request $request)
     {
         $ref = $request->query('invited_by');
-        return view('auth.register', compact('ref'));
+        return view('user.pages.signup', compact('ref'));
     }
 
 
@@ -77,7 +77,7 @@ class UserAuthController extends Controller
     public function showLoginForm()
     {
 
-        return view('user.pages.index');
+        return view('user.pages.login');
     }
 
     public function login(Request $request)
