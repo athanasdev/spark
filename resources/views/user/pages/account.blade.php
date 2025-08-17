@@ -2,7 +2,7 @@
 <html lang="en">
 
 
-<!-- Mirrored from crypo-laravel-live.netlify.app/wallet/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:56:03 GMT -->
+<!-- Mirrored from crypo-laravel-live.netlify.app/profile/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:56:00 GMT -->
 <!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
@@ -16,7 +16,6 @@
 </head>
 
 <body id="dark">
-
     @include('user.pages.header');
 
     <div class="settings mtb15">
@@ -25,12 +24,12 @@
                 <div class="col-md-12 col-lg-3">
                     <div class="nav flex-column nav-pills settings-nav" id="v-pills-tab" role="tablist"
                         aria-orientation="vertical">
-                        <a class="nav-link" id="settings-profile-tab" data-toggle="pill" href="#settings-profile"
+                        <a class="nav-link active" id="settings-profile-tab" data-toggle="pill" href="#settings-profile"
                             role="tab" aria-controls="settings-profile" aria-selected="true"><i
                                 class="icon ion-md-person"></i> Profile</a>
-                        <a class="nav-link active" id="settings-wallet-tab" data-toggle="pill"
-                            href="#settings-wallet" role="tab" aria-controls="settings-wallet"
-                            aria-selected="false"><i class="icon ion-md-wallet"></i> Wallet</a>
+                        <a class="nav-link" id="settings-wallet-tab" data-toggle="pill" href="#settings-wallet"
+                            role="tab" aria-controls="settings-wallet" aria-selected="false"><i
+                                class="icon ion-md-wallet"></i> Wallet</a>
                         <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab"
                             aria-controls="settings" aria-selected="false"><i class="icon ion-md-settings"></i>
                             Settings</a>
@@ -38,7 +37,7 @@
                 </div>
                 <div class="col-md-12 col-lg-9">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade" id="settings-profile" role="tabpanel"
+                        <div class="tab-pane fade show active" id="settings-profile" role="tabpanel"
                             aria-labelledby="settings-profile-tab">
                             <div class="card">
                                 <div class="card-body">
@@ -46,134 +45,268 @@
                                     <div class="settings-profile">
                                         <form action="#">
                                             <img src="/client/assets/img/avatar.svg" alt="avatar">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="fileUpload"
-                                                    required />
-                                                <label class="custom-file-label" for="fileUpload">Choose
-                                                    avatar</label>
-                                            </div>
                                             <div class="form-row mt-4">
+
                                                 <div class="col-md-6">
-                                                    <label for="formFirst">First name</label>
+                                                    <label for="formFirst">Username</label>
                                                     <input id="formFirst" type="text" class="form-control"
-                                                        placeholder="First name">
+                                                        placeholder="" readonly
+                                                        value="{{ Auth::user()->username ?? 'Guest' }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="formLast">Last name</label>
+                                                    <label for="formFirst">UserID</label>
+                                                    <input id="formFirst" type="text" class="form-control"
+                                                        placeholder="" readonly
+                                                        value="{{ Auth::user()->unique_id ?? 'NULL' }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="formLast">Email</label>
                                                     <input id="formLast" type="text" class="form-control"
-                                                        placeholder="Last name">
+                                                        placeholder="Email" required
+                                                        value="{{ Auth::user()->email ?? 'no-email' }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="emailAddress">Email</label>
+                                                    <label for="emailAddress">status</label>
                                                     <input id="emailAddress" type="text" class="form-control"
-                                                        placeholder="Enter your email">
+                                                        value="{{ Auth::user()->status ?? 'blocked' }}">
                                                 </div>
+
                                                 <div class="col-md-6">
-                                                    <label for="phoneNumber">Phone</label>
-                                                    <input id="phoneNumber" type="text" class="form-control"
-                                                        placeholder="Enter phone number">
+                                                    <label for="balance">Balance</label>
+                                                    <div class="input-group">
+                                                        <input id="balance" type="number" class="form-control"
+                                                            value="{{ Auth::user()->balance ?? 0 }}" readonly>
+                                                        <span class="input-group-text">USDT</span>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="selectLanguage">Language</label>
-                                                    <select id="selectLanguage" class="custom-select">
-                                                        <option selected>English</option>
-                                                        <option>Mandarin Chinese</option>
-                                                        <option>Spanish</option>
-                                                        <option>Arabic</option>
-                                                        <option>Russian</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="selectCurrency">Currency</label>
-                                                    <select id="selectCurrency" class="custom-select">
-                                                        <option selected>USD</option>
-                                                        <option>EUR</option>
-                                                        <option>GBP</option>
-                                                        <option>CHF</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <input type="submit" value="Update">
-                                                </div>
+
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Latest Transactions</h5>
+                                    <div class="wallet-history">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>25-04-2019</td>
+                                                    <td><i class="icon ion-md-checkmark-circle-outline green"></i></td>
+                                                    <td>4.5454334</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2</td>
+                                                    <td>25-05-2019</td>
+                                                    <td><i class="icon ion-md-checkmark-circle-outline green"></i></td>
+                                                    <td>0.5484468</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>25-06-2019</td>
+                                                    <td><i class="icon ion-md-close-circle-outline red"></i></td>
+                                                    <td>2.5454545</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4</td>
+                                                    <td>25-07-2019</td>
+                                                    <td><i class="icon ion-md-checkmark-circle-outline green"></i></td>
+                                                    <td>1.45894147</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3</td>
+                                                    <td>25-08-2019</td>
+                                                    <td><i class="icon ion-md-close-circle-outline red"></i></td>
+                                                    <td>2.5454545</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div> --}}
+
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Security Information</h5>
-                                    <div class="settings-profile">
-                                        <form action="#">
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <label for="currentPass">Current password</label>
-                                                    <input id="currentPass" type="text" class="form-control"
-                                                        placeholder="Enter your password" required />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="newPass">New password</label>
-                                                    <input id="newPass" type="text" class="form-control"
-                                                        placeholder="Enter new password">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityOne">Security questions #1</label>
-                                                    <select id="securityOne" class="custom-select">
-                                                        <option selected>What was the name of your first pet?</option>
-                                                        <option>What's your Mother's middle name?</option>
-                                                        <option>What was the name of your first school?</option>
-                                                        <option>Where did you travel for the first time?</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityAnsOne">Answer</label>
-                                                    <input id="securityAnsOne" type="text" class="form-control"
-                                                        placeholder="Enter your answer">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityTwo">Security questions #2</label>
-                                                    <select id="securityTwo" class="custom-select">
-                                                        <option selected>Choose...</option>
-                                                        <option>What was the name of your first pet?</option>
-                                                        <option>What's your Mother's middle name?</option>
-                                                        <option>What was the name of your first school?</option>
-                                                        <option>Where did you travel for the first time?</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityAnsTwo">Answer</label>
-                                                    <input id="securityAnsTwo" type="text" class="form-control"
-                                                        placeholder="Enter your answer">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityThree">Security questions #3</label>
-                                                    <select id="securityThree" class="custom-select">
-                                                        <option selected>Choose...</option>
-                                                        <option>What was the name of your first pet?</option>
-                                                        <option>What's your Mother's middle name?</option>
-                                                        <option>What was the name of your first school?</option>
-                                                        <option>Where did you travel for the first time?</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityFore">Answer</label>
-                                                    <input id="securityFore" type="text" class="form-control"
-                                                        placeholder="Enter your answer">
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <input type="submit" value="Update">
-                                                </div>
-                                            </div>
-                                        </form>
+                                    <h5 class="card-title">Latest Transactions</h5>
+                                    <div class="wallet-history">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($transactions as $index => $transaction)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $transaction->created_at->format('d-m-Y') }}</td>
+                                                        <td>
+                                                            @if ($transaction->status === 'success')
+                                                                <i
+                                                                    class="icon ion-md-checkmark-circle-outline green"></i>
+                                                            @elseif($transaction->status === 'pending')
+                                                                <i class="icon ion-md-close-circle-outline red"></i>
+                                                            @else
+                                                                <i class="icon ion-md-time-outline text-warning"></i>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ number_format($transaction->amount, 8) }} USDT</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="4" class="text-center">No transactions found
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Pagination -->
+                                        <div class="mt-3">
+                                            {{ $transactions->links() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
-                        <div class="tab-pane fade show active" id="settings-wallet" role="tabpanel"
+                        <div class="tab-pane fade" id="settings-wallet" role="tabpanel"
                             aria-labelledby="settings-wallet-tab">
                             <div class="wallet">
                                 <div class="row">
-                                    <div class="col-md-12 col-lg-10">
+                                    <div class="col-md-12 col-lg-4">
+                                        <div class="nav flex-column nav-pills" role="tablist"
+                                            aria-orientation="vertical">
+                                            <a class="nav-link d-flex justify-content-between align-items-center active"
+                                                data-toggle="pill" href="#coinBTC" role="tab"
+                                                aria-selected="true">
+                                                <div class="d-flex">
+                                                    <img src="/client/assets/img/icon/18.png" alt="btc">
+                                                    <div>
+                                                        <h2>BTC</h2>
+                                                        <p>Bitcoin</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3>4.5484254</h3>
+                                                    <p class="text-right"><i class="icon ion-md-lock"></i> 0.0000000
+                                                    </p>
+                                                </div>
+                                            </a>
+                                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                                data-toggle="pill" href="#coinETH" role="tab"
+                                                aria-selected="true">
+                                                <div class="d-flex">
+                                                    <img src="/client/assets/img/icon/1.png" alt="btc">
+                                                    <div>
+                                                        <h2>ETH</h2>
+                                                        <p>Ethereum</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3>13.454845</h3>
+                                                    <p class="text-right"><i class="icon ion-md-lock"></i> 0.0000000
+                                                    </p>
+                                                </div>
+                                            </a>
+                                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                                data-toggle="pill" href="#coinBNB" role="tab"
+                                                aria-selected="true">
+                                                <div class="d-flex">
+                                                    <img src="/client/assets/img/icon/9.png" alt="btc">
+                                                    <div>
+                                                        <h2>BNB</h2>
+                                                        <p>Binance</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3>35.4842458</h3>
+                                                    <p class="text-right"><i class="icon ion-md-lock"></i> 0.0000000
+                                                    </p>
+                                                </div>
+                                            </a>
+                                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                                data-toggle="pill" href="#coinTRX" role="tab"
+                                                aria-selected="true">
+                                                <div class="d-flex">
+                                                    <img src="/client/assets/img/icon/6.png" alt="btc">
+                                                    <div>
+                                                        <h2>TRX</h2>
+                                                        <p>Tron</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3>4.458941</h3>
+                                                    <p class="text-right"><i class="icon ion-md-lock"></i> 0.0000000
+                                                    </p>
+                                                </div>
+                                            </a>
+                                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                                data-toggle="pill" href="#coinEOS" role="tab"
+                                                aria-selected="true">
+                                                <div class="d-flex">
+                                                    <img src="/client/assets/img/icon/2.png" alt="btc">
+                                                    <div>
+                                                        <h2>EOS</h2>
+                                                        <p>Eosio</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3>33.478951</h3>
+                                                    <p class="text-right"><i class="icon ion-md-lock"></i> 0.0000000
+                                                    </p>
+                                                </div>
+                                            </a>
+                                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                                data-toggle="pill" href="#coinXMR" role="tab"
+                                                aria-selected="true">
+                                                <div class="d-flex">
+                                                    <img src="/client/assets/img/icon/7.png" alt="btc">
+                                                    <div>
+                                                        <h2>XMR</h2>
+                                                        <p>Monero</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3>99.465975</h3>
+                                                    <p class="text-right"><i class="icon ion-md-lock"></i> 0.0000000
+                                                    </p>
+                                                </div>
+                                            </a>
+                                            <a class="nav-link d-flex justify-content-between align-items-center"
+                                                data-toggle="pill" href="#coinKCS" role="tab"
+                                                aria-selected="true">
+                                                <div class="d-flex">
+                                                    <img src="/client/assets/img/icon/4.png" alt="btc">
+                                                    <div>
+                                                        <h2>KCS</h2>
+                                                        <p>Kstarcoin</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <h3>114.57564</h3>
+                                                    <p class="text-right"><i class="icon ion-md-lock"></i> 0.0000000
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-lg-8">
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="coinBTC" role="tabpanel">
                                                 <div class="card">
@@ -187,7 +320,7 @@
                                                                     <h2>Total Equity</h2>
                                                                 </div>
                                                                 <div>
-                                                                    <h3>{{ $user->balance }} USDT</h3>
+                                                                    <h3>5.5894 BTC</h3>
                                                                 </div>
                                                             </li>
                                                             <li
@@ -197,7 +330,7 @@
                                                                     <h2>Available Margin</h2>
                                                                 </div>
                                                                 <div>
-                                                                    <h3>{{$user->balance}} USDT</h3>
+                                                                    <h3>2.480 BTC</h3>
                                                                 </div>
                                                             </li>
                                                         </ul>
@@ -205,96 +338,23 @@
                                                         <button class="btn red">Withdraw</button>
                                                     </div>
                                                 </div>
-
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Withdraw Address Setup</h5>
-                                                        @if (session('info'))
-                                                            <div class="alert alert-info flex items-center space-x-2">
-                                                                <span>ℹ️</span>
-                                                                <span>{{ session('info') }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if (session('success'))
-                                                            <div
-                                                                class="alert alert-success flex items-center space-x-2">
-                                                                <span>✅</span>
-                                                                <span>{{ session('success') }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if (session('error'))
-                                                            <div class="alert-error flex items-center space-x-2">
-                                                                <span>❌</span>
-                                                                <span>{{ session('error') }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if ($errors->any())
-                                                            <div class="alert-error flex items-start space-x-2">
-                                                                <span class="mt-1">⚠️</span>
-                                                                <ul class="list-none m-0 p-0">
-                                                                    @foreach ($errors->all() as $error)
-                                                                        <li>{{ $error }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                        @endif
+                                                        <h5 class="card-title">Wallet Deposit Address</h5>
                                                         <div class="row wallet-address">
                                                             <div class="col-md-8">
-                                                                <p class="mb-3 text-muted"
-                                                                    style="font-size:0.9em; text-align:left;">
-                                                                    {{ __('messages.setup_form_instruction_1') }}
-                                                                    {{ __('messages.setup_form_instruction_2') }}
-                                                                </p>
-                                                                <form action="{{ route('withdraw.setup.store') }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="withdrawal_address">{{ __('messages.usdt_trc20_address_label') }}</label>
-                                                                        <input type="text" id="withdrawal_address"
-                                                                            name="withdrawal_address"
-                                                                            class="form-control @error('withdrawal_address') is-invalid @enderror"
-                                                                            value="{{ old('withdrawal_address', $currentAddress ?? '') }}"
-                                                                            placeholder="{{ __('messages.placeholder_usdt_address') }}"
-                                                                            required>
-                                                                        @error('withdrawal_address')
-                                                                            <span class="invalid-feedback"
-                                                                                role="alert"><strong>{{ $message }}</strong></span>
-                                                                        @enderror
-                                                                        <small
-                                                                            class="note">{{ __('messages.note_valid_trc20_address') }}</small>
+                                                                <p>Deposits to this address are unlimited. Note that you
+                                                                    may not be able to withdraw all
+                                                                    of your
+                                                                    funds at once if you deposit more than your daily
+                                                                    withdrawal limit.</p>
+                                                                <div class="input-group">
+                                                                    <input type="text" class="form-control"
+                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
+                                                                    <div class="input-group-prepend">
+                                                                        <button class="btn btn-primary">COPY</button>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="withdrawal_pin">{{ __('messages.create_withdrawal_pin_label') }}</label>
-                                                                        <input type="password" id="withdrawal_pin"
-                                                                            name="withdrawal_pin"
-                                                                            class="form-control @error('withdrawal_pin') is-invalid @enderror"
-                                                                            placeholder="{{ __('messages.placeholder_4_6_digit_pin') }}"
-                                                                            required minlength="4" maxlength="6"
-                                                                            pattern="\d*">
-                                                                        @error('withdrawal_pin')
-                                                                            <span class="invalid-feedback"
-                                                                                role="alert"><strong>{{ $message }}</strong></span>
-                                                                        @enderror
-                                                                        <small
-                                                                            class="note">{{ __('messages.note_secure_pin') }}</small>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="withdrawal_pin_confirmation">{{ __('messages.confirm_withdrawal_pin_label') }}</label>
-                                                                        <input type="password"
-                                                                            id="withdrawal_pin_confirmation"
-                                                                            name="withdrawal_pin_confirmation"
-                                                                            class="form-control"
-                                                                            placeholder="{{ __('messages.placeholder_reenter_pin') }}"
-                                                                            required>
-                                                                    </div>
-                                                                    <button type="submit" class="submit-btn mt-3">
-                                                                        <i class="fas fa-save"></i>
-                                                                        {{ __('messages.save_details_button') }}
-                                                                    </button>
-                                                                </form>
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <img src="/client/assets/img/qr-code-light.svg"
@@ -303,7 +363,65 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Latest Transactions</h5>
+                                                        <div class="wallet-history">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>No.</th>
+                                                                        <th>Date</th>
+                                                                        <th>Status</th>
+                                                                        <th>Amount</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>25-04-2019</td>
+                                                                        <td><i
+                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
+                                                                        </td>
+                                                                        <td>4.5454334</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2</td>
+                                                                        <td>25-05-2019</td>
+                                                                        <td><i
+                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
+                                                                        </td>
+                                                                        <td>0.5484468</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3</td>
+                                                                        <td>25-06-2019</td>
+                                                                        <td><i
+                                                                                class="icon ion-md-close-circle-outline red"></i>
+                                                                        </td>
+                                                                        <td>2.5454545</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>4</td>
+                                                                        <td>25-07-2019</td>
+                                                                        <td><i
+                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
+                                                                        </td>
+                                                                        <td>1.45894147</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3</td>
+                                                                        <td>25-08-2019</td>
+                                                                        <td><i
+                                                                                class="icon ion-md-close-circle-outline red"></i>
+                                                                        </td>
+                                                                        <td>2.5454545</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="tab-pane fade" id="coinETH" role="tabpanel">
                                                 <div class="card">
@@ -1172,6 +1290,6 @@
 </body>
 
 
-<!-- Mirrored from crypo-laravel-live.netlify.app/wallet/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:56:03 GMT -->
+<!-- Mirrored from crypo-laravel-live.netlify.app/profile/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:56:03 GMT -->
 
 </html>

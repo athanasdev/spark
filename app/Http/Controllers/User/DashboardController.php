@@ -30,7 +30,6 @@ class DashboardController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-
         // We add pagination here. `paginate(10)` will show 10 items per page.
         // The last argument ('transactions_page') is important for multiple paginations on one page.
         $transactions = Transaction::where('user_id', $user->id)
@@ -74,7 +73,7 @@ class DashboardController extends Controller
             ->sum('amount');
 
         // --- Pass ALL data to the view ---
-        return view('user.layouts.accounts', compact(
+        return view('user.pages.account', compact(
             'user',
             'transactions',         // This is now a paginated collection
             'withdrawals',          // The new withdrawals collection

@@ -208,7 +208,7 @@
                 <div class="card-body">
                   <h5 class="card-title">General Information</h5>
                   <div class="settings-profile">
-                    <form action="https://crypo-laravel-live.netlify.app/">
+                    <form action="#">
                       <img src="/client/assets/img/avatar.svg" alt="avatar">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" id="fileUpload" required />
@@ -262,7 +262,7 @@
                 <div class="card-body">
                   <h5 class="card-title">Security Information</h5>
                   <div class="settings-profile">
-                    <form action="https://crypo-laravel-live.netlify.app/">
+                    <form action="#">
                       <div class="form-row">
                         <div class="col-md-6">
                           <label for="currentPass">Current password</label>
