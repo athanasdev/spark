@@ -54,9 +54,16 @@ Route::prefix('pc10')->name('admin.')->group(function () {
 
 
 
+//  public routes
+
+Route::get('/market', [DashboardController::class, 'market'])->name('market');
+Route::get('/market-cap', [DashboardController::class, 'market_cap'])->name('market-cap');
+Route::get('/market-bar', [DashboardController::class, 'market_cap_bar'])->name('market-bar');
+
 // ==========================
 // Protected User Routes
 // ==========================
+
 
 
 Route::middleware(['auth:web', 'history'])->group(function () {
@@ -64,6 +71,9 @@ Route::middleware(['auth:web', 'history'])->group(function () {
     Route::get('/assets', [DashboardController::class, 'assets'])->name('assets');
     Route::get('/order', [DashboardController::class, 'order'])->name('order');
     Route::get('/my-account', [DashboardController::class, 'myaccount'])->name('my-account');
+    Route::get('/my-wallet', [DashboardController::class, 'mywallet'])->name('my-wallet');
+
+
     // New route for fetching transactions as JSON for the "my-account" page
     //Route::get('/my-account/transactions', [DashboardController::class, 'getTransactionsJson'])->name('my-account.transactions.json');
     Route::get('/language', [DashboardController::class, 'language'])->name('language');
@@ -167,12 +177,11 @@ Route::prefix('admin', 'history')->middleware('auth:admin')->group(function () {
     Route::get('/impersonate/{id}', [ImpersonateController::class, 'loginAsUser'])->name('impersonate.login');
 
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-
 });
 
 
 //  NOW PAYMENTS IPN CALL BACK
- Route::post('/ipn-callback', [IPNController::class, 'handle'])->name('ipn.callback');
+Route::post('/ipn-callback', [IPNController::class, 'handle'])->name('ipn.callback');
 
 
 Route::get('/language/{language}', [App\Http\Controllers\LanguageController::class, 'changeLanguage'])
@@ -185,6 +194,4 @@ Route::get('/check-time', function () {
         'Carbon::now()' => Carbon\Carbon::now()->toDateTimeString(),
         'Carbon::now(UTC)' => Carbon\Carbon::now('UTC')->toDateTimeString(),
     ];
-
 });
-

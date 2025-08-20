@@ -85,7 +85,12 @@ class DashboardController extends Controller
         ));
     }
 
+    public function mywallet()
+    {
+        $user=Auth::user();
+        return view('user.pages.wallet.wallet', compact('user'));
 
+    }
 
 
     /**
@@ -107,4 +112,20 @@ class DashboardController extends Controller
     {
         return view('user.language');
     }
+
+
+    public function market()
+    {
+         return view('user.pages.markets.index');
+    }
+    public function market_cap()
+    {
+      return view('user.pages.market-capital.index');
+    }
+
+    public function market_cap_bar()
+    {
+        return  view('user.pages.market-capital-bar.index');
+    }
+
 }

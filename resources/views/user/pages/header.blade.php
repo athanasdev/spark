@@ -1,6 +1,6 @@
 <header class="dark-bb">
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="index.html"><img src="/client/assets/img/logo-light.svg" alt="logo"></a>
+        <a class="navbar-brand" href="{{route("dashboard")}}"><img src="/client/assets/img/logo-light.svg" alt="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerMenu"
             aria-controls="headerMenu" aria-expanded="false" aria-label="Toggle navigation">
             <i class="icon ion-md-menu"></i>
@@ -8,29 +8,19 @@
 
         <div class="collapse navbar-collapse" id="headerMenu">
             <ul class="navbar-nav mr-auto">
-                <a class="nav-link" href="index.html">Exchange</a>
+                <a class="nav-link" href="{{route('dashboard')}}">Exchange</a>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         Markets
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="markets/index.html">Markets</a>
-                        <a class="dropdown-item" href="market-capital/index.html">Market Capital</a>
-                        <a class="dropdown-item" href="market-capital-bar/index.html">Market Bar</a>
+                        <a class="dropdown-item" href="{{route('market')}}">Markets</a>
+                        <a class="dropdown-item" href="{{route('market-cap')}}">Market Capital</a>
+                        <a class="dropdown-item" href="{{route('market-bar')}}">Market Bar</a>
                     </div>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Dashboard
-                    </a>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" href="wallet/index.html">Wallet</a>
-                        <a class="dropdown-item" href="settings/index.html">Settings</a>
-                    </div>
-                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item header-custom-icon">
@@ -134,7 +124,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="wallet/index.html" class="nav-link">
+                                    <a href="{{route('my-wallet')}}" class="nav-link">
                                         <i class="icon ion-md-wallet"></i>
                                         <span>My Wallet</span>
                                     </a>

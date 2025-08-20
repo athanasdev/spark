@@ -819,7 +819,7 @@
                     <!-- TradingView Widget BEGIN -->
                     <div class="tradingview-widget-container">
                         <div id="tradingview_e8033"></div>
-                        <script src="../s3.tradingview.com/tv.js"></script>
+                        <script src="/client/assets/js/tv.js"></script>
                         <script>
                             new TradingView.widget({
                                 "width": "100%",
