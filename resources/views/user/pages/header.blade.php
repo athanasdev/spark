@@ -130,6 +130,12 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{route('team')}}" class="nav-link">
+                                        <i class="icon ion-md-person-add text-success"></i>
+                                        <span>My Team</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="icon ion-md-settings"></i>
                                         <span>Settings</span>
