@@ -171,7 +171,7 @@
                                                     </div>
                                                 </div> --}}
 
-                                                <div class="card">
+                                                {{-- <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">My Teams</h5>
                                                         <div class="wallet-history">
@@ -217,7 +217,133 @@
                                                             </table>
                                                         </div>
                                                     </div>
+                                                </div> --}}
+
+                                                <div class="card" style="margin-top: 20px;">
+                                                    <div class="card-header">
+                                                        <div class="card-title">
+                                                            <i class="fas fa-list-ul"></i> My Team
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body no-padding">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="text-align:center; width:5%;">#</th>
+                                                                    <th>Username</th>
+                                                                    <th style="text-align:center;">Level</th>
+                                                                    <th style="text-align:right;">Balance (USDT)</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @php $index = 0; @endphp
+
+                                                                @if ($level1_members->isEmpty() && $level2_members->isEmpty() && $level3_members->isEmpty())
+                                                                    <tr>
+                                                                        <td colspan="4"
+                                                                            style="text-align:center; padding:20px; color:#848e9c;">
+                                                                            No referred users yet
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+
+                                                                {{-- Level 1 users --}}
+                                                                @foreach ($level1_members as $member)
+                                                                    @php $index++; @endphp
+                                                                    <tr>
+                                                                        <td style="text-align:center;">
+                                                                            {{ $index }}</td>
+                                                                        <td>{{ $member->username }}</td>
+                                                                        <td style="text-align:center;">1</td>
+                                                                        <td style="text-align:right;">
+                                                                            ${{ number_format($member->balance, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+
+                                                                {{-- Level 2 users --}}
+                                                                @foreach ($level2_members as $member)
+                                                                    @php $index++; @endphp
+                                                                    <tr>
+                                                                        <td style="text-align:center;">
+                                                                            {{ $index }}</td>
+                                                                        <td>{{ $member->username }}</td>
+                                                                        <td style="text-align:center;">2</td>
+                                                                        <td style="text-align:right;">
+                                                                            ${{ number_format($member->balance, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+
+                                                                {{-- Level 3 users --}}
+                                                                @foreach ($level3_members as $member)
+                                                                    @php $index++; @endphp
+                                                                    <tr>
+                                                                        <td style="text-align:center;">
+                                                                            {{ $index }}</td>
+                                                                        <td>{{ $member->username }}</td>
+                                                                        <td style="text-align:center;">3</td>
+                                                                        <td style="text-align:right;">
+                                                                            ${{ number_format($member->balance, 2) }}
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
+
+                                                <div class="levels-info-section mt-3">
+                                                    {{-- Level 1 --}}
+                                                    <div class="card mb-3">
+                                                        <div class="card-header"><b>Level 1 Summary</b></div>
+                                                        <div class="card-body">
+                                                            <p><b>Members:</b> {{ $level1_count }}</p>
+                                                            <p><b>Total Trade Stake:</b>
+                                                                {{ number_format($level1_deposit, 5) }} USDT</p>
+                                                            <p><b>My Commissions:</b>
+                                                                {{ number_format($level1_commissions, 5) }} USDT</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- Level 2 --}}
+                                                    <div class="card mb-3">
+                                                        <div class="card-header"><b>Level 2 Summary</b></div>
+                                                        <div class="card-body">
+                                                            <p><b>Members:</b> {{ $level2_count }}</p>
+                                                            <p><b>Total Trade Stake:</b>
+                                                                {{ number_format($level2_deposit, 5) }} USDT</p>
+                                                            <p><b>My Commissions:</b>
+                                                                {{ number_format($level2_commissions, 5) }} USDT</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- Level 3 --}}
+                                                    <div class="card mb-3">
+                                                        <div class="card-header"><b>Level 3 Summary</b></div>
+                                                        <div class="card-body">
+                                                            <p><b>Members:</b> {{ $level3_count }}</p>
+                                                            <p><b>Total Trade Stake:</b>
+                                                                {{ number_format($level3_deposit, 5) }} USDT</p>
+                                                            <p><b>My Commissions:</b>
+                                                                {{ number_format($level3_commissions, 5) }} USDT</p>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- Totals --}}
+                                                    <div class="card">
+                                                        <div class="card-header"><b>Overall Team Totals</b></div>
+                                                        <div class="card-body">
+                                                            <p><b>Total Team Members:</b> {{ $total_registered_users }}
+                                                            </p>
+                                                            <p><b>Total Team Trade Stake:</b>
+                                                                {{ number_format($total_deposits, 5) }} USDT</p>
+                                                            <p><b>My Total Commissions:</b>
+                                                                {{ number_format($total_commissions, 5) }} USDT</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
 
                                             </div>
                                             <div class="tab-pane fade" id="coinETH" role="tabpanel">
