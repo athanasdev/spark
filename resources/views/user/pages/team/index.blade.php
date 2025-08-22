@@ -222,74 +222,50 @@
                                                 <div class="card" style="margin-top: 20px;">
                                                     <div class="card-header">
                                                         <div class="card-title">
-                                                            <i class="fas fa-list-ul"></i> My Team
+                                                            <i class="fas fa-list-ul"></i> My Referred Users
                                                         </div>
                                                     </div>
-                                                    <div class="card-body no-padding">
-                                                        <table class="table table-bordered table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="text-align:center; width:5%;">#</th>
-                                                                    <th>Username</th>
-                                                                    <th style="text-align:center;">Level</th>
-                                                                    <th style="text-align:right;">Balance (USDT)</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @php $index = 0; @endphp
-
-                                                                @if ($level1_members->isEmpty() && $level2_members->isEmpty() && $level3_members->isEmpty())
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-bordered table-striped">
+                                                                <thead>
                                                                     <tr>
-                                                                        <td colspan="4"
-                                                                            style="text-align:center; padding:20px; color:#848e9c;">
-                                                                            No referred users yet
-                                                                        </td>
+                                                                        <th style="text-align:center; width:5%;">#</th>
+                                                                        <th>Username</th>
+                                                                        <th style="text-align:center;">Level</th>
+                                                                        <th style="text-align:right;">Balance (USDT)
+                                                                        </th>
                                                                     </tr>
-                                                                @endif
+                                                                </thead>
+                                                                <tbody>
+                                                                    @forelse($paginatedMembers as $index => $member)
+                                                                        <tr>
+                                                                            <td style="text-align:center;">
+                                                                                {{ $paginatedMembers->firstItem() + $index }}
+                                                                            </td>
+                                                                            <td>{{ $member->username }}</td>
+                                                                            <td style="text-align:center;">
+                                                                                {{ $member->level }}</td>
+                                                                            <td style="text-align:right;">
+                                                                                ${{ number_format($member->balance, 2) }}
+                                                                            </td>
+                                                                        </tr>
+                                                                    @empty
+                                                                        <tr>
+                                                                            <td colspan="4"
+                                                                                style="text-align:center; padding:20px; color:#848e9c;">
+                                                                                No referred users yet
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforelse
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
 
-                                                                {{-- Level 1 users --}}
-                                                                @foreach ($level1_members as $member)
-                                                                    @php $index++; @endphp
-                                                                    <tr>
-                                                                        <td style="text-align:center;">
-                                                                            {{ $index }}</td>
-                                                                        <td>{{ $member->username }}</td>
-                                                                        <td style="text-align:center;">1</td>
-                                                                        <td style="text-align:right;">
-                                                                            ${{ number_format($member->balance, 2) }}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-
-                                                                {{-- Level 2 users --}}
-                                                                @foreach ($level2_members as $member)
-                                                                    @php $index++; @endphp
-                                                                    <tr>
-                                                                        <td style="text-align:center;">
-                                                                            {{ $index }}</td>
-                                                                        <td>{{ $member->username }}</td>
-                                                                        <td style="text-align:center;">2</td>
-                                                                        <td style="text-align:right;">
-                                                                            ${{ number_format($member->balance, 2) }}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-
-                                                                {{-- Level 3 users --}}
-                                                                @foreach ($level3_members as $member)
-                                                                    @php $index++; @endphp
-                                                                    <tr>
-                                                                        <td style="text-align:center;">
-                                                                            {{ $index }}</td>
-                                                                        <td>{{ $member->username }}</td>
-                                                                        <td style="text-align:center;">3</td>
-                                                                        <td style="text-align:right;">
-                                                                            ${{ number_format($member->balance, 2) }}
-                                                                        </td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
+                                                        <!-- Pagination -->
+                                                        <div class="d-flex justify-content-center mt-3">
+                                                            {{ $paginatedMembers->links() }}
+                                                        </div>
                                                     </div>
                                                 </div>
 
