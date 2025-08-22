@@ -10,15 +10,28 @@ use App\Models\User; // Your User model
 use App\Models\UserInvestment;
 use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
 
+    // public function home()
+    // {
+    //     $user = Auth::user();
+    //     return view('user.pages.index', compact('user'));
+    // }
+
     public function home()
     {
-        $user = Auth::user();
+        $userId = Auth::id();
+
+        // Cache for 10 minutes
+        $user = Cache::remember("user_home_{$userId}", 600, function () use ($userId) {
+            return Auth::user(); // or User::find($userId);
+        });
+
         return view('user.pages.index', compact('user'));
     }
 
@@ -87,9 +100,8 @@ class DashboardController extends Controller
 
     public function mywallet()
     {
-        $user=Auth::user();
+        $user = Auth::user();
         return view('user.pages.wallet.wallet', compact('user'));
-
     }
 
 
@@ -116,16 +128,15 @@ class DashboardController extends Controller
 
     public function market()
     {
-         return view('user.pages.markets.index');
+        return view('user.pages.markets.index');
     }
     public function market_cap()
     {
-      return view('user.pages.market-capital.index');
+        return view('user.pages.market-capital.index');
     }
 
     public function market_cap_bar()
     {
         return  view('user.pages.market-capital-bar.index');
     }
-
 }

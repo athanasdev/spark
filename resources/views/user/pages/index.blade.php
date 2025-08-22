@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crypo</title>
+    <title>9dfe</title>
     <link rel="icon" href="/client/assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/client/assets/css/style.css">
 </head>
@@ -21,7 +21,7 @@
 
     <div class="container-fluid mtb15 no-fluid">
         <div class="row sm-gutters">
-            <div class="col-md-3">
+            <div class="col-md-3 d-none d-md-block">
                 <div class="market-pairs">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -869,7 +869,7 @@
                         <div class="tab-pane fade show active" id="pills-trade-limit" role="tabpanel">
                             <div class="d-flex justify-content-between">
                                 <div class="market-trade-buy">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
+                                    <form action="#">
                                         <div class="input-group">
                                             <input type="number" class="form-control" placeholder="Price"
                                                 required />
