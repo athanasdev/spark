@@ -78,9 +78,11 @@
                                                         {{-- <button class="btn green">Deposit</button>
                                                         <button class="btn red">Withdraw</button> --}}
 
-                                                        <a href="{{route('deposit.form')}}" class="btn green btn-outline-success mr-2">Deposit</a>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn green btn-outline-success mr-2">Deposit</a>
 
-                                                        <a href="{{route('withdraw')}}" class="btn red btn-outline-danger ml-2">Withdraw</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn red btn-outline-danger ml-2">Withdraw</a>
 
                                                     </div>
                                                 </div>
@@ -96,22 +98,22 @@
                                                                     withdrawal limit.</p>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
-                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
-                                                                    <div class="input-group-prepend">
-                                                                        <button class="btn btn-primary">COPY</button>
+                                                                        id="referralLinkInput"
+                                                                        value="{{ config('app.url') }}/register/?invited_by={{ $user->referral_code }}"
+                                                                        readonly>
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-primary" type="button"
+                                                                            onclick="copyReferralLink()">COPY</button>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <img src="/client/assets/img/qr-code-light.svg"
-                                                                    alt="qr-code">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card">
+                                                {{-- MY TEAMS --}}
+                                                {{-- <div class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Latest Transactions</h5>
+                                                        <h5 class="card-title">My Teams</h5>
                                                         <div class="wallet-history">
                                                             <table class="table">
                                                                 <thead>
@@ -167,7 +169,56 @@
                                                             </table>
                                                         </div>
                                                     </div>
+                                                </div> --}}
+
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">My Teams</h5>
+                                                        <div class="wallet-history">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>No.</th>
+                                                                        <th>Level</th>
+                                                                        <th>Members</th>
+                                                                        <th>Deposits</th>
+                                                                        <th>Commissions</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>1</td>
+                                                                        <td>Level 1</td>
+                                                                        <td>{{ $level1_count }}</td>
+                                                                        <td>{{ $level1_deposit }}</td>
+                                                                        <td>{{ $level1_commissions }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>2</td>
+                                                                        <td>Level 2</td>
+                                                                        <td>{{ $level2_count }}</td>
+                                                                        <td>{{ $level2_deposit }}</td>
+                                                                        <td>{{ $level2_commissions }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>3</td>
+                                                                        <td>Level 3</td>
+                                                                        <td>{{ $level3_count }}</td>
+                                                                        <td>{{ $level3_deposit }}</td>
+                                                                        <td>{{ $level3_commissions }}</td>
+                                                                    </tr>
+                                                                    <tr class="font-weight-bold">
+                                                                        <td colspan="2">Total</td>
+                                                                        <td>{{ $total_registered_users }}</td>
+                                                                        <td>{{ $total_deposits }}</td>
+                                                                        <td>{{ $total_commissions }}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
                                                 </div>
+
                                             </div>
                                             <div class="tab-pane fade" id="coinETH" role="tabpanel">
                                                 <div class="card">
@@ -224,65 +275,6 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Latest Transactions</h5>
-                                                        <div class="wallet-history">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Date</th>
-                                                                        <th>Status</th>
-                                                                        <th>Amount</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>25-04-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>4.5454334</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>25-05-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>0.5484468</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-06-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>4</td>
-                                                                        <td>25-07-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>1.45894147</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-08-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
                                             <div class="tab-pane fade" id="coinBNB" role="tabpanel">
                                                 <div class="card">
@@ -314,7 +306,7 @@
                                                         <button class="btn red">Withdraw</button>
                                                     </div>
                                                 </div>
-                                                <div class="card">
+                                                <di class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Wallet Deposit Address</h5>
                                                         <div class="row wallet-address">
@@ -338,66 +330,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Latest Transactions</h5>
-                                                        <div class="wallet-history">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Date</th>
-                                                                        <th>Status</th>
-                                                                        <th>Amount</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>25-04-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>4.5454334</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>25-05-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>0.5484468</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-06-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>4</td>
-                                                                        <td>25-07-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>1.45894147</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-08-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </di>
                                             </div>
                                             <div class="tab-pane fade" id="coinTRX" role="tabpanel">
                                                 <div class="card">
@@ -451,65 +384,6 @@
                                                                 <img src="/client/assets/img/qr-code-light.svg"
                                                                     alt="qr-code">
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Latest Transactions</h5>
-                                                        <div class="wallet-history">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Date</th>
-                                                                        <th>Status</th>
-                                                                        <th>Amount</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>25-04-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>4.5454334</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>25-05-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>0.5484468</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-06-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>4</td>
-                                                                        <td>25-07-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>1.45894147</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-08-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -799,65 +673,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Latest Transactions</h5>
-                                                        <div class="wallet-history">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Date</th>
-                                                                        <th>Status</th>
-                                                                        <th>Amount</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>25-04-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>4.5454334</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>25-05-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>0.5484468</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-06-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>4</td>
-                                                                        <td>25-07-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>1.45894147</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-08-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -876,6 +692,17 @@
     <script src="/client/assets/js/amcharts-core.min.js"></script>
     <script src="/client/assets/js/amcharts.min.js"></script>
     <script src="/client/assets/js/custom.js"></script>
+
+    <script>
+        function copyReferralLink() {
+            const input = document.getElementById('referralLinkInput');
+            input.select();
+            input.setSelectionRange(0, 99999); // for mobile devices
+            document.execCommand('copy');
+
+            alert('Referral link copied to clipboard!');
+        }
+    </script>
 
 </body>
 
