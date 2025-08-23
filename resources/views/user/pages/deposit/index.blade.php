@@ -196,8 +196,6 @@
 
                                                 {{-- DEPOST PAGE HERE IS --}}
 
-
-
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Deposit</h5>
@@ -309,7 +307,7 @@
                                                                             {{ $paymentData['payment_id'] }}</p>
                                                                         <p><strong style="color: yellow, text-color:yellow
                                                                         ">Status:</strong> Waiting</p>
-                                                                        <p><strong>Expires:</strong>
+                                                                        <p><strong></strong>
                                                                             {{ $paymentData['valid_until'] }}</p>
                                                                     </div>
                                                                 </div>
@@ -317,8 +315,6 @@
                                                         @endif
                                                     </div>
                                                 </div>
-
-
 
                                             </div>
                                             <div class="tab-pane fade" id="coinETH" role="tabpanel">
