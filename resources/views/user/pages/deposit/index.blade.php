@@ -204,28 +204,20 @@
 
                                                         {{-- Alerts --}}
                                                         @if (session('info'))
-                                                            <div class="alert alert-info flex items-center space-x-2">
-                                                                <span>ℹ️</span>
-                                                                <span>{{ session('info') }}</span>
-                                                            </div>
+                                                            <div class="alert alert-info"><span>ℹ️</span>
+                                                                {{ session('info') }}</div>
                                                         @endif
                                                         @if (session('success'))
-                                                            <div
-                                                                class="alert alert-success flex items-center space-x-2">
-                                                                <span>✅</span>
-                                                                <span>{{ session('success') }}</span>
-                                                            </div>
+                                                            <div class="alert alert-success"><span>✅</span>
+                                                                {{ session('success') }}</div>
                                                         @endif
                                                         @if (session('error'))
-                                                            <div
-                                                                class="alert alert-danger flex items-center space-x-2">
-                                                                <span>❌</span>
-                                                                <span>{{ session('error') }}</span>
-                                                            </div>
+                                                            <div class="alert alert-danger"><span>❌</span>
+                                                                {{ session('error') }}</div>
                                                         @endif
                                                         @if ($errors->any())
-                                                            <div class="alert alert-danger flex items-start space-x-2">
-                                                                <span class="mt-1">⚠️</span>
+                                                            <div class="alert alert-danger">
+                                                                ⚠️
                                                                 <ul class="list-none m-0 p-0">
                                                                     @foreach ($errors->all() as $error)
                                                                         <li>{{ $error }}</li>
@@ -239,6 +231,7 @@
                                                             <form method="POST"
                                                                 action="{{ route('payments.create') }}">
                                                                 @csrf
+
                                                                 <div class="form-group">
                                                                     <label for="price_amount">Amount (USD):</label>
                                                                     <input type="number" id="price_amount"
@@ -272,7 +265,7 @@
 
                                                                 <button type="submit" class="submit-btn mt-3">
                                                                     <i class="fas fa-arrow-circle-right"></i> Proceed
-                                                                    to Deposit
+                                                                    to Payment
                                                                 </button>
                                                             </form>
                                                         @else
@@ -284,26 +277,24 @@
 
                                                                     <div class="instructions">
                                                                         Please send
-                                                                        <strong>
-                                                                            <span
-                                                                                id="payAmountDisplay">{{ $paymentData['price_amount'] }}</span>
-                                                                            <span
-                                                                                id="payCurrencyDisplay">{{ strtoupper($paymentData['pay_currency']) }}</span>
-                                                                        </strong>
+                                                                        <strong>{{ $paymentData['price_amount'] }}
+                                                                            {{ strtoupper($paymentData['pay_currency']) }}</strong>
                                                                         to the address below:
                                                                         <br>
-                                                                        <small>Order ID: <span
-                                                                                id="orderIdInfoDisplay">{{ $paymentData['order_id'] }}</span></small>
+                                                                        <small>Order ID:
+                                                                            {{ $paymentData['order_id'] }}</small>
                                                                     </div>
 
-                                                                    <div id="qrcode-box"></div>
+                                                                    {{-- ✅ QR Code --}}
+                                                                    <div id="qrcode-box" class="mt-3"></div>
 
-                                                                    {{-- ✅ Address + Copy Button --}}
+                                                                    {{-- ✅ Payment Address with Copy Button --}}
                                                                     <div class="address-container mt-3">
                                                                         <input type="text" id="paymentAddressInput"
                                                                             class="form-control" readonly
                                                                             value="{{ $paymentData['pay_address'] }}">
-                                                                        <button type="button" id="copyAddressButton"
+                                                                        <button type="button"
+                                                                            onclick="copyPaymentAddress()"
                                                                             class="btn btn-secondary mt-2">
                                                                             <i class="fas fa-copy"></i> Copy Address
                                                                         </button>
@@ -312,25 +303,20 @@
                                                                         class="copy-feedback mt-2 text-success"></div>
 
                                                                     <div class="payment-details mt-3">
-                                                                        <p><strong>Network:</strong> <span
-                                                                                id="networkTypeDisplay">{{ $paymentData['network'] }}</span>
-                                                                        </p>
-                                                                        <p><strong>Payment ID:</strong> <span
-                                                                                id="paymentIdInfoDisplay">{{ $paymentData['payment_id'] }}</span>
-                                                                        </p>
-                                                                        <p><strong>Status:</strong> <span
-                                                                                style="color: yellow">Waiting</span>
-                                                                        </p>
-                                                                        <p><strong>Expires:</strong> <span
-                                                                                id="expirationDateDisplay">{{ $paymentData['valid_until'] }}</span>
-                                                                        </p>
+                                                                        <p><strong>Network:</strong>
+                                                                            {{ $paymentData['network'] }}</p>
+                                                                        <p><strong>Payment ID:</strong>
+                                                                            {{ $paymentData['payment_id'] }}</p>
+                                                                        <p><strong style="color: yellow, text-color:yellow
+                                                                        ">Status:</strong> Waiting</p>
+                                                                        <p><strong>Expires:</strong>
+                                                                            {{ $paymentData['valid_until'] }}</p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         @endif
                                                     </div>
                                                 </div>
-
 
 
 
@@ -1200,61 +1186,29 @@
     <script src="/client/assets/js/amcharts.min.js"></script>
     <script src="/client/assets/js/custom.js"></script>
 
-    @push('scripts')
-        @if (isset($paymentData))
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const paymentAddress = "{{ $paymentData['pay_address'] }}";
-                    const qrBox = document.getElementById("qrcode-box");
-                    if (qrBox && paymentAddress) {
-                        new QRCode(qrBox, {
-                            text: paymentAddress,
-                            width: 180,
-                            height: 180,
-                            colorDark: "#000000",
-                            colorLight: "#ffffff",
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
-                    }
+   {{-- QR Code Generator & Copy Function --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+    // Copy payment address
+    function copyPaymentAddress() {
+        const input = document.getElementById("paymentAddressInput");
+        input.select();
+        input.setSelectionRange(0, 99999); // For mobile
+        document.execCommand("copy");
 
-                    const copyBtn = document.getElementById("copyAddressButton");
-                    const addressInput = document.getElementById("paymentAddressInput");
-                    const feedback = document.getElementById("copyFeedbackDisplay");
+        document.getElementById("copyFeedbackDisplay").innerText = "✅ Address copied!";
+    }
 
-                    copyBtn?.addEventListener("click", function() {
-                        addressInput.select();
-                        navigator.clipboard.writeText(addressInput.value).then(() => {
-                            feedback.textContent = "{{ __('messages.copied_feedback') }}";
-                            setTimeout(() => {
-                                feedback.textContent = "";
-                            }, 2000);
-                        });
-                    });
-                });
-            </script>
+    // Generate QR Code if address exists
+    @if(isset($paymentData))
+        new QRCode(document.getElementById("qrcode-box"), {
+            text: "{{ $paymentData['pay_address'] }}",
+            width: 200,
+            height: 200
+        });
+    @endif
+</script>
 
-            {{-- ✅ Copy-to-Clipboard Script --}}
-            <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    const copyBtn = document.getElementById("copyAddressButton");
-                    const addressInput = document.getElementById("paymentAddressInput");
-                    const feedback = document.getElementById("copyFeedbackDisplay");
-
-                    if (copyBtn) {
-                        copyBtn.addEventListener("click", function() {
-                            navigator.clipboard.writeText(addressInput.value).then(() => {
-                                feedback.textContent = "✅ Address copied!";
-                                setTimeout(() => feedback.textContent = "", 2000);
-                            }).catch(err => {
-                                feedback.textContent = "❌ Failed to copy!";
-                            });
-                        });
-                    }
-                });
-            </script>
-        @endif
-    @endpush
 </body>
 
 

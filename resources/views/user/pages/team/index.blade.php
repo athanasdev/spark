@@ -852,7 +852,7 @@
         function copyReferralLink() {
             const input = document.getElementById('referralLinkInput');
             input.select();
-            input.setSelectionRange(0, 99999); // for mobile devices
+            input.setSelectionRange(0, 99999); 
             document.execCommand('copy');
 
             alert('Referral link copied to clipboard!');
