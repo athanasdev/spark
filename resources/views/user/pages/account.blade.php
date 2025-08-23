@@ -136,17 +136,17 @@
                                 </div>
                             </div> --}}
 
-                            <div class="card" style="margin-top: 20px;">
+                            <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Latest Transactions</h5>
-                                    <div class="wallet-history table-responsive">
-                                        <table class="table table-bordered table-striped table-hover">
-                                            <thead class="thead-light">
+                                    <div class="wallet-history  table-responsive">
+                                        <table class="table">
+                                            <thead>
                                                 <tr>
-                                                    <th style="width:5%;">No.</th>
+                                                    <th>No.</th>
                                                     <th>Date</th>
-                                                    <th style="width:10%;">Status</th>
-                                                    <th style="text-align:right;">Amount (USDT)</th>
+                                                    <th>Status</th>
+                                                    <th>Amount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -154,36 +154,35 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $transaction->created_at->format('d-m-Y') }}</td>
-                                                        <td class="text-center">
+                                                        <td>
                                                             @if ($transaction->status === 'success')
                                                                 <i
                                                                     class="icon ion-md-checkmark-circle-outline green"></i>
                                                             @elseif($transaction->status === 'pending')
-                                                                <i class="icon ion-md-time-outline text-warning"></i>
-                                                            @else
                                                                 <i class="icon ion-md-close-circle-outline red"></i>
+                                                            @else
+                                                                <i class="icon ion-md-time-outline text-warning"></i>
                                                             @endif
                                                         </td>
-                                                        <td style="text-align:right;">
-                                                            {{ number_format($transaction->amount, 8) }}</td>
+                                                        <td>{{ number_format($transaction->amount, 8) }} USDT</td>
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="4" class="text-center text-muted">No
-                                                            transactions found</td>
+                                                        <td colspan="4" class="text-center">No transactions found
+                                                        </td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
                                         </table>
+
+                                        <!-- Pagination -->
+                                        <div class="d-flex justify-content-center mt-3 pagination-wrapper">
+                                            {{ $transactions->links('vendor.pagination.custom') }}
+                                        </div>
                                     </div>
 
-                                    <!-- Pagination -->
-                                    <div class="d-flex justify-content-center mt-3 pagination-wrapper">
-                                        {{ $transactions->links() }}
-                                    </div>
                                 </div>
                             </div>
-
 
 
                         </div>
