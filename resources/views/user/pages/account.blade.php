@@ -176,10 +176,11 @@
                                         </table>
 
                                         <!-- Pagination -->
-                                        <div class="mt-3">
-                                            {{ $transactions->links() }}
+                                        <div class="d-flex justify-content-center mt-3 pagination-wrapper">
+                                            {{ $transactions->links('vendor.pagination.custom') }}
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
 
