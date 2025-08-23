@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crypo</title>
+    <title>9dfe</title>
     <link rel="icon" href="/client/assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/client/assets/css/style.css">
 </head>
@@ -198,7 +198,8 @@
 
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Deposit</h5>
+                                                        <h5 class="card-title"><i class="fas fa-paper-plane"></i>
+                                                            Withdraw</h5>
 
                                                         {{-- Alerts --}}
                                                         @if (session('info'))
@@ -224,99 +225,99 @@
                                                             </div>
                                                         @endif
 
-                                                        {{-- Show FORM if no payment data --}}
-                                                        @if (!isset($paymentData))
-                                                            <form method="POST"
-                                                                action="{{ route('payments.create') }}">
-                                                                @csrf
+                                                        {{-- Withdrawal Form --}}
+                                                        <form method="POST" action="{{ route('withdraw.request') }}">
+                                                            @csrf
 
-                                                                <div class="form-group">
-                                                                    <label for="price_amount">Amount (USD):</label>
-                                                                    <input type="number" id="price_amount"
-                                                                        name="price_amount" class="form-control"
-                                                                        step="0.01" min="15" required>
-                                                                    <small class="note text-info">Minimum deposit is
-                                                                        $15</small>
-                                                                </div>
+                                                            {{-- Available Balance --}}
+                                                            <div class="form-group">
+                                                                <label>Available Balance:</label>
+                                                                <input type="text" readonly
+                                                                    value="${{ number_format(Auth::user()->balance ?? 0, 2) }} USDT"
+                                                                    class="form-control font-weight-bold"
+                                                                    style="color:#0ecb81;">
+                                                            </div>
 
-                                                                <input type="hidden" name="price_currency"
-                                                                    value="usd">
-                                                                <input type="hidden" name="order_description"
-                                                                    value="deposit">
-                                                                <input type="hidden" name="ipn_callback_url"
-                                                                    value="{{ url('/ipn-callback') }}">
-                                                                <input type="hidden" name="customer_email"
-                                                                    value="{{ auth()->user()->email }}">
-                                                                <input type="hidden" name="order_id"
-                                                                    value="{{ auth()->id() }}">
-
-                                                                <div class="form-group">
-                                                                    {{-- <label for="pay_currency">Pay with Crypto:</label> --}}
-                                                                    {{-- <select  id="pay_currency" name="pay_currency"
-                                                                        class="form-control" required>
-                                                                        <option   value="usdttrc20">USDT (TRC20)</option>
-                                                                    </select> --}}
-                                                                    <input type="hidden" id="pay_currency" name="pay_currency" value="usdttrc20">
-
-                                                                    <small class="note text-info"><strong>Note:</strong>
-                                                                        Make depost using USDT TRC20
-                                                                        network</small>
-                                                                </div>
-
-                                                                <button type="submit" class="submit-btn mt-3 btn-rounded btn-success">
-                                                                    <i class="fas fa-arrow-circle-right"></i> Proceed
-                                                                    to Deposit
-                                                                </button>
-                                                            </form>
-                                                        @else
-                                                            {{-- Show QR Code + Payment Info --}}
-                                                            <div class="payment-page-container">
-                                                                <div class="payment-card-container">
-                                                                    <h2><i class="fas fa-coins"></i> Deposit Payment
-                                                                    </h2>
-
-                                                                    <div class="instructions">
-                                                                        Please send
-                                                                        <strong>{{ $paymentData['price_amount'] }}
-                                                                            {{ strtoupper($paymentData['pay_currency']) }}</strong>
-                                                                        to the address below:
-                                                                        <br>
-                                                                        <small>Order ID:
-                                                                            {{ $paymentData['order_id'] }}</small>
-                                                                    </div>
-
-                                                                    {{-- ✅ QR Code --}}
-                                                                    <div id="qrcode-box" class="mt-3"></div>
-
-                                                                    {{-- ✅ Payment Address with Copy Button --}}
-                                                                    <div class="address-container mt-3">
-                                                                        <input type="text" id="paymentAddressInput"
-                                                                            class="form-control" readonly
-                                                                            value="{{ $paymentData['pay_address'] }}">
-                                                                        <button type="button"
-                                                                            onclick="copyPaymentAddress()"
-                                                                            class="btn btn-secondary mt-2">
-                                                                            <i class="fas fa-copy"></i> Copy Address
-                                                                        </button>
-                                                                    </div>
-                                                                    <div id="copyFeedbackDisplay"
-                                                                        class="copy-feedback mt-2 text-success"></div>
-
-                                                                    <div class="payment-details mt-3">
-                                                                        <p><strong>Network:</strong>
-                                                                            {{ $paymentData['network'] }}</p>
-                                                                        <p><strong>Payment ID:</strong>
-                                                                            {{ $paymentData['payment_id'] }}</p>
-                                                                        <p><strong style="color: yellow, text-color:yellow
-                                                                        ">Status:</strong> Waiting</p>
-                                                                        <p><strong></strong>
-                                                                            {{ $paymentData['valid_until'] }}</p>
-                                                                    </div>
+                                                            {{-- Withdrawal Address --}}
+                                                            @php
+                                                                $userWithdrawalAddress =
+                                                                    Auth::user()->withdrawal_address ??
+                                                                    'No address set';
+                                                            @endphp
+                                                            <div class="form-group">
+                                                                <label for="withdrawal_address">Your Withdrawal
+                                                                    Address:</label>
+                                                                <div class="d-flex">
+                                                                    <input type="text"
+                                                                        id="withdrawal_address_display"
+                                                                        class="form-control" readonly
+                                                                        value="{{ $userWithdrawalAddress }}">
+                                                                    <a href="{{ route('withdrawal.address.edit') }}"
+                                                                        class="btn btn-warning ml-2">
+                                                                        <i class="fas fa-exchange-alt"></i> Change
+                                                                    </a>
                                                                 </div>
                                                             </div>
-                                                        @endif
+
+                                                            {{-- Amount to Withdraw --}}
+                                                            <div class="form-group">
+                                                                <label for="amount_to_withdraw">Amount to
+                                                                    Withdraw:</label>
+                                                                <input type="number" id="amount_to_withdraw"
+                                                                    name="amount" value="{{ old('amount') }}"
+                                                                    step="0.01" min="10"
+                                                                    class="form-control"
+                                                                    placeholder="Enter amount (min $10)" required>
+                                                                <small class="note text-info">Withdrawal fee applies
+                                                                    (e.g., 5 USDT)</small>
+                                                            </div>
+
+                                                            {{-- Withdrawal Summary --}}
+                                                            <div class="withdrawal-summary border rounded p-2 mt-2"
+                                                                id="withdrawalSummaryBox" style="display:none;">
+                                                                <p><strong>Withdrawal Amount:</strong> $<span
+                                                                        id="summaryAmount">0.00</span></p>
+                                                                <p><strong>Fee:</strong> $<span
+                                                                        id="summaryFee">0.00</span></p>
+                                                                <hr>
+                                                                <p><strong>You will receive:</strong> $<span
+                                                                        id="summaryReceivable">0.00</span> USDT</p>
+                                                            </div>
+
+                                                            {{-- PIN --}}
+                                                            <div class="form-group">
+                                                                <label for="withdraw_password">Withdrawal PIN:</label>
+                                                                <input type="password" name="withdraw_password"
+                                                                    id="withdraw_password" class="form-control"
+                                                                    placeholder="Enter your PIN" required>
+                                                            </div>
+
+                                                            <input type="hidden" name="withdraw_currency"
+                                                                value="USDTTRC20">
+
+                                                            <button type="submit"
+                                                                class="submit-btn btn-rounded btn-danger">
+                                                                <i class="fas fa-paper-plane"></i> Request Withdrawal
+                                                            </button>
+                                                        </form>
+
+                                                        {{-- Notes --}}
+                                                        <div class="mt-4">
+                                                            <h5 class="text-muted">Important Notes:</h5>
+                                                            <ul class="text-secondary" style="font-size:0.9em;">
+                                                                <li>Ensure your withdrawal address is correct.</li>
+                                                                <li>Minimum withdrawal is $10 USDT.</li>
+                                                                <li>Withdrawals may take up to 24 hours to process.</li>
+                                                                <li>Network fees may apply depending on blockchain load.
+                                                                </li>
+                                                                <li>Wrong addresses will result in loss of funds.</li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+                                                {{-- JS to update summary live --}}
+
 
                                             </div>
                                             <div class="tab-pane fade" id="coinETH" role="tabpanel">
@@ -1184,28 +1185,37 @@
     <script src="/client/assets/js/amcharts.min.js"></script>
     <script src="/client/assets/js/custom.js"></script>
 
-   {{-- QR Code Generator & Copy Function --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script>
-    // Copy payment address
-    function copyPaymentAddress() {
-        const input = document.getElementById("paymentAddressInput");
-        input.select();
-        input.setSelectionRange(0, 99999); // For mobile
-        document.execCommand("copy");
 
-        document.getElementById("copyFeedbackDisplay").innerText = "✅ Address copied!";
-    }
 
-    // Generate QR Code if address exists
-    @if(isset($paymentData))
-        new QRCode(document.getElementById("qrcode-box"), {
-            text: "{{ $paymentData['pay_address'] }}",
-            width: 200,
-            height: 200
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const amountInput = document.getElementById('amount_to_withdraw');
+            const summaryBox = document.getElementById('withdrawalSummaryBox');
+            const summaryAmount = document.getElementById('summaryAmount');
+            const summaryFee = document.getElementById('summaryFee');
+            const summaryReceivable = document.getElementById('summaryReceivable');
+
+            // Take percentage from backend (e.g. 5 means 5%)
+            const WITHDRAWAL_FEE_PERCENT = {{ $setting->withdraw_fee_percentage ?? 5 }} / 100;
+
+            amountInput.addEventListener('input', function() {
+                const amount = parseFloat(this.value) || 0;
+
+                if (amount > 0) {
+                    const fee = amount * WITHDRAWAL_FEE_PERCENT;
+                    const receivable = amount - fee;
+
+                    summaryBox.style.display = 'block';
+                    summaryAmount.textContent = amount.toFixed(2);
+                    summaryFee.textContent = fee.toFixed(2);
+                    summaryReceivable.textContent = receivable.toFixed(2);
+                } else {
+                    summaryBox.style.display = 'none';
+                }
+            });
         });
-    @endif
-</script>
+    </script>
+
 
 </body>
 

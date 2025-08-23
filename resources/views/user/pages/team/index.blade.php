@@ -171,7 +171,7 @@
                                                     </div>
                                                 </div> --}}
 
-                                                {{-- <div class="card">
+                                                <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">My Teams</h5>
                                                         <div class="wallet-history">
@@ -181,7 +181,7 @@
                                                                         <th>No.</th>
                                                                         <th>Level</th>
                                                                         <th>Members</th>
-                                                                        <th>Deposits</th>
+                                                                        {{-- <th>Deposits</th> --}}
                                                                         <th>Commissions</th>
                                                                     </tr>
                                                                 </thead>
@@ -190,34 +190,34 @@
                                                                         <td>1</td>
                                                                         <td>Level 1</td>
                                                                         <td>{{ $level1_count }}</td>
-                                                                        <td>{{ $level1_deposit }}</td>
+                                                                        {{-- <td>{{ $level1_deposit }}</td> --}}
                                                                         <td>{{ $level1_commissions }}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>2</td>
                                                                         <td>Level 2</td>
                                                                         <td>{{ $level2_count }}</td>
-                                                                        <td>{{ $level2_deposit }}</td>
+                                                                        {{-- <td>{{ $level2_deposit }}</td> --}}
                                                                         <td>{{ $level2_commissions }}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>3</td>
                                                                         <td>Level 3</td>
                                                                         <td>{{ $level3_count }}</td>
-                                                                        <td>{{ $level3_deposit }}</td>
+                                                                        {{-- <td>{{ $level3_deposit }}</td> --}}
                                                                         <td>{{ $level3_commissions }}</td>
                                                                     </tr>
                                                                     <tr class="font-weight-bold">
                                                                         <td colspan="2">Total</td>
                                                                         <td>{{ $total_registered_users }}</td>
-                                                                        <td>{{ $total_deposits }}</td>
+                                                                        {{-- <td>{{ $total_deposits }}</td> --}}
                                                                         <td>{{ $total_commissions }}</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
-                                                </div> --}}
+                                                </div>
 
                                                 {{-- <div class="card" style="margin-top: 20px;">
                                                     <div class="card-header">
@@ -269,109 +269,7 @@
                                                     </div>
                                                 </div> --}}
 
-                                                <div class="card" style="margin-top: 20px;">
-                                                    <div class="card-header">
-                                                        <div class="card-title">
-                                                            <i class="fas fa-list-ul"></i> My Referred Users
-                                                        </div>
-                                                    </div>
 
-                                                    <div class="card-body">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-bordered table-striped">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="text-align:center; width:5%;">#</th>
-                                                                        <th>Username</th>
-                                                                        <th style="text-align:center;">Level</th>
-                                                                        <th style="text-align:right;">Balance (USDT)
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @forelse($paginatedMembers as $index => $member)
-                                                                        <tr>
-                                                                            <td style="text-align:center;">
-                                                                                {{ $paginatedMembers->firstItem() + $index }}
-                                                                            </td>
-                                                                            <td>{{ $member->username }}</td>
-                                                                            <td style="text-align:center;">
-                                                                                {{ $member->level }}</td>
-                                                                            <td style="text-align:right;">
-                                                                                ${{ number_format($member->balance, 2) }}
-                                                                            </td>
-                                                                        </tr>
-                                                                    @empty
-                                                                        <tr>
-                                                                            <td colspan="4"
-                                                                                style="text-align:center; padding:20px; color:#848e9c;">
-                                                                                No referred users yet
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforelse
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-
-                                                        <!-- Pagination (uses custom view 'vendor.pagination.custom') -->
-                                                        <div
-                                                            class="d-flex justify-content-center mt-3 pagination-wrapper">
-                                                            {{ $paginatedMembers->links('vendor.pagination.custom') }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="levels-info-section mt-3">
-                                                    {{-- Level 1 --}}
-                                                    <div class="card mb-3">
-                                                        <div class="card-header"><b>Level 1 Summary</b></div>
-                                                        <div class="card-body">
-                                                            <p><b>Members:</b> {{ $level1_count }}</p>
-                                                            <p><b>Total Trade Stake:</b>
-                                                                {{ number_format($level1_deposit, 5) }} USDT</p>
-                                                            <p><b>My Commissions:</b>
-                                                                {{ number_format($level1_commissions, 5) }} USDT</p>
-                                                        </div>
-                                                    </div>
-
-                                                    {{-- Level 2 --}}
-                                                    <div class="card mb-3">
-                                                        <div class="card-header"><b>Level 2 Summary</b></div>
-                                                        <div class="card-body">
-                                                            <p><b>Members:</b> {{ $level2_count }}</p>
-                                                            <p><b>Total Trade Stake:</b>
-                                                                {{ number_format($level2_deposit, 5) }} USDT</p>
-                                                            <p><b>My Commissions:</b>
-                                                                {{ number_format($level2_commissions, 5) }} USDT</p>
-                                                        </div>
-                                                    </div>
-
-                                                    {{-- Level 3 --}}
-                                                    <div class="card mb-3">
-                                                        <div class="card-header"><b>Level 3 Summary</b></div>
-                                                        <div class="card-body">
-                                                            <p><b>Members:</b> {{ $level3_count }}</p>
-                                                            <p><b>Total Trade Stake:</b>
-                                                                {{ number_format($level3_deposit, 5) }} USDT</p>
-                                                            <p><b>My Commissions:</b>
-                                                                {{ number_format($level3_commissions, 5) }} USDT</p>
-                                                        </div>
-                                                    </div>
-
-                                                    {{-- Totals --}}
-                                                    <div class="card">
-                                                        <div class="card-header"><b>Overall Team Totals</b></div>
-                                                        <div class="card-body">
-                                                            <p><b>Total Team Members:</b> {{ $total_registered_users }}
-                                                            </p>
-                                                            <p><b>Total Team Trade Stake:</b>
-                                                                {{ number_format($total_deposits, 5) }} USDT</p>
-                                                            <p><b>My Total Commissions:</b>
-                                                                {{ number_format($total_commissions, 5) }} USDT</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
 
                                             </div>
@@ -852,7 +750,7 @@
         function copyReferralLink() {
             const input = document.getElementById('referralLinkInput');
             input.select();
-            input.setSelectionRange(0, 99999); 
+            input.setSelectionRange(0, 99999);
             document.execCommand('copy');
 
             alert('Referral link copied to clipboard!');

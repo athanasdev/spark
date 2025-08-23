@@ -32,7 +32,7 @@ class WithdrawalController extends Controller
         $minWithdrawal = $settings->min_withdraw_amount;
         $withdrawFeePercent = $settings->withdraw_fee_percentage;
         // Show withdraw page if everything is set
-        return view('user.layouts.withdraw', compact('user', 'minWithdrawal', 'withdrawFeePercent'));
+        return view('user.pages.withdraw.index', compact('user', 'minWithdrawal', 'withdrawFeePercent'));
     }
 
 
@@ -336,7 +336,8 @@ class WithdrawalController extends Controller
     public function showChangeWithdrawalAddressForm()
     {
 
-        return view('user.layouts.change-withdraw-address');
+        $user = Auth::user();
+        return view('user.pages.wallet.change-address', compact('user'));
     }
 
     /**
