@@ -196,9 +196,13 @@
 
                                                 {{-- DEPOST PAGE HERE IS --}}
 
-                                                {{-- <div class="card">
+
+
+                                                <div class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Depost</h5>
+                                                        <h5 class="card-title">Deposit</h5>
+
+                                                        {{-- Alerts --}}
                                                         @if (session('info'))
                                                             <div class="alert alert-info flex items-center space-x-2">
                                                                 <span>ℹ️</span>
@@ -213,13 +217,14 @@
                                                             </div>
                                                         @endif
                                                         @if (session('error'))
-                                                            <div class="alert-error flex items-center space-x-2">
+                                                            <div
+                                                                class="alert alert-danger flex items-center space-x-2">
                                                                 <span>❌</span>
                                                                 <span>{{ session('error') }}</span>
                                                             </div>
                                                         @endif
                                                         @if ($errors->any())
-                                                            <div class="alert-error flex items-start space-x-2">
+                                                            <div class="alert alert-danger flex items-start space-x-2">
                                                                 <span class="mt-1">⚠️</span>
                                                                 <ul class="list-none m-0 p-0">
                                                                     @foreach ($errors->all() as $error)
@@ -228,178 +233,103 @@
                                                                 </ul>
                                                             </div>
                                                         @endif
-                                                        <div class="row wallet-address">
-                                                            <div class="col-md-8">
-                                                                <p class="mb-3 text-muted"
-                                                                    style="font-size:0.9em; text-align:left;">
-                                                                    {{ __('messages.setup_form_instruction_1') }}
-                                                                    {{ __('messages.setup_form_instruction_2') }}
-                                                                </p>
-                                                                <form action="{{ route('withdraw.setup.store') }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="withdrawal_address"></label>
-                                                                        <input type="text" id="withdrawal_address"
-                                                                            name="withdrawal_address"
-                                                                            class="form-control @error('withdrawal_address') is-invalid @enderror"
-                                                                            value="{{ old('withdrawal_address', $currentAddress ?? '') }}"
-                                                                            placeholder="{{ __('messages.placeholder_usdt_address') }}"
-                                                                            required>
-                                                                        @error('withdrawal_address')
-                                                                            <span class="invalid-feedback"
-                                                                                role="alert"><strong>{{ $message }}</strong></span>
-                                                                        @enderror
-                                                                        <small
-                                                                            class="note">{{ __('messages.note_valid_trc20_address') }}</small>
+
+                                                        {{-- Show FORM if no payment data --}}
+                                                        @if (!isset($paymentData))
+                                                            <form method="POST"
+                                                                action="{{ route('payments.create') }}">
+                                                                @csrf
+                                                                <div class="form-group">
+                                                                    <label for="price_amount">Amount (USD):</label>
+                                                                    <input type="number" id="price_amount"
+                                                                        name="price_amount" class="form-control"
+                                                                        step="0.01" min="15" required>
+                                                                    <small class="note">Minimum deposit is
+                                                                        $15</small>
+                                                                </div>
+
+                                                                <input type="hidden" name="price_currency"
+                                                                    value="usd">
+                                                                <input type="hidden" name="order_description"
+                                                                    value="deposit">
+                                                                <input type="hidden" name="ipn_callback_url"
+                                                                    value="{{ url('/ipn-callback') }}">
+                                                                <input type="hidden" name="customer_email"
+                                                                    value="{{ auth()->user()->email }}">
+                                                                <input type="hidden" name="order_id"
+                                                                    value="{{ auth()->id() }}">
+
+                                                                <div class="form-group">
+                                                                    <label for="pay_currency">Pay with Crypto:</label>
+                                                                    <select id="pay_currency" name="pay_currency"
+                                                                        class="form-control" required>
+                                                                        <option value="usdttrc20">USDT (TRC20)</option>
+                                                                    </select>
+                                                                    <small class="note"><strong>Important:</strong>
+                                                                        Make sure you send via USDT TRC20
+                                                                        network</small>
+                                                                </div>
+
+                                                                <button type="submit" class="submit-btn mt-3">
+                                                                    <i class="fas fa-arrow-circle-right"></i> Proceed
+                                                                    to Deposit
+                                                                </button>
+                                                            </form>
+                                                        @else
+                                                            {{-- Show QR Code + Payment Info --}}
+                                                            <div class="payment-page-container">
+                                                                <div class="payment-card-container">
+                                                                    <h2><i class="fas fa-coins"></i> Deposit Payment
+                                                                    </h2>
+
+                                                                    <div class="instructions">
+                                                                        Please send
+                                                                        <strong>
+                                                                            <span
+                                                                                id="payAmountDisplay">{{ $paymentData['price_amount'] }}</span>
+                                                                            <span
+                                                                                id="payCurrencyDisplay">{{ strtoupper($paymentData['pay_currency']) }}</span>
+                                                                        </strong>
+                                                                        to the address below:
+                                                                        <br>
+                                                                        <small>Order ID: <span
+                                                                                id="orderIdInfoDisplay">{{ $paymentData['order_id'] }}</span></small>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="withdrawal_pin">{{ __('messages.create_withdrawal_pin_label') }}</label>
-                                                                        <input type="password" id="withdrawal_pin"
-                                                                            name="withdrawal_pin"
-                                                                            class="form-control @error('withdrawal_pin') is-invalid @enderror"
-                                                                            placeholder="{{ __('messages.placeholder_4_6_digit_pin') }}"
-                                                                            required minlength="4" maxlength="6"
-                                                                            pattern="\d*">
-                                                                        @error('withdrawal_pin')
-                                                                            <span class="invalid-feedback"
-                                                                                role="alert"><strong>{{ $message }}</strong></span>
-                                                                        @enderror
-                                                                        <small
-                                                                            class="note">{{ __('messages.note_secure_pin') }}</small>
+
+                                                                    <div id="qrcode-box"></div>
+
+                                                                    {{-- ✅ Address + Copy Button --}}
+                                                                    <div class="address-container mt-3">
+                                                                        <input type="text" id="paymentAddressInput"
+                                                                            class="form-control" readonly
+                                                                            value="{{ $paymentData['pay_address'] }}">
+                                                                        <button type="button" id="copyAddressButton"
+                                                                            class="btn btn-secondary mt-2">
+                                                                            <i class="fas fa-copy"></i> Copy Address
+                                                                        </button>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label
-                                                                            for="withdrawal_pin_confirmation">{{ __('messages.confirm_withdrawal_pin_label') }}</label>
-                                                                        <input type="password"
-                                                                            id="withdrawal_pin_confirmation"
-                                                                            name="withdrawal_pin_confirmation"
-                                                                            class="form-control"
-                                                                            placeholder="{{ __('messages.placeholder_reenter_pin') }}"
-                                                                            required>
+                                                                    <div id="copyFeedbackDisplay"
+                                                                        class="copy-feedback mt-2 text-success"></div>
+
+                                                                    <div class="payment-details mt-3">
+                                                                        <p><strong>Network:</strong> <span
+                                                                                id="networkTypeDisplay">{{ $paymentData['network'] }}</span>
+                                                                        </p>
+                                                                        <p><strong>Payment ID:</strong> <span
+                                                                                id="paymentIdInfoDisplay">{{ $paymentData['payment_id'] }}</span>
+                                                                        </p>
+                                                                        <p><strong>Status:</strong> <span
+                                                                                style="color: yellow">Waiting</span>
+                                                                        </p>
+                                                                        <p><strong>Expires:</strong> <span
+                                                                                id="expirationDateDisplay">{{ $paymentData['valid_until'] }}</span>
+                                                                        </p>
                                                                     </div>
-                                                                    <button type="submit" class="submit-btn mt-3">
-                                                                        <i class="fas fa-save"></i>
-                                                                        {{ __('messages.save_details_button') }}
-                                                                    </button>
-                                                                </form>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-md-4">
-                                                                <img src="/client/assets/img/qr-code-light.svg"
-                                                                    alt="qr-code">
-                                                            </div>
-                                                        </div>
+                                                        @endif
                                                     </div>
-                                                </div> --}}
-
-                                                <div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Deposit</h5>
-
-        {{-- Alerts --}}
-        @if (session('info'))
-            <div class="alert alert-info flex items-center space-x-2">
-                <span>ℹ️</span>
-                <span>{{ session('info') }}</span>
-            </div>
-        @endif
-        @if (session('success'))
-            <div class="alert alert-success flex items-center space-x-2">
-                <span>✅</span>
-                <span>{{ session('success') }}</span>
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger flex items-center space-x-2">
-                <span>❌</span>
-                <span>{{ session('error') }}</span>
-            </div>
-        @endif
-        @if ($errors->any())
-            <div class="alert alert-danger flex items-start space-x-2">
-                <span class="mt-1">⚠️</span>
-                <ul class="list-none m-0 p-0">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        {{-- Show FORM if no payment data --}}
-        @if (!isset($paymentData))
-            <form method="POST" action="{{ route('payments.create') }}">
-                @csrf
-
-                <div class="form-group">
-                    <label for="price_amount">Amount (USD):</label>
-                    <input type="number" id="price_amount" name="price_amount"
-                           class="form-control"
-                           step="0.01" min="15" required>
-                    <small class="note">Minimum deposit is $15</small>
-                </div>
-
-                <input type="hidden" name="price_currency" value="usd">
-                <input type="hidden" name="order_description" value="deposit">
-                <input type="hidden" name="ipn_callback_url" value="{{ url('/ipn-callback') }}">
-                <input type="hidden" name="customer_email" value="{{ auth()->user()->email }}">
-                <input type="hidden" name="order_id" value="{{ auth()->id() }}">
-
-                <div class="form-group">
-                    <label for="pay_currency">Pay with Crypto:</label>
-                    <select id="pay_currency" name="pay_currency" class="form-control" required>
-                        <option value="usdttrc20">USDT (TRC20)</option>
-                    </select>
-                    <small class="note"><strong>Important:</strong> Make sure you send via USDT TRC20 network</small>
-                </div>
-
-                <button type="submit" class="submit-btn mt-3">
-                    <i class="fas fa-arrow-circle-right"></i> Proceed to Payment
-                </button>
-            </form>
-        @else
-            {{-- Show QR Code + Payment Info --}}
-            <div class="payment-page-container">
-                <div class="payment-card-container">
-                    <h2><i class="fas fa-coins"></i> Deposit Payment</h2>
-
-                    <div class="instructions">
-                        Please send
-                        <strong><span id="payAmountDisplay">{{ $paymentData['price_amount'] }}</span>
-                        <span id="payCurrencyDisplay">{{ strtoupper($paymentData['pay_currency']) }}</span></strong>
-                        to the address below:
-                        <br>
-                        <small>Order ID: <span id="orderIdInfoDisplay">{{ $paymentData['order_id'] }}</span></small>
-                    </div>
-
-                    <div id="qrcode-box"></div>
-
-                    <div class="address-container mt-3">
-                        <input type="text" id="paymentAddressInput" class="form-control" readonly
-                               value="{{ $paymentData['pay_address'] }}">
-                        <button id="copyAddressButton" class="btn btn-secondary mt-2">
-                            <i class="fas fa-copy"></i> Copy Address
-                        </button>
-                    </div>
-                    <div id="copyFeedbackDisplay" class="copy-feedback mt-2 text-success"></div>
-
-                    <div class="payment-details mt-3">
-                        <p><strong>Network:</strong> <span id="networkTypeDisplay">{{ $paymentData['network'] }}</span></p>
-                        <p><strong>Payment ID:</strong> <span id="paymentIdInfoDisplay">{{ $paymentData['payment_id'] }}</span></p>
-                        <p><strong>Status:</strong> <span style="color: yellow ,text-color:yellow">Waiting</span></p>
-                        <p><strong> </strong> <span id="expirationDateDisplay">{{ $paymentData['valid_until'] }}</span></p>
-                    </div>
-                </div>
-            </div>
-        @endif
-    </div>
-</div>
-
-
-
-
+                                                </div>
 
 
 
@@ -1301,6 +1231,26 @@
                             }, 2000);
                         });
                     });
+                });
+            </script>
+
+            {{-- ✅ Copy-to-Clipboard Script --}}
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const copyBtn = document.getElementById("copyAddressButton");
+                    const addressInput = document.getElementById("paymentAddressInput");
+                    const feedback = document.getElementById("copyFeedbackDisplay");
+
+                    if (copyBtn) {
+                        copyBtn.addEventListener("click", function() {
+                            navigator.clipboard.writeText(addressInput.value).then(() => {
+                                feedback.textContent = "✅ Address copied!";
+                                setTimeout(() => feedback.textContent = "", 2000);
+                            }).catch(err => {
+                                feedback.textContent = "❌ Failed to copy!";
+                            });
+                        });
+                    }
                 });
             </script>
         @endif
