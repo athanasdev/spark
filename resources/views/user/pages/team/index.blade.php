@@ -225,7 +225,7 @@
                                                             <i class="fas fa-list-ul"></i> My Referred Users
                                                         </div>
                                                     </div>
-                                                    <div class="card-body">
+                                                    <div class="card-body no-padding">
                                                         <div class="table-responsive">
                                                             <table class="table table-bordered table-striped">
                                                                 <thead>
@@ -238,11 +238,13 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @forelse($paginatedMembers as $index => $member)
+                                                                    @php $index = ($all_members->currentPage() - 1) * $all_members->perPage(); @endphp
+
+                                                                    @forelse($all_members as $member)
+                                                                        @php $index++; @endphp
                                                                         <tr>
                                                                             <td style="text-align:center;">
-                                                                                {{ $paginatedMembers->firstItem() + $index }}
-                                                                            </td>
+                                                                                {{ $index }}</td>
                                                                             <td>{{ $member->username }}</td>
                                                                             <td style="text-align:center;">
                                                                                 {{ $member->level }}</td>
@@ -263,8 +265,8 @@
                                                         </div>
 
                                                         <!-- Pagination -->
-                                                        <div class="d-flex justify-content-center mt-3">
-                                                            {{ $paginatedMembers->links() }}
+                                                        <div class="d-flex justify-content-center">
+                                                            {{ $all_members->links() }}
                                                         </div>
                                                     </div>
                                                 </div>
