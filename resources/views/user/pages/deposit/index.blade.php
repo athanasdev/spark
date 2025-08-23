@@ -388,8 +388,8 @@
                     <div class="payment-details mt-3">
                         <p><strong>Network:</strong> <span id="networkTypeDisplay">{{ $paymentData['network'] }}</span></p>
                         <p><strong>Payment ID:</strong> <span id="paymentIdInfoDisplay">{{ $paymentData['payment_id'] }}</span></p>
-                        <p><strong>Status:</strong> <span id="paymentStatusValue" class="status-waiting">{{ $paymentData['status'] }}</span></p>
-                        <p><strong>Expires:</strong> <span id="expirationDateDisplay">{{ $paymentData['valid_until'] }}</span></p>
+                        <p><strong>Status:</strong> <span style="color: yellow font-style: bold">Waiting</span></p>
+                        <p><strong> </strong> <span id="expirationDateDisplay">{{ $paymentData['valid_until'] }}</span></p>
                     </div>
                 </div>
             </div>

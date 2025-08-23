@@ -19,7 +19,7 @@ class NowPaymentcontroller extends Controller
     {
         $user = Auth::user();
         return view('user.pages.deposit.index', compact('user'));
-        //return view('user.layouts.deposit', compact('user'));
+
     }
 
 
@@ -105,35 +105,35 @@ class NowPaymentcontroller extends Controller
      */
 
 
-    public function showConfirmDepositPage($id)
-    {
-        $user = Auth::user();
+    // public function showConfirmDepositPage($id)
+    // {
+    //     $user = Auth::user();
 
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'You must be logged in to view this page.');
-        }
+    //     if (!$user) {
+    //         return redirect()->route('login')->with('error', 'You must be logged in to view this page.');
+    //     }
 
-        try {
-            $decryptedId = Crypt::decrypt($id);
-        } catch (DecryptException $e) {
-            Log::warning("Invalid encrypted payment ID accessed. User ID: {$user->id}");
-            return redirect()->route('deposit.form')->with('error', 'Invalid payment reference.');
-        }
+    //     try {
+    //         $decryptedId = Crypt::decrypt($id);
+    //     } catch (DecryptException $e) {
+    //         Log::warning("Invalid encrypted payment ID accessed. User ID: {$user->id}");
+    //         return redirect()->route('deposit.form')->with('error', 'Invalid payment reference.');
+    //     }
 
-        $paymentData = Payment::where('id', $decryptedId)
-            ->where('user_id', $user->id)
-            ->first();
+    //     $paymentData = Payment::where('id', $decryptedId)
+    //         ->where('user_id', $user->id)
+    //         ->first();
 
-        if (!$paymentData) {
-            Log::warning("Attempt to view non-existent or unauthorized payment. User ID: {$user->id}, Payment Record ID: {$decryptedId}");
-            return redirect()->route('deposit.form')->with('error', __('messages.payment_details_not_found_error', ['fallback' => 'Payment details not found or access denied.']));
-        }
+    //     if (!$paymentData) {
+    //         Log::warning("Attempt to view non-existent or unauthorized payment. User ID: {$user->id}, Payment Record ID: {$decryptedId}");
+    //         return redirect()->route('deposit.form')->with('error', __('messages.payment_details_not_found_error', ['fallback' => 'Payment details not found or access denied.']));
+    //     }
 
-        return view('user.layouts.confirm-deposit', [
-            'paymentData' => $paymentData,
-            'user' => $user,
-        ]);
-    }
+    //     return view('user.layouts.confirm-deposit', [
+    //         'paymentData' => $paymentData,
+    //         'user' => $user,
+    //     ]);
+    // }
 
 
     // ... other methods (checkBalance, validateAddress) ...
