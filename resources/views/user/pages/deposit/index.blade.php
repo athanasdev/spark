@@ -265,7 +265,7 @@
 
                                                                 <button type="submit" class="submit-btn mt-3">
                                                                     <i class="fas fa-arrow-circle-right"></i> Proceed
-                                                                    to Payment
+                                                                    to Deposit
                                                                 </button>
                                                             </form>
                                                         @else
