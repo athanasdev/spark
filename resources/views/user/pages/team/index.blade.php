@@ -191,27 +191,27 @@
                                                                         <td>Level 1</td>
                                                                         <td>{{ $level1_count }}</td>
                                                                         {{-- <td>{{ $level1_deposit }}</td> --}}
-                                                                        <td>{{ $level1_commissions }}</td>
+                                                                        <td>{{ $level1_commissions }} USD</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>2</td>
                                                                         <td>Level 2</td>
                                                                         <td>{{ $level2_count }}</td>
                                                                         {{-- <td>{{ $level2_deposit }}</td> --}}
-                                                                        <td>{{ $level2_commissions }}</td>
+                                                                        <td>{{ $level2_commissions }} USD</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>3</td>
                                                                         <td>Level 3</td>
                                                                         <td>{{ $level3_count }}</td>
                                                                         {{-- <td>{{ $level3_deposit }}</td> --}}
-                                                                        <td>{{ $level3_commissions }}</td>
+                                                                        <td>{{ $level3_commissions }} USD</td>
                                                                     </tr>
                                                                     <tr class="font-weight-bold">
                                                                         <td colspan="2">Total</td>
                                                                         <td>{{ $total_registered_users }}</td>
                                                                         {{-- <td>{{ $total_deposits }}</td> --}}
-                                                                        <td>{{ $total_commissions }}</td>
+                                                                        <td>{{ $total_commissions }} USD</td>
                                                                     </tr>
                                                                 </tbody>
                                                             </table>
