@@ -47,7 +47,7 @@
                             aria-labelledby="settings-wallet-tab">
                             <div class="wallet">
                                 <div class="row">
-                                    <div class="col-md-12 col-lg-12">
+                                    <div class="col-md-10 col-lg-10 mx-auto">
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="coinBTC" role="tabpanel">
                                                 <div class="card">

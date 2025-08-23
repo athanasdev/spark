@@ -18,7 +18,8 @@ class NowPaymentcontroller extends Controller
     public function paymentForm()
     {
         $user = Auth::user();
-        return view('user.layouts.deposit', compact('user'));
+        return view('user.pages.deposit.index', compact('user'));
+        //return view('user.layouts.deposit', compact('user'));
     }
 
 
@@ -78,7 +79,11 @@ class NowPaymentcontroller extends Controller
             ]);
 
             // Redirect to a confirmation/payment instruction page
-            return redirect()->route('payment.confirm.show', ['id' => Crypt::encrypt($paymentData->id)]);
+            // return redirect()->route('payment.confirm.show', ['id' => Crypt::encrypt($paymentData->id)]);
+            return view('user.pages.deposit.index', [
+                'user' => Auth::user(),
+                'paymentData' => $paymentData
+            ]);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $responseBody = $e->getResponse()->getBody()->getContents();
             Log::error('NOWPayments API Client Exception: ', ['response' => $responseBody]);
@@ -88,7 +93,6 @@ class NowPaymentcontroller extends Controller
             Log::error('General Error in createPayment: ' . $e->getMessage());
             return back()->with('error', 'An unexpected error occurred. Please contact support.');
         }
-
     }
 
 

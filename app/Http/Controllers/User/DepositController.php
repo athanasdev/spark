@@ -11,11 +11,12 @@ class DepositController extends Controller
 {
      public function index()
      {
-        $user = Auth::user();
-         return view('user.layouts.deposit', compact('user'));
+         $user = Auth::user();
+         return view('user.pages.deposit.index', compact('user'));
      }
 
-    
+
+
      public function fundsTransfer(Request $request)
      {
         //   save the data to the database
