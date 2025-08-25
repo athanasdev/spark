@@ -19,7 +19,56 @@ return new class extends Migration
             // Removed 'status' and 'next_payout_eligible_date'
 
             $table->enum('investment_result', ['lose', 'gain', 'pending'])->default('pending')->comment('Investment result outcome');
-            $table->enum('crypto_category', ['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])->comment('Cryptocurrency category');
+           // $table->enum('crypto_category', ['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])->comment('Cryptocurrency category');
+            $table->enum('crypto', [
+                'BTC',
+                'ETH',
+                'XRP',
+                'SOL',
+                'PI',
+                'LTC',
+                'BCH',
+                'ADA',
+                'DOT',
+                'BNB',
+                'DOGE',
+                'SHIB',
+                'LINK',
+                'MATIC',
+                'TRX',
+                'EOS',
+                'XLM',
+                'ATOM',
+                'VET',
+                'FIL',
+                'NEO',
+                'ALGO',
+                'XTZ',
+                'AAVE',
+                'UNI',
+                'SUSHI',
+                'ICP',
+                'AVAX',
+                'FTT',
+                'MKR',
+                'CAKE',
+                'KSM',
+                'ZEC',
+                'DASH',
+                'COMP',
+                'SNX',
+                'YFI',
+                'BAT',
+                'ENJ',
+                'CHZ',
+                'OMG',
+                'QTUM',
+                'NANO',
+                'RVN',
+                'ONT',
+                'HNT',
+                'FTM'
+            ])->comment('Cryptocurrency category');
 
             $table->decimal('total_profit_paid_out', 20, 6)->default(0.00)->comment('Total profit paid out for this investment');
             $table->boolean('principal_returned')->default(false)->comment('Whether the principal amount has been returned to the user');

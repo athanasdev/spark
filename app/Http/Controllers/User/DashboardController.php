@@ -17,23 +17,23 @@ use Illuminate\Support\Facades\Session;
 class DashboardController extends Controller
 {
 
-    // public function home()
-    // {
-    //     $user = Auth::user();
-    //     return view('user.pages.index', compact('user'));
-    // }
-
     public function home()
     {
-        $userId = Auth::id();
-
-        // Cache for 10 minutes
-        $user = Cache::remember("user_home_{$userId}", 600, function () use ($userId) {
-            return Auth::user(); // or User::find($userId);
-        });
-
+        $user = Auth::user();
         return view('user.pages.index', compact('user'));
     }
+
+    // public function home()
+    // {
+    //     $userId = Auth::id();
+
+    //     // Cache for 10 minutes
+    //     $user = Cache::remember("user_home_{$userId}", 600, function () use ($userId) {
+    //         return Auth::user(); // or User::find($userId);
+    //     });
+
+    //     return view('user.pages.index', compact('user'));
+    // }
 
 
 

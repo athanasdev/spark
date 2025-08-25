@@ -104,8 +104,9 @@ class GameController extends Controller
             'bot_uptime_seconds',
             'is_bot_globally_active'
         ));
-    }
 
+
+    }
 
     /**
      * Place a new trade (UserInvestment).
@@ -488,7 +489,7 @@ class GameController extends Controller
 
     public function closeTrade(Request $request)
     {
-        
+
         /** @var \App\Models\User $user */
         $user = Auth::user();
         $now = Carbon::now();

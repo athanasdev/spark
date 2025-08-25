@@ -33,8 +33,8 @@
                     </div>
                     <ul class="nav nav-pills" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="pill" href="#STAR" role="tab"
-                                aria-selected="true"><i class="icon ion-md-star"></i></a>
+                            <a class="nav-link" data-toggle="pill" href="#STAR" role="tab" aria-selected="true"><i
+                                    class="icon ion-md-star"></i></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="pill" href="#BTC" role="tab"
@@ -844,6 +844,9 @@
                     </div>
                     <!-- TradingView Widget END -->
                 </div>
+
+                {{-- THE TRADING PANELS IS HERE  --}}
+
                 <div class="market-trade">
                     <ul class="nav nav-pills" role="tablist">
                         <li class="nav-item">
@@ -868,254 +871,68 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="pills-trade-limit" role="tabpanel">
                             <div class="d-flex justify-content-between">
-                                <div class="market-trade-buy">
-                                    <form action="#">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
+
+                                {{-- BUY --}}
+                                <div class="market-trade-buy" style="max-width: 48%">
+                                    <form action="#" id="buyForm">
+                                        @csrf
+                                        <div class="input-group mb-2">
+                                            <input type="number" class="form-control" id="buyAmount"
+                                                placeholder="Amount to buy" min="0" step="0.01" required />
+                                            <select class="form-select" id="buyPair" style="max-width: 140px;">
+                                                <option value="BTC" selected>BTC</option>
+                                                <option value="ETH">ETH</option>
+                                                <option value="USDT">USDT</option>
+                                                <option value="BNB">BNB</option>
+                                            </select>
                                         </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
+
+                                        <ul class="market-trade-list" id="buyPercentages">
+                                            <li><a href="#" data-percent="25">25%</a></li>
+                                            <li><a href="#" data-percent="50">50%</a></li>
+                                            <li><a href="#" data-percent="75">75%</a></li>
+                                            <li><a href="#" data-percent="100">100%</a></li>
                                         </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
+
                                         <button type="submit" class="btn buy">Buy</button>
                                     </form>
                                 </div>
-                                <div class="market-trade-sell">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
+
+                                {{-- SELL --}}
+                                <div class="market-trade-sell" style="max-width: 48%">
+                                    <form action="#" id="sellForm">
+                                        @csrf 
+                                        <div class="input-group mb-2">
+                                            <input type="number" class="form-control" id="sellAmount"
+                                                placeholder="Amount to sell" min="0" step="0.01"
                                                 required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
+                                            <select class="form-select" id="sellPair" style="max-width: 140px;">
+                                                <option value="BTC" selected>BTC</option>
+                                                <option value="ETH">ETH</option>
+                                                <option value="USDT">USDT</option>
+                                                <option value="BNB">BNB</option>
+                                            </select>
                                         </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
+
+                                        <ul class="market-trade-list" id="sellPercentages">
+                                            <li><a href="#" data-percent="25">25%</a></li>
+                                            <li><a href="#" data-percent="50">50%</a></li>
+                                            <li><a href="#" data-percent="75">75%</a></li>
+                                            <li><a href="#" data-percent="100">100%</a></li>
                                         </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
+
                                         <button type="submit" class="btn sell">Sell</button>
                                     </form>
                                 </div>
+
                             </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-market" role="tabpanel">
-                            <div class="d-flex justify-content-between">
-                                <div class="market-trade-buy">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button type="submit" class="btn buy">Buy</button>
-                                    </form>
-                                </div>
-                                <div class="market-trade-sell">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button type="submit" class="btn sell">Sell</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-stop-limit" role="tabpanel">
-                            <div class="d-flex justify-content-between">
-                                <div class="market-trade-buy">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button type="submit" class="btn buy">Buy</>
-                                    </form>
-                                </div>
-                                <div class="market-trade-sell">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button type="submit" class="btn sell">Sell</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="pills-stop-market" role="tabpanel">
-                            <div class="d-flex justify-content-between">
-                                <div class="market-trade-buy">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button class="btn buy">Buy</button>
-                                    </form>
-                                </div>
-                                <div class="market-trade-sell">
-                                    <form action="https://crypo-laravel-live.netlify.app/wallet">
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Price"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">BTC</span>
-                                            </div>
-                                        </div>
-                                        <div class="input-group">
-                                            <input type="number" class="form-control" placeholder="Amount"
-                                                required />
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">ETH</span>
-                                            </div>
-                                        </div>
-                                        <ul class="market-trade-list">
-                                            <li><a href="#!">25%</a></li>
-                                            <li><a href="#!">50%</a></li>
-                                            <li><a href="#!">75%</a></li>
-                                            <li><a href="#!">100%</a></li>
-                                        </ul>
-                                        <p>Available: <span>0 BTC = 0 USD</span></p>
-                                        <p>Volume: <span>0 BTC = 0 USD</span></p>
-                                        <p>Margin: <span>0 BTC = 0 USD</span></p>
-                                        <p>Fee: <span>0 BTC = 0 USD</span></p>
-                                        <button type="submit" class="btn sell">Sell</button>
-                                    </form>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
+
+                {{-- END OF TRADING ORDERS --}}
+
             </div>
             <div class="col-md-3">
                 <div class="order-book mb15">
@@ -1379,6 +1196,8 @@
                     </ul>
                 </div>
             </div>
+
+
             <div class="col-md-9">
                 <div class="market-history market-order mt15">
                     <ul class="nav nav-pills" role="tablist">
@@ -1485,6 +1304,125 @@
             theme: 'minimal',
         });
     </script>
+
+
+    {{-- <script>
+        // Pull the authenticated user's balance/currency from PHP safely
+        const USER_BALANCE = Number(@json($user->balance)); // e.g., 100.00
+        const USER_CURRENCY = @json($user->currency); // e.g., "USDT" or "USD"
+        const FEE_RATE = 0.001; // 0.2% example
+
+        // Show initial balances
+        document.getElementById('buyAvailable').textContent = `${USER_BALANCE} ${USER_CURRENCY}`;
+        document.getElementById('sellAvailable').textContent = `${USER_BALANCE} ${USER_CURRENCY}`;
+
+        // Utility: clamp to 2 decimals for fiat, more for crypto if needed
+        const fmtFiat = (v) => (isFinite(v) ? Number(v).toFixed(2) : '—');
+        const fmtCrypto = (v) => (isFinite(v) ? Number(v).toFixed(6) : '—');
+
+        function setFromPercent({
+            percent,
+            side
+        }) {
+            // Always compute from the original user balance; do NOT read current input
+            const raw = USER_BALANCE * (percent / 100);
+
+            if (side === 'buy') {
+                const amountInput = document.getElementById('buyAmount');
+                amountInput.value = fmtFiat(raw); // set amount to spend
+                updateBuyOutputs(); // recompute volume/fee if unit price is provided
+            } else {
+                const amountInput = document.getElementById('sellAmount');
+                amountInput.value = fmtFiat(raw); // set amount to sell
+                updateSellOutputs();
+            }
+        }
+
+        function updateBuyOutputs() {
+            const amount = Number(document.getElementById('buyAmount').value) || 0;
+            const unit = Number(document.getElementById('buyUnitPrice').value) || 0;
+
+            // If unit price is provided, compute volume (amount / unit)
+            const volume = (unit > 0) ? (amount / unit) : NaN;
+            const fee = amount * FEE_RATE; // fee on the quote amount (adjust per your rules)
+
+            document.getElementById('buyVolume').textContent = (unit > 0) ? `${fmtCrypto(volume)}` : '—';
+            document.getElementById('buyFee').textContent = `${fmtFiat(fee)} ${USER_CURRENCY}`;
+        }
+
+        function updateSellOutputs() {
+            const amount = Number(document.getElementById('sellAmount').value) || 0;
+            const unit = Number(document.getElementById('sellUnitPrice').value) || 0;
+
+            // If unit price is provided, compute volume
+            const volume = (unit > 0) ? (amount / unit) : NaN;
+            const fee = amount * FEE_RATE;
+
+            document.getElementById('sellVolume').textContent = (unit > 0) ? `${fmtCrypto(volume)}` : '—';
+            document.getElementById('sellFee').textContent = `${fmtFiat(fee)} ${USER_CURRENCY}`;
+        }
+
+        // Wire percent buttons (always from USER_BALANCE)
+        document.getElementById('buyPercentages').addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                const percent = Number(e.target.dataset.percent || e.target.textContent.replace('%', '')) || 0;
+                setFromPercent({
+                    percent,
+                    side: 'buy'
+                });
+            }
+        });
+
+        document.getElementById('sellPercentages').addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                const percent = Number(e.target.dataset.percent || e.target.textContent.replace('%', '')) || 0;
+                setFromPercent({
+                    percent,
+                    side: 'sell'
+                });
+            }
+        });
+
+        // Recompute on manual edits too
+        document.getElementById('buyAmount').addEventListener('input', updateBuyOutputs);
+        document.getElementById('buyUnitPrice').addEventListener('input', updateBuyOutputs);
+        document.getElementById('sellAmount').addEventListener('input', updateSellOutputs);
+        document.getElementById('sellUnitPrice').addEventListener('input', updateSellOutputs);
+
+        // Initialize outputs
+        updateBuyOutputs();
+        updateSellOutputs();
+    </script> --}}
+
+    <script>
+        const USER_BALANCE = Number(@json($user->balance));
+
+        function setPercent(side, percent) {
+            const value = USER_BALANCE * (percent / 100);
+            if (side === 'buy') {
+                document.getElementById('buyAmount').value = value.toFixed(2);
+            } else {
+                document.getElementById('sellAmount').value = value.toFixed(2);
+            }
+        }
+
+        document.getElementById('buyPercentages').addEventListener('click', e => {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                setPercent('buy', Number(e.target.dataset.percent));
+            }
+        });
+
+        document.getElementById('sellPercentages').addEventListener('click', e => {
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                setPercent('sell', Number(e.target.dataset.percent));
+            }
+        });
+    </script>
+
 </body>
 
 
