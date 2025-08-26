@@ -293,9 +293,8 @@
                                                                             placeholder="{{ __('messages.placeholder_reenter_pin') }}"
                                                                             required>
                                                                     </div>
-                                                                    <button type="submit" class="submit-btn mt-3">
-                                                                        <i class="fas fa-save"></i>
-                                                                        {{ __('messages.save_details_button') }}
+                                                                    <button type="submit" class="submit-btn mt-3 btn-seccess">
+                                                                       save
                                                                     </button>
                                                                 </form>
                                                             </div>

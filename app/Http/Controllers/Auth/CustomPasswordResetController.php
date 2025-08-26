@@ -104,7 +104,7 @@ class CustomPasswordResetController extends Controller
             return redirect()->route('password.request')->withErrors(['email' => 'Please start the reset process again.']);
         }
 
-        return view('auth.set-new-password', ['email' => $email]);
+        return view('user.pages.reset.newpassword', ['email' => $email]);
 
     }
 

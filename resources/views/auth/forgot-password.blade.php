@@ -266,6 +266,7 @@
                 <a href="{{ route('login') }}">Sign In</a>
             </p>
         </form>
+        
     </div>
 
     <script>

@@ -310,6 +310,7 @@
 <body>
 
     <div class="set-password-card-container">
+        
         <form action="{{ route('password.update') }}" method="POST">
             @csrf
             <div class="form-header">
