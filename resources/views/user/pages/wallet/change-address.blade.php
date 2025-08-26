@@ -204,11 +204,9 @@
                                                         </ul>
 
                                                         <a href="{{ route('deposit.form') }}"
-                                                            class="btn green btn-outline-success mr-2">Deposit</a>
-
+                                                            class="btn btn-success mr-2">Deposit</a>
                                                         <a href="{{ route('withdraw') }}"
-                                                            class="btn red btn-outline-danger ml-2">Withdraw</a>
-
+                                                            class="btn btn-danger ml-2">Withdraw</a>
 
                                                     </div>
                                                 </div>
@@ -278,7 +276,8 @@
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                                 @enderror
-                                                                <small class="note text-info">⚠️ Please double-check the
+                                                                <small class="note text-info">⚠️ Please double-check
+                                                                    the
                                                                     address. Incorrect addresses may result in loss of
                                                                     funds.</small>
                                                             </div>
@@ -293,11 +292,13 @@
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                                 @enderror
-                                                                <small class="note text-info">Enter your current withdrawal PIN
+                                                                <small class="note text-info">Enter your current
+                                                                    withdrawal PIN
                                                                     to authorize this change.</small>
                                                             </div>
 
-                                                            <button type="submit" class="submit-btn mt-3 btn-success btn-rounded rounded-2xl">
+                                                            <button type="submit"
+                                                                class="submit-btn mt-3 btn-success btn-rounded rounded-2xl">
                                                                 <i class="fas fa-save"></i> Update Address
                                                             </button>
                                                         </form>

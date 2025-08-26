@@ -28,9 +28,9 @@
                         <a class="nav-link" id="settings-profile-tab" data-toggle="pill" href="#settings-profile"
                             role="tab" aria-controls="settings-profile" aria-selected="true"><i
                                 class="icon ion-md-person"></i> Profile</a>
-                        <a class="nav-link active" id="settings-wallet-tab" data-toggle="pill"
-                            href="#settings-wallet" role="tab" aria-controls="settings-wallet"
-                            aria-selected="false"><i class="icon ion-md-wallet"></i> Wallet</a>
+                        <a class="nav-link active" id="settings-wallet-tab" data-toggle="pill" href="#settings-wallet"
+                            role="tab" aria-controls="settings-wallet" aria-selected="false"><i
+                                class="icon ion-md-wallet"></i> Wallet</a>
                         <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab"
                             aria-controls="settings" aria-selected="false"><i class="icon ion-md-settings"></i>
                             Settings</a>
@@ -197,12 +197,15 @@
                                                                     <h2>Available Margin</h2>
                                                                 </div>
                                                                 <div>
-                                                                    <h3>{{$user->balance}} USDT</h3>
+                                                                    <h3>{{ $user->balance }} USDT</h3>
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
                                                     </div>
                                                 </div>
 
@@ -331,8 +334,11 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
                                                     </div>
                                                 </div>
                                                 <div class="card">
@@ -446,8 +452,11 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
                                                     </div>
                                                 </div>
                                                 <div class="card">
@@ -561,8 +570,11 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
                                                     </div>
                                                 </div>
                                                 <div class="card">
@@ -676,8 +688,11 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
                                                     </div>
                                                 </div>
                                                 <div class="card">
@@ -791,8 +806,11 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
                                                     </div>
                                                 </div>
                                                 <div class="card">
@@ -906,8 +924,11 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
                                                     </div>
                                                 </div>
                                                 <div class="card">

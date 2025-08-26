@@ -871,19 +871,25 @@
                     <div class="tab-content">
                         <div class="tab-pane fade show active" id="pills-trade-limit" role="tabpanel">
                             <div class="d-flex justify-content-between">
-
                                 {{-- BUY --}}
                                 <div class="market-trade-buy" style="max-width: 48%">
-                                    <form action="#" id="buyForm">
+                                    <form method="POST" action="{{ route('bot.place_trade') }}" id="buyForm">
                                         @csrf
                                         <div class="input-group mb-2">
-                                            <input type="number" class="form-control" id="buyAmount"
+                                            <input type="number" name="amount" class="form-control" id="buyAmount"
                                                 placeholder="Amount to buy" min="0" step="0.01" required />
-                                            <select class="form-select" id="buyPair" style="max-width: 140px;">
-                                                <option value="BTC" selected>BTC</option>
-                                                <option value="ETH">ETH</option>
-                                                <option value="USDT">USDT</option>
-                                                <option value="BNB">BNB</option>
+                                            <input type="hidden" name="trade_type" value="buy" required>
+                                            <select class="form-select" name="crypto_category" id="buyPair"
+                                                style="max-width: 180px;">
+                                                <option value="BTC" selected>USDT/BTC</option>
+                                                <option value="ETH">USDT/ETH</option>
+                                                <option value="BNB">USDT/BNB</option>
+                                                <option value="XRP">USDT/XRP</option>
+                                                <option value="SOL">USDT/SOL</option>
+                                                <option value="ADA">USDT/ADA</option>
+                                                <option value="DOT">USDT/DOT</option>
+                                                <option value="DOGE">USDT/DOGE</option>
+                                                <option value="LTC">USDT/LTC</option>
                                             </select>
                                         </div>
 
@@ -900,18 +906,26 @@
 
                                 {{-- SELL --}}
                                 <div class="market-trade-sell" style="max-width: 48%">
-                                    <form action="#" id="sellForm">
-                                        @csrf 
+                                    <form method="POST" action="{{ route('bot.place_trade') }}" id="sellForm">
+                                        @csrf
                                         <div class="input-group mb-2">
-                                            <input type="number" class="form-control" id="sellAmount"
-                                                placeholder="Amount to sell" min="0" step="0.01"
-                                                required />
-                                            <select class="form-select" id="sellPair" style="max-width: 140px;">
-                                                <option value="BTC" selected>BTC</option>
-                                                <option value="ETH">ETH</option>
-                                                <option value="USDT">USDT</option>
-                                                <option value="BNB">BNB</option>
+                                            <input type="number" name="amount" class="form-control"
+                                                id="sellAmount" placeholder="Amount to sell" min="0"
+                                                step="0.01" required />
+                                            <input type="hidden" name="trade_type" value="sell" required>
+                                            <select name="crypto_category" class="form-select" id="buyPair"
+                                                style="max-width: 180px;">
+                                                <option value="BTC" selected>USDT/BTC</option>
+                                                <option value="ETH">USDT/ETH</option>
+                                                <option value="BNB">USDT/BNB</option>
+                                                <option value="XRP">USDT/XRP</option>
+                                                <option value="SOL">USDT/SOL</option>
+                                                <option value="ADA">USDT/ADA</option>
+                                                <option value="DOT">USDT/DOT</option>
+                                                <option value="DOGE">USDT/DOGE</option>
+                                                <option value="LTC">USDT/LTC</option>
                                             </select>
+
                                         </div>
 
                                         <ul class="market-trade-list" id="sellPercentages">
@@ -1305,127 +1319,85 @@
         });
     </script>
 
+    <script>
+        axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute(
+            'content');
+    </script>
 
-    {{-- <script>
-        // Pull the authenticated user's balance/currency from PHP safely
-        const USER_BALANCE = Number(@json($user->balance)); // e.g., 100.00
-        const USER_CURRENCY = @json($user->currency); // e.g., "USDT" or "USD"
-        const FEE_RATE = 0.001; // 0.2% example
 
-        // Show initial balances
-        document.getElementById('buyAvailable').textContent = `${USER_BALANCE} ${USER_CURRENCY}`;
-        document.getElementById('sellAvailable').textContent = `${USER_BALANCE} ${USER_CURRENCY}`;
-
-        // Utility: clamp to 2 decimals for fiat, more for crypto if needed
-        const fmtFiat = (v) => (isFinite(v) ? Number(v).toFixed(2) : '—');
-        const fmtCrypto = (v) => (isFinite(v) ? Number(v).toFixed(6) : '—');
-
-        function setFromPercent({
-            percent,
-            side
-        }) {
-            // Always compute from the original user balance; do NOT read current input
-            const raw = USER_BALANCE * (percent / 100);
-
-            if (side === 'buy') {
-                const amountInput = document.getElementById('buyAmount');
-                amountInput.value = fmtFiat(raw); // set amount to spend
-                updateBuyOutputs(); // recompute volume/fee if unit price is provided
-            } else {
-                const amountInput = document.getElementById('sellAmount');
-                amountInput.value = fmtFiat(raw); // set amount to sell
-                updateSellOutputs();
-            }
-        }
-
-        function updateBuyOutputs() {
-            const amount = Number(document.getElementById('buyAmount').value) || 0;
-            const unit = Number(document.getElementById('buyUnitPrice').value) || 0;
-
-            // If unit price is provided, compute volume (amount / unit)
-            const volume = (unit > 0) ? (amount / unit) : NaN;
-            const fee = amount * FEE_RATE; // fee on the quote amount (adjust per your rules)
-
-            document.getElementById('buyVolume').textContent = (unit > 0) ? `${fmtCrypto(volume)}` : '—';
-            document.getElementById('buyFee').textContent = `${fmtFiat(fee)} ${USER_CURRENCY}`;
-        }
-
-        function updateSellOutputs() {
-            const amount = Number(document.getElementById('sellAmount').value) || 0;
-            const unit = Number(document.getElementById('sellUnitPrice').value) || 0;
-
-            // If unit price is provided, compute volume
-            const volume = (unit > 0) ? (amount / unit) : NaN;
-            const fee = amount * FEE_RATE;
-
-            document.getElementById('sellVolume').textContent = (unit > 0) ? `${fmtCrypto(volume)}` : '—';
-            document.getElementById('sellFee').textContent = `${fmtFiat(fee)} ${USER_CURRENCY}`;
-        }
-
-        // Wire percent buttons (always from USER_BALANCE)
-        document.getElementById('buyPercentages').addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                e.preventDefault();
-                const percent = Number(e.target.dataset.percent || e.target.textContent.replace('%', '')) || 0;
-                setFromPercent({
-                    percent,
-                    side: 'buy'
-                });
-            }
-        });
-
-        document.getElementById('sellPercentages').addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                e.preventDefault();
-                const percent = Number(e.target.dataset.percent || e.target.textContent.replace('%', '')) || 0;
-                setFromPercent({
-                    percent,
-                    side: 'sell'
-                });
-            }
-        });
-
-        // Recompute on manual edits too
-        document.getElementById('buyAmount').addEventListener('input', updateBuyOutputs);
-        document.getElementById('buyUnitPrice').addEventListener('input', updateBuyOutputs);
-        document.getElementById('sellAmount').addEventListener('input', updateSellOutputs);
-        document.getElementById('sellUnitPrice').addEventListener('input', updateSellOutputs);
-
-        // Initialize outputs
-        updateBuyOutputs();
-        updateSellOutputs();
-    </script> --}}
+    <!-- Include SweetAlert2 for toast notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        const USER_BALANCE = Number(@json($user->balance));
+        document.addEventListener('DOMContentLoaded', function() {
 
-        function setPercent(side, percent) {
-            const value = USER_BALANCE * (percent / 100);
-            if (side === 'buy') {
-                document.getElementById('buyAmount').value = value.toFixed(2);
-            } else {
-                document.getElementById('sellAmount').value = value.toFixed(2);
-            }
-        }
+            const userBalance = {{ $user->balance }}; // Authenticated user balance from controller
 
-        document.getElementById('buyPercentages').addEventListener('click', e => {
-            if (e.target.tagName === 'A') {
-                e.preventDefault();
-                setPercent('buy', Number(e.target.dataset.percent));
-            }
-        });
+            function setupPercentButtons(formId, amountInputId, percentageListId) {
+                const form = document.getElementById(formId);
+                const amountInput = document.getElementById(amountInputId);
+                const percentageLinks = document.querySelectorAll(`#${percentageListId} a`);
 
-        document.getElementById('sellPercentages').addEventListener('click', e => {
-            if (e.target.tagName === 'A') {
-                e.preventDefault();
-                setPercent('sell', Number(e.target.dataset.percent));
+                // Percentage buttons click
+                percentageLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const percent = parseFloat(this.dataset.percent);
+                        const calculatedAmount = (userBalance * percent / 100).toFixed(2);
+                        amountInput.value = calculatedAmount;
+                    });
+                });
+
+                // AJAX form submission
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(form);
+
+                    axios.post(form.action, formData)
+                        .then(res => {
+                            Swal.fire({
+                                icon: res.data.success ? 'success' : 'error',
+                                title: res.data.message || 'Trade placed!',
+                                toast: true,
+                                position: 'top-end',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+
+                            // Optionally reset the input after success
+                            if (res.data.success) {
+                                amountInput.value = '';
+                            }
+                        })
+                        .catch(err => {
+                            let message = 'An error occurred';
+                            if (err.response && err.response.data && err.response.data.errors) {
+                                message = Object.values(err.response.data.errors).flat().join(', ');
+                            }
+                            Swal.fire({
+                                icon: 'error',
+                                title: message,
+                                toast: true,
+                                position: 'top-end',
+                                timer: 3000,
+                                showConfirmButton: false
+                            });
+                        });
+                });
             }
+
+            // Setup Buy and Sell forms
+            setupPercentButtons('buyForm', 'buyAmount', 'buyPercentages');
+            setupPercentButtons('sellForm', 'sellAmount', 'sellPercentages');
+
         });
     </script>
 
+
+
+
 </body>
-
-
-<!-- Mirrored from crypo-laravel-live.netlify.app/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:55:24 GMT -->
 
 </html>

@@ -242,10 +242,12 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                  
-                                                        <a href="{{route('deposit.form')}}" class="btn green btn-outline-success mr-2">Deposit</a>
 
-                                                        <a href="{{route('withdraw')}}" class="btn red btn-outline-danger ml-2">Withdraw</a>
+                                                        <a href="{{ route('deposit.form') }}"
+                                                            class="btn btn-success mr-2">Deposit</a>
+                                                        <a href="{{ route('withdraw') }}"
+                                                            class="btn btn-danger ml-2">Withdraw</a>
+
 
                                                     </div>
                                                 </div>

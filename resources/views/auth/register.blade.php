@@ -378,7 +378,8 @@
 <body>
 
     <div class="signup-card-container">
-        <form action="{{ route('user.register') }}" method="POST"> @csrf
+        <form action="{{ route('user.register') }}" method="POST">
+             @csrf
             <div class="signup-header">
                 <img src="{{ asset('images/logo/logo.png') }}" alt="cointradesLogo">
                 <h4><i class="fas fa-user-plus"></i> Create Your Account</h4>
