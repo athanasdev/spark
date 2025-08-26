@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <input type="text" name="token" class="form-control" placeholder="Enter Verification Code"
+                    <input type="number" name="token" class="form-control" placeholder="Enter Verification Code"
                         required>
                 </div>
 
