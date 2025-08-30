@@ -15,7 +15,7 @@ class SettingsTableSeeder extends Seeder
         Setting::updateOrCreate(
             ['id' => 1],
             [
-                'min_withdraw_amount' => 20.00,
+                'min_withdraw_amount' => 8.00,
                 'withdraw_fee_percentage' => 5.0
             ]
         );
