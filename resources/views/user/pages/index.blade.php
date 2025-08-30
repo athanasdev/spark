@@ -913,7 +913,7 @@
                                                 id="sellAmount" placeholder="Amount to sell" min="0"
                                                 step="0.01" required />
                                             <input type="hidden" name="trade_type" value="sell" required>
-                                            <select name="crypto_category" class="form-select" id="buyPair"
+                                            <select name="crypto_category" class="form-select" id="sellPair"
                                                 style="max-width: 180px;">
                                                 <option value="BTC" selected>USDT/BTC</option>
                                                 <option value="ETH">USDT/ETH</option>
@@ -1210,8 +1210,6 @@
                     </ul>
                 </div>
             </div>
-
-
             <div class="col-md-9">
                 <div class="market-history market-order mt15">
                     <ul class="nav nav-pills" role="tablist">
@@ -1323,7 +1321,6 @@
         axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute(
             'content');
     </script>
-
 
     <!-- Include SweetAlert2 for toast notifications -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

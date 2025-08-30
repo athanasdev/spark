@@ -2512,3 +2512,29 @@ tbody.ob-heading {
 /* keep wrapper centered without huge margins */
 .pagination-wrapper nav { margin: 0; }
 
+
+/* trading css */
+
+@media (max-width: 576px) {
+  #buyAmount {
+    flex: 1 1 100%;   /* input takes full width */
+    margin-bottom: 8px;
+  }
+  #buyPair {
+    flex: 1 1 100%;   /* select also full width */
+    max-width: 100% !important;
+  }
+
+
+  #sellAmount{
+    flex: 1 1 100%;   /* input takes full width */
+    margin-bottom: 8px;
+  }
+
+   #sellPair {
+    flex: 1 1 100%;   /* select also full width */
+    max-width: 100% !important;
+  }
+
+}
+

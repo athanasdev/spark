@@ -214,35 +214,6 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Change Withdrawal Address</h5>
-
-                                                        {{-- Alerts --}}
-                                                        @if ($errors->any())
-                                                            <div class="alert alert-danger flex items-start space-x-2">
-                                                                <span class="mt-1">⚠️</span>
-                                                                <ul class="list-none m-0 p-0">
-                                                                    @foreach ($errors->all() as $error)
-                                                                        <li>{{ $error }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                        @endif
-
-                                                        @if (session('error'))
-                                                            <div
-                                                                class="alert alert-danger flex items-center space-x-2">
-                                                                <span>❌</span>
-                                                                <span>{{ session('error') }}</span>
-                                                            </div>
-                                                        @endif
-
-                                                        @if (session('success'))
-                                                            <div
-                                                                class="alert alert-success flex items-center space-x-2">
-                                                                <span>✅</span>
-                                                                <span>{{ session('success') }}</span>
-                                                            </div>
-                                                        @endif
-
                                                         {{-- Show current address if exists --}}
                                                         @if (Auth::user()->withdrawal_address)
                                                             <div class="form-group">
@@ -276,7 +247,7 @@
                                                                     <span class="invalid-feedback"
                                                                         role="alert"><strong>{{ $message }}</strong></span>
                                                                 @enderror
-                                                                <small class="note text-info">⚠️ Please double-check
+                                                                <small class="note text-info">Please double-check
                                                                     the
                                                                     address. Incorrect addresses may result in loss of
                                                                     funds.</small>

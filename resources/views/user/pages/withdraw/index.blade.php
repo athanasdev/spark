@@ -229,10 +229,6 @@
                                                                         id="withdrawal_address_display"
                                                                         class="form-control" readonly
                                                                         value="{{ $userWithdrawalAddress }}">
-                                                                    <a href="{{ route('withdrawal.address.edit') }}"
-                                                                        class="btn btn-warning ml-2">
-                                                                        <i class="fas fa-exchange-alt"></i> Change
-                                                                    </a>
                                                                 </div>
                                                             </div>
 
@@ -245,7 +241,8 @@
                                                                     step="0.01" min="8"
                                                                     class="form-control"
                                                                     placeholder="Enter amount (min $8)" required>
-                                                                <small class="note text-info">Withdrawal fee applies</small>
+                                                                <small class="note text-info">Withdrawal fee
+                                                                    applies</small>
                                                             </div>
 
                                                             {{-- Withdrawal Summary --}}
@@ -276,15 +273,15 @@
                                                                 <i class="fas fa-paper-plane"></i> Request Withdrawal
                                                             </button>
                                                         </form>
-
                                                         {{-- Notes --}}
                                                         <div class="mt-4">
                                                             <h5 class="text-muted">Important </h5>
                                                             <ul class="text-secondary" style="font-size:0.9em;">
                                                                 <li>Ensure your withdrawal address is correct.</li>
                                                                 <li>Minimum withdrawal is $8 USDT.</li>
-                                                                <li>Withdrawals may take up to 24 hours for process to complete.</li>
-                                                                <li>Network fees may apply depending on blockchain 
+                                                                <li>Withdrawals may take up to 24 hours for process to
+                                                                    complete.</li>
+                                                                <li>Network fees may apply depending on blockchain
                                                                 </li>
                                                                 <li>Wrong addresses will result in loss of funds.</li>
                                                             </ul>
@@ -1192,48 +1189,48 @@
         });
     </script>
 
-        <!-- Include SweetAlert2 and Axios -->
+    <!-- Include SweetAlert2 and Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: '{{ session("success") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 3000,
-            showConfirmButton: false
-        });
-    @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
 
-    @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: '{{ session("error") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            showConfirmButton: false
-        });
-    @endif
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: '{{ session('error') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 4000,
+                    showConfirmButton: false
+                });
+            @endif
 
-    @if($errors->any())
-        @foreach ($errors->all() as $error)
-            Swal.fire({
-                icon: 'error',
-                title: '{{ $error }}',
-                toast: true,
-                position: 'top-end',
-                timer: 4000,
-                showConfirmButton: false
-            });
-        @endforeach
-    @endif
-});
-</script>
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{{ $error }}',
+                        toast: true,
+                        position: 'top-end',
+                        timer: 4000,
+                        showConfirmButton: false
+                    });
+                @endforeach
+            @endif
+        });
+    </script>
 
 
 </body>
