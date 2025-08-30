@@ -242,11 +242,10 @@
                                                                     Withdraw:</label>
                                                                 <input type="number" id="amount_to_withdraw"
                                                                     name="amount" value="{{ old('amount') }}"
-                                                                    step="0.01" min="10"
+                                                                    step="0.01" min="8"
                                                                     class="form-control"
-                                                                    placeholder="Enter amount (min $10)" required>
-                                                                <small class="note text-info">Withdrawal fee applies
-                                                                    (e.g., 5 USDT)</small>
+                                                                    placeholder="Enter amount (min $8)" required>
+                                                                <small class="note text-info">Withdrawal fee applies</small>
                                                             </div>
 
                                                             {{-- Withdrawal Summary --}}
@@ -280,12 +279,12 @@
 
                                                         {{-- Notes --}}
                                                         <div class="mt-4">
-                                                            <h5 class="text-muted">Important Notes:</h5>
+                                                            <h5 class="text-muted">Important </h5>
                                                             <ul class="text-secondary" style="font-size:0.9em;">
                                                                 <li>Ensure your withdrawal address is correct.</li>
-                                                                <li>Minimum withdrawal is $10 USDT.</li>
-                                                                <li>Withdrawals may take up to 24 hours to process.</li>
-                                                                <li>Network fees may apply depending on blockchain load.
+                                                                <li>Minimum withdrawal is $8 USDT.</li>
+                                                                <li>Withdrawals may take up to 24 hours for process to complete.</li>
+                                                                <li>Network fees may apply depending on blockchain 
                                                                 </li>
                                                                 <li>Wrong addresses will result in loss of funds.</li>
                                                             </ul>

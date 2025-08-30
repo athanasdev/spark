@@ -200,29 +200,7 @@
                                                     <div class="card-body">
                                                         <h5 class="card-title">Deposit</h5>
 
-                                                        {{-- Alerts --}}
-                                                        {{-- @if (session('info'))
-                                                            <div class="alert alert-info"><span>ℹ️</span>
-                                                                {{ session('info') }}</div>
-                                                        @endif
-                                                        @if (session('success'))
-                                                            <div class="alert alert-success"><span>✅</span>
-                                                                {{ session('success') }}</div>
-                                                        @endif
-                                                        @if (session('error'))
-                                                            <div class="alert alert-danger"><span>❌</span>
-                                                                {{ session('error') }}</div>
-                                                        @endif
-                                                        @if ($errors->any())
-                                                            <div class="alert alert-danger">
-                                                                ⚠️
-                                                                <ul class="list-none m-0 p-0">
-                                                                    @foreach ($errors->all() as $error)
-                                                                        <li>{{ $error }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                        @endif --}}
+                                                        
 
                                                         {{-- Show FORM if no payment data --}}
                                                         @if (!isset($paymentData))
