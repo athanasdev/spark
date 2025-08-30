@@ -201,29 +201,6 @@
                                                         <h5 class="card-title"><i class="fas fa-paper-plane"></i>
                                                             Withdraw</h5>
 
-                                                        {{-- Alerts --}}
-                                                        @if (session('info'))
-                                                            <div class="alert alert-info"><span>ℹ️</span>
-                                                                {{ session('info') }}</div>
-                                                        @endif
-                                                        @if (session('success'))
-                                                            <div class="alert alert-success"><span>✅</span>
-                                                                {{ session('success') }}</div>
-                                                        @endif
-                                                        @if (session('error'))
-                                                            <div class="alert alert-danger"><span>❌</span>
-                                                                {{ session('error') }}</div>
-                                                        @endif
-                                                        @if ($errors->any())
-                                                            <div class="alert alert-danger">
-                                                                ⚠️
-                                                                <ul class="list-none m-0 p-0">
-                                                                    @foreach ($errors->all() as $error)
-                                                                        <li>{{ $error }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                        @endif
 
                                                         {{-- Withdrawal Form --}}
                                                         <form method="POST" action="{{ route('withdraw.request') }}">
@@ -1215,6 +1192,49 @@
             });
         });
     </script>
+
+        <!-- Include SweetAlert2 and Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: '{{ session("success") }}',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            showConfirmButton: false
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: '{{ session("error") }}',
+            toast: true,
+            position: 'top-end',
+            timer: 4000,
+            showConfirmButton: false
+        });
+    @endif
+
+    @if($errors->any())
+        @foreach ($errors->all() as $error)
+            Swal.fire({
+                icon: 'error',
+                title: '{{ $error }}',
+                toast: true,
+                position: 'top-end',
+                timer: 4000,
+                showConfirmButton: false
+            });
+        @endforeach
+    @endif
+});
+</script>
 
 
 </body>

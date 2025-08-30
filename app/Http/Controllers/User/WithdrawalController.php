@@ -63,9 +63,9 @@ class WithdrawalController extends Controller
             ->where('user_id', $user->id)
             ->get();
 
-        if ($investments->isEmpty()) {
-            return redirect()->back()->withErrors(['error' => 'A minimum of one trade is required prior to a withdrawal.']);
-        }
+        // if ($investments->isEmpty()) {
+        //     return redirect()->back()->withErrors(['error' => 'A minimum of one trade is required prior to a withdrawal.']);
+        // }
 
         // Filter only real trades with non-null end time
         $trades = $investments->filter(function ($inv) {

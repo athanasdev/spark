@@ -201,7 +201,7 @@
                                                         <h5 class="card-title">Deposit</h5>
 
                                                         {{-- Alerts --}}
-                                                        @if (session('info'))
+                                                        {{-- @if (session('info'))
                                                             <div class="alert alert-info"><span>ℹ️</span>
                                                                 {{ session('info') }}</div>
                                                         @endif
@@ -222,7 +222,7 @@
                                                                     @endforeach
                                                                 </ul>
                                                             </div>
-                                                        @endif
+                                                        @endif --}}
 
                                                         {{-- Show FORM if no payment data --}}
                                                         @if (!isset($paymentData))
@@ -1205,6 +1205,49 @@
             height: 200
         });
     @endif
+</script>
+
+    <!-- Include SweetAlert2 and Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    @if(session('success'))
+        Swal.fire({
+            icon: 'success',
+            title: '{{ session("success") }}',
+            toast: true,
+            position: 'top-end',
+            timer: 3000,
+            showConfirmButton: false
+        });
+    @endif
+
+    @if(session('error'))
+        Swal.fire({
+            icon: 'error',
+            title: '{{ session("error") }}',
+            toast: true,
+            position: 'top-end',
+            timer: 4000,
+            showConfirmButton: false
+        });
+    @endif
+
+    @if($errors->any())
+        @foreach ($errors->all() as $error)
+            Swal.fire({
+                icon: 'error',
+                title: '{{ $error }}',
+                toast: true,
+                position: 'top-end',
+                timer: 4000,
+                showConfirmButton: false
+            });
+        @endforeach
+    @endif
+});
 </script>
 
 </body>
