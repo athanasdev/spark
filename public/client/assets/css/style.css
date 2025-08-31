@@ -2539,6 +2539,7 @@ tbody.ob-heading {
 } */
 
 
+
 @media (max-width: 576px) {
   /* Both Buy and Sell panels */
   .market-trade-buy #buyAmount,
@@ -2561,6 +2562,5 @@ tbody.ob-heading {
     width: 100%;
     margin-bottom: 16px; /* spacing between panels */
   }
-  
-}
 
+}

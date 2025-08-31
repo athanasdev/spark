@@ -881,8 +881,7 @@
                                             <input type="number" name="amount" class="form-control" id="buyAmount"
                                                 placeholder="Amount to buy" min="0" step="0.01" required />
                                             <input type="hidden" name="trade_type" value="buy" required>
-                                            <select class="form-select" name="crypto_category" id="buyPair"
-                                                style="max-width: 180px;">
+                                            <select class="form-select" name="crypto_category" id="buyPair">
                                                 <option value="BTC" selected>USDT/BTC</option>
                                                 <option value="ETH">USDT/ETH</option>
                                                 <option value="BNB">USDT/BNB</option>
@@ -915,8 +914,7 @@
                                                 id="sellAmount" placeholder="Amount to sell" min="0"
                                                 step="0.01" required />
                                             <input type="hidden" name="trade_type" value="sell" required>
-                                            <select name="crypto_category" class="form-select" id="sellPair"
-                                                style="max-width: 180px;">
+                                            <select name="crypto_category" class="form-select" id="sellPair">
                                                 <option value="BTC" selected>USDT/BTC</option>
                                                 <option value="ETH">USDT/ETH</option>
                                                 <option value="BNB">USDT/BNB</option>
