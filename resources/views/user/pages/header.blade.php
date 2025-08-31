@@ -2,7 +2,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <nav class="navbar navbar-expand-lg">
-        <a class="navbar-brand" href="{{route("dashboard")}}"><img src="/client/assets/img/logo-light.svg" alt="logo"></a>
+        <a class="navbar-brand" href="{{route("dashboard")}}"><img src="/client/assets/img/logo-light.png" alt="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerMenu"
             aria-controls="headerMenu" aria-expanded="false" aria-label="Toggle navigation">
             <i class="icon ion-md-menu"></i>
