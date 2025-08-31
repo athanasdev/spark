@@ -2514,14 +2514,14 @@ tbody.ob-heading {
 
 
 /* trading css */
-
+/*
 @media (max-width: 576px) {
   #buyAmount {
-    flex: 1 1 100%;   /* input takes full width */
+    flex: 1 1 100%;
     margin-bottom: 8px;
   }
   #buyPair {
-    flex: 1 1 100%;   /* select also full width */
+    flex: 1 1 100%;
     max-width: 100% !important;
   }
 
@@ -2536,5 +2536,31 @@ tbody.ob-heading {
     max-width: 100% !important;
   }
 
+} */
+
+
+@media (max-width: 576px) {
+  /* Both Buy and Sell panels */
+  .market-trade-buy #buyAmount,
+  .market-trade-sell #sellAmount {
+    flex: 1 1 100%;      /* input takes full width */
+    margin-bottom: 8px;
+  }
+
+  .market-trade-buy #buyPair,
+  .market-trade-sell #sellPair {
+    flex: 1 1 100%;      /* select takes full width */
+    max-width: 100% !important;
+    margin-bottom: 8px;
+  }
+
+  /* Optional: make the container full width */
+  .market-trade-buy,
+  .market-trade-sell {
+    max-width: 100% !important;
+    width: 100%;
+    margin-bottom: 16px; /* spacing between panels */
+  }
+  
 }
 
