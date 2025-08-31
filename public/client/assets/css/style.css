@@ -2526,15 +2526,15 @@ tbody.ob-heading {
   }
 
 
-  /* #sellAmount{
-    flex: 1 1 100%;  
+  #sellAmount{
+    flex: 1 1 100%;
     margin-bottom: 8px;
   }
 
    #sellPair {
     flex: 1 1 100%;
     max-width: 100% !important;
-  } */
+  }
 
 }
 
