@@ -13,6 +13,8 @@
     <title>9dfe</title>
     <link rel="icon" href="/client/assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/client/assets/css/style.css">
+    <script src="//code.jivosite.com/widget/lV3WFrkVOl" async></script>
+
 </head>
 
 <body id="dark">
@@ -54,7 +56,7 @@
     <!-- Include SweetAlert2 and Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     @if(session('success'))
