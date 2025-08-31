@@ -25,15 +25,11 @@
                 <div class="col-md-12 col-lg-3">
                     <div class="nav flex-column nav-pills settings-nav" id="v-pills-tab" role="tablist"
                         aria-orientation="vertical">
-                        <a class="nav-link" id="settings-profile-tab" data-toggle="pill" href="#settings-profile"
-                            role="tab" aria-controls="settings-profile" aria-selected="true"><i
-                                class="icon ion-md-person"></i> Profile</a>
+
                         <a class="nav-link active" id="settings-wallet-tab" data-toggle="pill" href="#settings-wallet"
                             role="tab" aria-controls="settings-wallet" aria-selected="false"><i
-                                class="icon ion-md-wallet"></i> Wallet</a>
-                        <a class="nav-link" id="settings-tab" data-toggle="pill" href="#settings" role="tab"
-                            aria-controls="settings" aria-selected="false"><i class="icon ion-md-settings"></i>
-                            Settings</a>
+                                class="icon ion-md-wallet"></i> Wallet Updates</a>
+
                     </div>
                 </div>
                 <div class="col-md-12 col-lg-9">
@@ -471,8 +467,6 @@
                                                     </div>
                                                 </div>
 
-
-
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Latest Transactions</h5>
@@ -539,164 +533,6 @@
                             </div>
                         </div>
 
-
-                        <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Notifications</h5>
-                                    <div class="settings-notification">
-                                        <ul>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Update price</p>
-                                                    <span>Get the update price in your dashboard</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification1">
-                                                    <label class="custom-control-label" for="notification1"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>2FA</p>
-                                                    <span>Unable two factor authentication service</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification2" checked>
-                                                    <label class="custom-control-label" for="notification2"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Latest news</p>
-                                                    <span>Get the latest news in your mail</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification3">
-                                                    <label class="custom-control-label" for="notification3"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Email Service</p>
-                                                    <span>Get security code in your mail</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification4" checked>
-                                                    <label class="custom-control-label" for="notification4"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Phone Notify</p>
-                                                    <span>Get transition notification in your phone </span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification5" checked>
-                                                    <label class="custom-control-label" for="notification5"></label>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card settings-profile">
-                                <div class="card-body">
-                                    <h5 class="card-title">Create API Key</h5>
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <label for="generateKey">Generate key name</label>
-                                            <input id="generateKey" type="text" class="form-control"
-                                                placeholder="Enter your key name">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="rewritePassword">Confirm password</label>
-                                            <input id="rewritePassword" type="password" class="form-control"
-                                                placeholder="Confirm your password">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input type="submit" value="Create API key">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Your API Keys</h5>
-                                    <div class="wallet-history">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Key</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>zRmWVcrAZ1C0RZkFMu7K5v0KWC9jUJLt</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus1" checked>
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus1"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Rv5dgnKdmVPyHwxeExBYz8uFwYQz3Jvg</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus2">
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus2"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>VxEYIs1HwgmtKTUMA4aknjSEjjePZIWu</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus3">
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus3"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>M01DueJ4x3awI1SSLGT3CP1EeLSnqt8o</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus4">
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus4"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

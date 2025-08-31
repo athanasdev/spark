@@ -79,11 +79,10 @@
                                                         <button class="btn red">Withdraw</button> --}}
 
                                                         <a href="{{ route('deposit.form') }}"
-                                                            class="btn green btn-outline-success mr-2">Deposit</a>
+                                                            class="btn green btn-success mr-2 text-white">Deposit</a>
 
                                                         <a href="{{ route('withdraw') }}"
-                                                            class="btn red btn-outline-danger ml-2">Withdraw</a>
-
+                                                            class="btn red btn-danger ml-2 text-white">Withdraw</a>
                                                     </div>
                                                 </div>
                                                 <div class="card">
@@ -219,7 +218,7 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- <div class="card" style="margin-top: 20px;">
+                                                <div class="card" style="margin-top: 20px;">
                                                     <div class="card-header">
                                                         <div class="card-title">
                                                             <i class="fas fa-list-ul"></i> My Referred Users
@@ -267,68 +266,13 @@
                                                             {{ $paginatedMembers->links() }}
                                                         </div>
                                                     </div>
-                                                </div> --}}
+                                                </div>
 
 
 
 
                                             </div>
-                                            <div class="tab-pane fade" id="coinETH" role="tabpanel">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Balances</h5>
-                                                        <ul>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-cash"></i>
-                                                                    <h2>Total Equity</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>4.1542 ETH</h3>
-                                                                </div>
-                                                            </li>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-checkmark"></i>
-                                                                    <h2>Available Margin</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>1.334 ETH</h3>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Wallet Deposit Address</h5>
-                                                        <div class="row wallet-address">
-                                                            <div class="col-md-8">
-                                                                <p>Deposits to this address are unlimited. Note that you
-                                                                    may not be able to withdraw all
-                                                                    of your
-                                                                    funds at once if you deposit more than your daily
-                                                                    withdrawal limit.</p>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
-                                                                    <div class="input-group-prepend">
-                                                                        <button class="btn btn-primary">COPY</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <img src="/client/assets/img/qr-code-light.svg"
-                                                                    alt="qr-code">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
                                             <div class="tab-pane fade" id="coinBNB" role="tabpanel">
                                                 <div class="card">
                                                     <div class="card-body">
@@ -385,349 +329,7 @@
                                                     </div>
                                                 </di>
                                             </div>
-                                            <div class="tab-pane fade" id="coinTRX" role="tabpanel">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Balances</h5>
-                                                        <ul>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-cash"></i>
-                                                                    <h2>Total Equity</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>4.3344 TRX</h3>
-                                                                </div>
-                                                            </li>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-checkmark"></i>
-                                                                    <h2>Available Margin</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>1.453 TRX</h3>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Wallet Deposit Address</h5>
-                                                        <div class="row wallet-address">
-                                                            <div class="col-md-8">
-                                                                <p>Deposits to this address are unlimited. Note that you
-                                                                    may not be able to withdraw all
-                                                                    of your
-                                                                    funds at once if you deposit more than your daily
-                                                                    withdrawal limit.</p>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
-                                                                    <div class="input-group-prepend">
-                                                                        <button class="btn btn-primary">COPY</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <img src="/client/assets/img/qr-code-light.svg"
-                                                                    alt="qr-code">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="coinEOS" role="tabpanel">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Balances</h5>
-                                                        <ul>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-cash"></i>
-                                                                    <h2>Total Equity</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>33.35 EOS</h3>
-                                                                </div>
-                                                            </li>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-checkmark"></i>
-                                                                    <h2>Available Margin</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>4.445 EOS</h3>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Wallet Deposit Address</h5>
-                                                        <div class="row wallet-address">
-                                                            <div class="col-md-8">
-                                                                <p>Deposits to this address are unlimited. Note that you
-                                                                    may not be able to withdraw all
-                                                                    of your
-                                                                    funds at once if you deposit more than your daily
-                                                                    withdrawal limit.</p>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
-                                                                    <div class="input-group-prepend">
-                                                                        <button class="btn btn-primary">COPY</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <img src="/client/assets/img/qr-code-light.svg"
-                                                                    alt="qr-code">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Team</h5>
-                                                        <div class="wallet-history">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Date</th>
-                                                                        <th>Status</th>
-                                                                        <th>Amount</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>25-04-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>4.5454334</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>25-05-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>0.5484468</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-06-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>4</td>
-                                                                        <td>25-07-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>1.45894147</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-08-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="coinXMR" role="tabpanel">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Balances</h5>
-                                                        <ul>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-cash"></i>
-                                                                    <h2>Total Equity</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>34.333 XMR</h3>
-                                                                </div>
-                                                            </li>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-checkmark"></i>
-                                                                    <h2>Available Margin</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>2.354 XMR</h3>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Wallet Deposit Address</h5>
-                                                        <div class="row wallet-address">
-                                                            <div class="col-md-8">
-                                                                <p>Deposits to this address are unlimited. Note that you
-                                                                    may not be able to withdraw all
-                                                                    of your
-                                                                    funds at once if you deposit more than your daily
-                                                                    withdrawal limit.</p>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
-                                                                    <div class="input-group-prepend">
-                                                                        <button class="btn btn-primary">COPY</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <img src="/client/assets/img/qr-code-light.svg"
-                                                                    alt="qr-code">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Referal Team</h5>
-                                                        <div class="wallet-history">
-                                                            <table class="table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>No.</th>
-                                                                        <th>Date</th>
-                                                                        <th>Status</th>
-                                                                        <th>Amount</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td>1</td>
-                                                                        <td>25-04-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>4.5454334</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>2</td>
-                                                                        <td>25-05-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>0.5484468</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-06-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>4</td>
-                                                                        <td>25-07-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-checkmark-circle-outline green"></i>
-                                                                        </td>
-                                                                        <td>1.45894147</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>3</td>
-                                                                        <td>25-08-2019</td>
-                                                                        <td><i
-                                                                                class="icon ion-md-close-circle-outline red"></i>
-                                                                        </td>
-                                                                        <td>2.5454545</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="coinKCS" role="tabpanel">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Balances</h5>
-                                                        <ul>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-cash"></i>
-                                                                    <h2>Total Equity</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>86.577 KCS</h3>
-                                                                </div>
-                                                            </li>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-checkmark"></i>
-                                                                    <h2>Available Margin</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>5.78 KCS</h3>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Wallet Deposit Address</h5>
-                                                        <div class="row wallet-address">
-                                                            <div class="col-md-8">
-                                                                <p>Deposits to this address are unlimited. Note that you
-                                                                    may not be able to withdraw all
-                                                                    of your
-                                                                    funds at once if you deposit more than your daily
-                                                                    withdrawal limit.</p>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
-                                                                    <div class="input-group-prepend">
-                                                                        <button class="btn btn-primary">COPY</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <img src="/client/assets/img/qr-code-light.svg"
-                                                                    alt="qr-code">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -757,48 +359,48 @@
         }
     </script>
 
-        <!-- Include SweetAlert2 and Axios -->
+    <!-- Include SweetAlert2 and Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: '{{ session("success") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 3000,
-            showConfirmButton: false
-        });
-    @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
 
-    @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: '{{ session("error") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            showConfirmButton: false
-        });
-    @endif
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: '{{ session('error') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 4000,
+                    showConfirmButton: false
+                });
+            @endif
 
-    @if($errors->any())
-        @foreach ($errors->all() as $error)
-            Swal.fire({
-                icon: 'error',
-                title: '{{ $error }}',
-                toast: true,
-                position: 'top-end',
-                timer: 4000,
-                showConfirmButton: false
-            });
-        @endforeach
-    @endif
-});
-</script>
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{{ $error }}',
+                        toast: true,
+                        position: 'top-end',
+                        timer: 4000,
+                        showConfirmButton: false
+                    });
+                @endforeach
+            @endif
+        });
+    </script>
 
 </body>
 

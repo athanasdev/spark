@@ -113,4 +113,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Payment::class);
     }
+
+    public function bonuses()
+    {
+        return $this->hasMany(Bonus::class);
+    }
+
+    
 }

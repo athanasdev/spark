@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bonus;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -70,22 +71,31 @@ class TeamController extends Controller
     //     }
 
     //     // --- 1. Get Team Members & Their IDs ---
-    //     $level1_members = User::where('referrer_id', $user->id)->get();
+    //     $level1_members = User::where('referrer_id', $user->id)->get()->map(function ($member) {
+    //         $member->level = 1;
+    //         return $member;
+    //     });
     //     $level1_ids = $level1_members->pluck('id');
 
-    //     $level2_members = User::whereIn('referrer_id', $level1_ids)->get();
+    //     $level2_members = User::whereIn('referrer_id', $level1_ids)->get()->map(function ($member) {
+    //         $member->level = 2;
+    //         return $member;
+    //     });
     //     $level2_ids = $level2_members->pluck('id');
 
-    //     $level3_members = User::whereIn('referrer_id', $level2_ids)->get();
+    //     $level3_members = User::whereIn('referrer_id', $level2_ids)->get()->map(function ($member) {
+    //         $member->level = 3;
+    //         return $member;
+    //     });
     //     $level3_ids = $level3_members->pluck('id');
 
-    //     // --- 2. Calculate Commissions from Historical Transactions ---
+    //     // --- 2. Calculate Commissions ---
     //     $level1_commissions = Transaction::where('user_id', $user->id)->where('description', 'like', 'Level 1%')->sum('amount');
     //     $level2_commissions = Transaction::where('user_id', $user->id)->where('description', 'like', 'Level 2%')->sum('amount');
     //     $level3_commissions = Transaction::where('user_id', $user->id)->where('description', 'like', 'Level 3%')->sum('amount');
     //     $total_commissions = $level1_commissions + $level2_commissions + $level3_commissions;
 
-    //     // --- 3. Calculate Total Team Investment (RENAMED BACK to match your view) ---
+    //     // --- 3. Calculate Total Team Investment ---
     //     $level1_deposit = UserInvestment::whereIn('user_id', $level1_ids)->sum('amount');
     //     $level2_deposit = UserInvestment::whereIn('user_id', $level2_ids)->sum('amount');
     //     $level3_deposit = UserInvestment::whereIn('user_id', $level3_ids)->sum('amount');
@@ -102,7 +112,25 @@ class TeamController extends Controller
     //     $level3_count = $level3_members->count();
     //     $total_registered_users = $level1_count + $level2_count + $level3_count;
 
-    //     // --- 5. Return All Data to the View (RENAMED BACK to match your view) ---
+    //     // --- 5. Merge Members & Paginate ---
+    //     $allMembers = $level1_members->merge($level2_members)->merge($level3_members);
+
+    //     // Optional: sort by level then by username
+    //     $allMembers = $allMembers->sortBy(['level', 'username'])->values();
+
+    //     // Paginate manually
+    //     $perPage = 10;
+    //     $currentPage = LengthAwarePaginator::resolveCurrentPage();
+    //     $currentItems = $allMembers->slice(($currentPage - 1) * $perPage, $perPage)->values();
+    //     $paginatedMembers = new LengthAwarePaginator(
+    //         $currentItems,
+    //         $allMembers->count(),
+    //         $perPage,
+    //         $currentPage,
+    //         ['path' => request()->url(), 'query' => request()->query()]
+    //     );
+
+    //     // --- 6. Return to View ---
     //     return view('user.pages.team.index', compact(
     //         'user',
     //         'total_registered_users',
@@ -112,45 +140,31 @@ class TeamController extends Controller
     //         'level3_count',
     //         'level1_deposit',
     //         'level2_deposit',
-    //         'level3_deposit', // <-- Corrected name
-    //         'total_deposits',                                     // <-- Corrected name
+    //         'level3_deposit',
+    //         'total_deposits',
     //         'level1_commissions',
     //         'level2_commissions',
     //         'level3_commissions',
     //         'total_commissions',
-    //         'level1_members',
-    //         'level2_members',
-    //         'level3_members'
-
+    //         'paginatedMembers'
     //     ));
-
-
     // }
+
 
     public function team()
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
-        if (!$user) {
-            return redirect()->route('login');
-        }
+        if (!$user) return redirect()->route('login');
 
         // --- 1. Get Team Members & Their IDs ---
-        $level1_members = User::where('referrer_id', $user->id)->get()->map(function ($member) {
-            $member->level = 1;
-            return $member;
-        });
+        $level1_members = User::where('referrer_id', $user->id)->get()->map(fn($m) => $m->forceFill(['level' => 1]));
         $level1_ids = $level1_members->pluck('id');
 
-        $level2_members = User::whereIn('referrer_id', $level1_ids)->get()->map(function ($member) {
-            $member->level = 2;
-            return $member;
-        });
+        $level2_members = User::whereIn('referrer_id', $level1_ids)->get()->map(fn($m) => $m->forceFill(['level' => 2]));
         $level2_ids = $level2_members->pluck('id');
 
-        $level3_members = User::whereIn('referrer_id', $level2_ids)->get()->map(function ($member) {
-            $member->level = 3;
-            return $member;
-        });
+        $level3_members = User::whereIn('referrer_id', $level2_ids)->get()->map(fn($m) => $m->forceFill(['level' => 3]));
         $level3_ids = $level3_members->pluck('id');
 
         // --- 2. Calculate Commissions ---
@@ -165,10 +179,10 @@ class TeamController extends Controller
         $level3_deposit = UserInvestment::whereIn('user_id', $level3_ids)->sum('amount');
         $total_deposits = $level1_deposit + $level2_deposit + $level3_deposit;
 
-        // --- 4. Calculate Active User & Team Counts ---
-        $level1_active_count = User::whereIn('id', $level1_ids)->where('balance', '>', 15)->count();
-        $level2_active_count = User::whereIn('id', $level2_ids)->where('balance', '>', 15)->count();
-        $level3_active_count = User::whereIn('id', $level3_ids)->where('balance', '>', 15)->count();
+        // --- 4. Active User Counts ---
+        $level1_active_count = User::whereIn('id', $level1_ids)->where('balance', '>=', 15)->count();
+        $level2_active_count = User::whereIn('id', $level2_ids)->where('balance', '>=', 15)->count();
+        $level3_active_count = User::whereIn('id', $level3_ids)->where('balance', '>=', 15)->count();
         $active_users = $level1_active_count + $level2_active_count + $level3_active_count;
 
         $level1_count = $level1_members->count();
@@ -177,12 +191,8 @@ class TeamController extends Controller
         $total_registered_users = $level1_count + $level2_count + $level3_count;
 
         // --- 5. Merge Members & Paginate ---
-        $allMembers = $level1_members->merge($level2_members)->merge($level3_members);
-
-        // Optional: sort by level then by username
-        $allMembers = $allMembers->sortBy(['level', 'username'])->values();
-
-        // Paginate manually
+        $allMembers = $level1_members->merge($level2_members)->merge($level3_members)
+            ->sortBy(['level', 'username'])->values();
         $perPage = 10;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $allMembers->slice(($currentPage - 1) * $perPage, $perPage)->values();
@@ -194,7 +204,42 @@ class TeamController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
-        // --- 6. Return to View ---
+        // --- 6. Auto-Award Bonuses for Level 1 Active Users ---
+        $bonusThresholds = [
+            10 => 20,
+            20 => 50,
+            50 => 70,
+            100 => 170,
+            200 => 280,
+        ];
+
+        foreach ($bonusThresholds as $required => $bonusAmount) {
+            $alreadyGiven = Bonus::where('user_id', $user->id)
+                ->where('threshold', $required)
+                ->exists();
+
+            if ($level1_active_count >= $required && !$alreadyGiven) {
+                // Create bonus record
+                Bonus::create([
+                    'user_id'   => $user->id,
+                    'threshold' => $required,
+                    'amount'    => $bonusAmount,
+                ]);
+
+                // Credit user balance
+                $user->increment('balance', $bonusAmount);
+
+                // Log transaction
+                Transaction::create([
+                    'user_id'     => $user->id,
+                    'amount'      => $bonusAmount,
+                    'type'        => 'credit',
+                    'description' => "Referral Bonus - {$required} Active Users",
+                ]);
+            }
+        }
+
+        // --- 7. Return View ---
         return view('user.pages.team.index', compact(
             'user',
             'total_registered_users',
@@ -210,13 +255,14 @@ class TeamController extends Controller
             'level2_commissions',
             'level3_commissions',
             'total_commissions',
-            'paginatedMembers' // << use this in your Blade
+            'paginatedMembers'
         ));
     }
 
 
-    public function bonuses()
-    {
-        return view('user.bonuses');
-    }
+    // public function bonuses()
+    // {
+    //     return view('user.bonuses');
+    // }
+
 }

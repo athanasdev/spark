@@ -117,7 +117,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinETH" role="tab"
+                                                data-toggle="pill" href="#coinBTC" role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/1.png" alt="btc">
@@ -133,7 +133,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinBNB" role="tab"
+                                                data-toggle="pill" href="#coinBTC" role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/9.png" alt="btc">
@@ -149,7 +149,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinTRX" role="tab"
+                                                data-toggle="pill" href="#coinBTC"  role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/6.png" alt="btc">
@@ -165,7 +165,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinEOS" role="tab"
+                                                data-toggle="pill" href="#coinBTC"  role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/2.png" alt="btc">
@@ -181,7 +181,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinXMR" role="tab"
+                                                data-toggle="pill" href="#coinBTC" role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/7.png" alt="btc">
@@ -197,7 +197,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinKCS" role="tab"
+                                                data-toggle="pill" href="#coinBTC" role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/4.png" alt="btc">
@@ -258,7 +258,7 @@
                                                 </div>
                                                 <div class="card">
                                                     <div class="card-body">
-                                                        <h5 class="card-title">Wallet Deposit Address</h5>
+                                                        <h5 class="card-title">My withdraw Address</h5>
                                                         <div class="row wallet-address">
                                                             <div class="col-md-8">
                                                                 <p>Deposits to this address are unlimited. Note that you
@@ -268,10 +268,8 @@
                                                                     withdrawal limit.</p>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
-                                                                        value="Ad87deD4gEe8dG57Ede4eEg5dREs4d5e8f4e">
-                                                                    <div class="input-group-prepend">
-                                                                        <button class="btn btn-primary">COPY</button>
-                                                                    </div>
+                                                                        value=`{{$user->withdrawal_address}}`>
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-4">

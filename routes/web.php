@@ -21,6 +21,7 @@ use App\Http\Controllers\Payment\NowPaymentcontroller;
 use App\Http\Controllers\CoinPaymentsController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\Payment\IPNController;
+use App\Http\Controllers\User\BonusController;
 use Illuminate\Support\Facades\Log;
 
 
@@ -112,6 +113,12 @@ Route::middleware(['auth:web', 'history'])->group(function () {
     // It is important that this route is under 'auth:web' because the user is currently authenticated via 'web' guard
     Route::get('/impersonate/leave', [ImpersonateController::class, 'leave'])->name('impersonate.leave');
     Route::post('/logout', [UserAuthController::class, 'logout'])->name('user.logout');
+
+
+    //  bonus for the client
+
+    Route::post('/claim-bonus/{bonus}', [BonusController::class, 'claim'])->name('bonus.claim');
+    
 });
 
 

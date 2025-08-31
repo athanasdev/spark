@@ -102,6 +102,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         return view('user.pages.wallet.wallet', compact('user'));
+        
     }
 
 
