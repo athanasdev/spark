@@ -119,7 +119,58 @@ class GameController extends Controller
 
         // Validate the request
         $validatedData = $request->validate([
-            'crypto_category' => ['required', Rule::in(['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])],
+            'crypto_category' => [
+                'required',
+                Rule::in([
+                    'BTC',
+                    'ETH',
+                    'XRP',
+                    'SOL',
+                    'PI',
+                    'LTC',
+                    'BCH',
+                    'ADA',
+                    'DOT',
+                    'BNB',
+                    'DOGE',
+                    'SHIB',
+                    'LINK',
+                    'MATIC',
+                    'TRX',
+                    'EOS',
+                    'XLM',
+                    'ATOM',
+                    'VET',
+                    'FIL',
+                    'NEO',
+                    'ALGO',
+                    'XTZ',
+                    'AAVE',
+                    'UNI',
+                    'SUSHI',
+                    'ICP',
+                    'AVAX',
+                    'FTT',
+                    'MKR',
+                    'CAKE',
+                    'KSM',
+                    'ZEC',
+                    'DASH',
+                    'COMP',
+                    'SNX',
+                    'YFI',
+                    'BAT',
+                    'ENJ',
+                    'CHZ',
+                    'OMG',
+                    'QTUM',
+                    'NANO',
+                    'RVN',
+                    'ONT',
+                    'HNT',
+                    'FTM'
+                ])
+            ],
             'trade_type' => ['required', Rule::in(['buy', 'sell'])],
             'amount' => 'required|numeric|min:10|max:' . $user->balance,
         ], [
@@ -194,7 +245,6 @@ class GameController extends Controller
                 'success' => true,
                 'message' => 'Your trade has been placed successfully!'
             ]);
-
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
@@ -262,7 +312,6 @@ class GameController extends Controller
             Log::error('Error cancelling trade: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Could not cancel trade. Please try again.');
         }
-
     }
 
 
@@ -310,11 +359,5 @@ class GameController extends Controller
             $currentReferrer = $currentReferrer->referrer;
             $level++;
         }
-
-
     }
-
-
 }
-
-

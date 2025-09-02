@@ -151,7 +151,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinBTC"  role="tab"
+                                                data-toggle="pill" href="#coinBTC" role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/6.png" alt="btc">
@@ -167,7 +167,7 @@
                                                 </div>
                                             </a>
                                             <a class="nav-link d-flex justify-content-between align-items-center"
-                                                data-toggle="pill" href="#coinBTC"  role="tab"
+                                                data-toggle="pill" href="#coinBTC" role="tab"
                                                 aria-selected="true">
                                                 <div class="d-flex">
                                                     <img src="/client/assets/img/icon/2.png" alt="btc">
@@ -250,12 +250,6 @@
                                                         <a href="{{ route('withdraw') }}"
                                                             class="btn btn-danger ml-2">Withdraw</a>
 
-                                                        <a href="{{ route('withdrawal.address.edit') }}"
-                                                            class="btn btn-warning ml-2">
-                                                            <i class="fas fa-exchange-alt"></i>Withdraw Address Update
-                                                        </a>
-
-
                                                     </div>
                                                 </div>
                                                 <div class="card">
@@ -270,7 +264,7 @@
                                                                     withdrawal limit.</p>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
-                                                                        value=`{{$user->withdrawal_address}}`>
+                                                                        value=`{{ $user->withdrawal_address }}`>
 
                                                                 </div>
                                                             </div>
@@ -367,8 +361,7 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button>
+
                                                     </div>
                                                 </div>
                                                 <div class="card">

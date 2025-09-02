@@ -88,7 +88,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                         </div>
                         <div class="tab-pane fade show active" id="settings-wallet" role="tabpanel"
                             aria-labelledby="settings-wallet-tab">
