@@ -969,7 +969,7 @@
             $("#changeThemeLight i").attr("class", "icon ion-md-moon");
             $("header").attr("class", "dark-bb");
             $("body").attr("id", "dark");
-            $(".navbar-brand img").attr("src", "assets/img/logo-light.svg");
+            $(".navbar-brand img").attr("src", "client/assets/img/logo-light.png");
             $(".wallet-address img").attr(
                 "src",
                 "assets/img/qr-code-light.svg"
@@ -979,7 +979,7 @@
             $("#changeThemeLight i").attr("class", "icon ion-md-sunny");
             $("header").attr("class", "light-bb");
             $("body").attr("id", "light");
-            $(".navbar-brand img").attr("src", "assets/img/logo-dark.svg");
+            $(".navbar-brand img").attr("src", "/client/assets/img/logo-light.png");
             $(".wallet-address img").attr("src", "assets/img/qr-code-dark.svg");
         }
     });

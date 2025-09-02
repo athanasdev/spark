@@ -108,10 +108,7 @@
                             <div class="figure mb-3">
                                 <img src="/client/assets/img/avatar.svg" alt="">
                             </div>
-                            {{-- <div class="info text-center">
-                                    <p class="name font-weight-bold mb-0">{{ $user->username }}</p>
-                                    <p class="email text-muted mb-3">{{ $user->email }}</p>
-                                </div> --}}
+                           
                             <div class="info text-center">
                                 <p class="name font-weight-bold mb-0">{{ Auth::user()->username ?? 'Guest' }}</p>
                                 <p class="email text-muted mb-3">{{ Auth::user()->email ?? '' }}</p>
