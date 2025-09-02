@@ -104,364 +104,107 @@ class GameController extends Controller
             'bot_uptime_seconds',
             'is_bot_globally_active'
         ));
-
-
     }
 
-    /**
-     * Place a new trade (UserInvestment).
-     */
 
-    /**
-     * Place a new trade for the authenticated user.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-
-    //  only one trade for day
-    // public function placeTrade(Request $request)
-    // {
-    //     /** @var \App\Models\User $user */
-    //     $user = Auth::user();
-    //     $now = Carbon::now();
-
-    //     $validatedData = $request->validate([
-    //         'crypto_category' => ['required', Rule::in(['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])],
-    //         'trade_type' => ['required', Rule::in(['buy', 'sell'])],
-    //         'amount' => 'required|numeric|min:1|max:' . $user->balance,
-    //     ], [
-    //         'amount.max' => 'Insufficient balance for this trade amount.',
-    //         'amount.min' => 'Minimum trade amount is $1.'
-    //     ]);
-
-    //     // =================================================================
-    //     //  NEW: 24-Hour Trading Cooldown Check
-    //     // =================================================================
-    //     $tradeWithin24Hours = UserInvestment::where('user_id', $user->id)
-    //         ->where('created_at', '>=', Carbon::now()->subHours(24))
-    //         ->exists();
-
-    //     if ($tradeWithin24Hours) {
-    //         return redirect()->back()
-    //             ->with('error', 'You can only place one trade every 24 hours. Please try again later.')
-    //             ->withInput();
-    //     }
-    //     // =================================================================
-
-    //     $gameSetting = GameSetting::where('is_active', true)
-    //         ->where('start_time', '<=', $now)
-    //         ->where('end_time', '>', $now)
-    //         ->orderBy('start_time', 'desc')
-    //         ->first();
-
-    //     if (!$gameSetting) {
-    //         return redirect()->back()->with('error', 'The trading signal is not active or has just expired.')->withInput();
-    //     }
-
-    //     // This existing check is still useful to prevent multiple trades in the same signal round
-    //     $existingInvestment = UserInvestment::where('user_id', $user->id)
-    //         ->where('game_setting_id', $gameSetting->id)
-    //         ->where('investment_result', 'pending')
-    //         ->first();
-
-    //     if ($existingInvestment) {
-    //         return redirect()->back()->with('error', 'You already have an active trade in this signal.')->withInput();
-    //     }
-
-    //     DB::beginTransaction();
-    //     try {
-    //         $user->balance -= $validatedData['amount'];
-    //         $user->save();
-
-    //         // NOTE: We discussed adding 'entry_price' before for the PNL.
-    //         // You would fetch the live price here and add it to the create() array.
-    //         UserInvestment::create([
-    //             'user_id' => $user->id,
-    //             'game_setting_id' => $gameSetting->id,
-    //             'investment_date' => $now->toDateString(),
-    //             'amount' => $validatedData['amount'],
-    //             // 'entry_price' => $live_price_here, // Example
-    //             'daily_profit_amount' => 0,
-    //             'total_profit_paid_out' => 0,
-    //             'principal_returned' => false,
-    //             'game_start_time' => $gameSetting->start_time,
-    //             'game_end_time' => $gameSetting->end_time,
-    //             'type' => $validatedData['trade_type'],
-    //             'crypto_category' => $validatedData['crypto_category'],
-    //             'investment_result' => 'pending',
-    //         ]);
-
-    //         DB::commit();
-    //         return redirect()->route('ai-trading')->with('success', 'Trade placed successfully!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         // It's good practice to log the error
-    //         Log::error('Trade placement failed: ' . $e->getMessage());
-    //         return redirect()->back()->with('error', 'An unexpected error occurred while placing your trade.')->withInput();
-    //     }
-    // }
-
-
-    // public function placeTrade(Request $request)
-    // {
-    //     /** @var \App\Models\User $user */
-    //     $user = Auth::user();
-
-    //     // Get the current time in UTC. This will be the single source of truth for time in this request.
-    //     $nowUtc = Carbon::now()->utc();
-
-    //     $validatedData = $request->validate([
-    //         'crypto_category' => ['required', Rule::in(['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])],
-    //         'trade_type' => ['required', Rule::in(['buy', 'sell'])],
-    //         'amount' => 'required|numeric|min:10|max:' . $user->balance,
-    //     ], [
-    //         'amount.max' => 'Insufficient balance for this trade amount.',
-    //         'amount.min' => 'The minimum trade amount is $10.'
-    //     ]);
-
-    //     // 24-Hour Cooldown Check (using the UTC time for consistency)
-    //     $tradeWithin24Hours = UserInvestment::where('user_id', $user->id)
-    //         ->where('created_at', '>=', $nowUtc->copy()->subHours(24))
-    //         ->exists();
-
-    //     if ($tradeWithin24Hours) {
-    //         return redirect()->back()
-    //             ->with('error', 'You can only place one trade every 24 hours.')
-    //             ->withInput();
-    //     }
-
-    //     // Find the currently active signal by comparing UTC time against UTC columns.
-    //     $gameSetting = GameSetting::where('is_active', true)
-    //         ->where('start_time', '<=', $nowUtc)
-    //         ->where('end_time', '>', $nowUtc)
-    //         ->orderBy('start_time', 'desc')
-    //         ->first();
-
-    //     if (!$gameSetting) {
-    //         return redirect()->back()->with('error', 'The trading signal is not active or has expired.')->withInput();
-    //     }
-
-    //     // Prevent user from placing two trades in the same signal window
-    //     $existingInvestment = UserInvestment::where('user_id', $user->id)
-    //         ->where('game_setting_id', $gameSetting->id)
-    //         ->exists(); // Using exists() is slightly more efficient
-
-    //     if ($existingInvestment) {
-    //         return redirect()->back()->with('error', 'You already have an active trade in this signal.')->withInput();
-    //     }
-
-    //     DB::beginTransaction();
-    //     try {
-    //         $user->balance -= $validatedData['amount'];
-    //         $user->save();
-
-    //         UserInvestment::create([
-    //             'user_id' => $user->id,
-    //             'game_setting_id' => $gameSetting->id,
-    //             'investment_date' => $nowUtc->toDateString(),
-    //             'amount' => $validatedData['amount'],
-    //             'game_start_time' => $gameSetting->start_time,
-    //             'game_end_time' => $gameSetting->end_time,
-    //             'type' => $validatedData['trade_type'],
-    //             'crypto_category' => $validatedData['crypto_category'],
-    //             'investment_result' => 'pending',
-    //             'daily_profit_amount' => 0,
-    //             'total_profit_paid_out' => 0,
-    //             'principal_returned' => false,
-    //         ]);
-
-    //         DB::commit();
-    //         return redirect()->route('ai-trading')->with('success', 'Your trade has been placed successfully!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
-    //         return redirect()->back()->with('error', 'An unexpected server error occurred. Please try again.')->withInput();
-    //     }
-    // }
-
-
-    // public function placeTrade(Request $request)
-    // {
-    //     /** @var \App\Models\User $user */
-    //     $user = Auth::user();
-
-    //     Log::info("The request is;",['Data' => $request->all()]);
-
-    //     // Use the application's local timezone (from config/app.php) for all comparisons.
-    //     $nowLocal = Carbon::now();
-
-    //     // 1. Validate the incoming request data.
-    //     $validatedData = $request->validate([
-    //         'crypto_category' => ['required', Rule::in(['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])],
-    //         'trade_type' => ['required', Rule::in(['buy', 'sell'])],
-    //         'amount' => 'required|numeric|min:10|max:' . $user->balance,
-    //     ], [
-    //         'amount.max' => 'Insufficient balance for this trade amount.',
-    //         'amount.min' => 'The minimum trade amount is $10.'
-    //     ]);
-
-    //     // 2. Check if the user has traded in the last 1 minute.
-    //     $tradeWithinLastMinute = UserInvestment::where('user_id', $user->id)
-    //         ->where('created_at', '>=', $nowLocal->copy()->subMinute())
-    //         ->exists();
-
-    //     if ($tradeWithinLastMinute) {
-    //         return redirect()->back()
-    //             ->with('error', 'Please wait at least 1 minute before placing another trade.')
-    //             ->withInput();
-    //     }
-
-    //     // 3. Find the active signal by comparing the current local time with the local times in the database.
-    //     $gameSetting = GameSetting::where('is_active', true)
-    //         ->where('start_time', '<=', $nowLocal)
-    //         ->where('end_time', '>', $nowLocal)
-    //         ->orderBy('start_time', 'desc')
-    //         ->first();
-
-    //     if (!$gameSetting) {
-    //         return redirect()->back()->with('error', 'The trading signal is not active or has expired.')->withInput();
-    //     }
-
-    //     // 4. Check if the user has already placed a trade for this specific signal.
-    //     $existingPendingInvestment = UserInvestment::where('user_id', $user->id)
-    //         ->where('game_setting_id', $gameSetting->id)
-    //         ->where('investment_result', 'pending')
-    //         ->exists();
-
-    //     if ($existingPendingInvestment) {
-    //         return redirect()->back()->with('error', 'You already have an active trade in this signal.')->withInput();
-    //     }
-
-
-    //     // 5. Use a database transaction to safely place the trade.
-    //     DB::beginTransaction();
-    //     try {
-    //         // Deduct balance from the user.
-    //         $user->balance -= $validatedData['amount'];
-    //         $user->save();
-
-    //         // Create the investment record.
-    //         UserInvestment::create([
-    //             'user_id' => $user->id,
-    //             'game_setting_id' => $gameSetting->id,
-    //             'investment_date' => $nowLocal->toDateString(),
-    //             'amount' => $validatedData['amount'],
-    //             'game_start_time' => $gameSetting->start_time,
-    //             'game_end_time' => $gameSetting->end_time,
-    //             'type' => $validatedData['trade_type'],
-    //             'crypto_category' => $validatedData['crypto_category'],
-    //             'investment_result' => 'pending',
-    //             'daily_profit_amount' => 0,
-    //             'total_profit_paid_out' => 0,
-    //             'principal_returned' => false,
-    //         ]);
-
-    //         DB::commit();
-    //         return redirect()->route('ai-trading')->with('success', 'Your trade has been placed successfully!');
-    //     } catch (\Exception $e) {
-    //         DB::rollBack();
-    //         Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
-    //         return redirect()->back()->with('error', 'An unexpected server error occurred. Please try again.')->withInput();
-    //     }
-    // }
 
     public function placeTrade(Request $request)
-{
-    /** @var \App\Models\User $user */
-    $user = Auth::user();
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
-    Log::info("The request is;", ['Data' => $request->all()]);
+        Log::info("The request is;", ['Data' => $request->all()]);
 
-    $nowLocal = Carbon::now();
+        $nowLocal = Carbon::now();
 
-    // Validate the request
-    $validatedData = $request->validate([
-        'crypto_category' => ['required', Rule::in(['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])],
-        'trade_type' => ['required', Rule::in(['buy', 'sell'])],
-        'amount' => 'required|numeric|min:10|max:' . $user->balance,
-    ], [
-        'amount.max' => 'Insufficient balance for this trade amount.',
-        'amount.min' => 'The minimum trade amount is $10.'
-    ]);
-
-    // Check 1-minute cooldown
-    $tradeWithinLastMinute = UserInvestment::where('user_id', $user->id)
-        ->where('created_at', '>=', $nowLocal->copy()->subMinute())
-        ->exists();
-
-    if ($tradeWithinLastMinute) {
-        return response()->json([
-            'success' => false,
-            'message' => 'Please wait at least 1 minute before placing another trade.'
+        // Validate the request
+        $validatedData = $request->validate([
+            'crypto_category' => ['required', Rule::in(['XRP', 'BTC', 'ETH', 'SOLANA', 'PI'])],
+            'trade_type' => ['required', Rule::in(['buy', 'sell'])],
+            'amount' => 'required|numeric|min:10|max:' . $user->balance,
+        ], [
+            'amount.max' => 'Insufficient balance for this trade amount.',
+            'amount.min' => 'The minimum trade amount is $10.'
         ]);
+
+        // Check 1-minute cooldown
+        $tradeWithinLastMinute = UserInvestment::where('user_id', $user->id)
+            ->where('created_at', '>=', $nowLocal->copy()->subMinute())
+            ->exists();
+
+        if ($tradeWithinLastMinute) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Please wait at least 1 minute before placing another trade.'
+            ]);
+        }
+
+        // Get active signal
+        $gameSetting = GameSetting::where('is_active', true)
+            ->where('start_time', '<=', $nowLocal)
+            ->where('end_time', '>', $nowLocal)
+            ->orderBy('start_time', 'desc')
+            ->first();
+
+        if (!$gameSetting) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Hi champions, kindly await the signal time.'
+            ]);
+        }
+
+        // Check for existing pending trade
+        $existingPendingInvestment = UserInvestment::where('user_id', $user->id)
+            ->where('game_setting_id', $gameSetting->id)
+            ->where('investment_result', 'pending')
+            ->exists();
+
+        if ($existingPendingInvestment) {
+            return response()->json([
+                'success' => false,
+                'message' => 'You already have an active trade in this signal.'
+            ]);
+        }
+
+        // Place trade in DB transaction
+        DB::beginTransaction();
+        try {
+            $user->balance -= $validatedData['amount'];
+            $user->save();
+
+            UserInvestment::create([
+                'user_id' => $user->id,
+                'game_setting_id' => $gameSetting->id,
+                'investment_date' => $nowLocal->toDateString(),
+                'amount' => $validatedData['amount'],
+                'game_start_time' => $gameSetting->start_time,
+                'game_end_time' => $gameSetting->end_time,
+                'type' => $validatedData['trade_type'],
+                'crypto_category' => $validatedData['crypto_category'],
+                'investment_result' => 'pending',
+                'daily_profit_amount' => 0,
+                'total_profit_paid_out' => 0,
+                'principal_returned' => false,
+            ]);
+
+            DB::commit();
+
+            // ✅ Return success for toast
+            return response()->json([
+                'success' => true,
+                'message' => 'Your trade has been placed successfully!'
+            ]);
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
+
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected server error occurred. Please try again.'
+            ]);
+        }
     }
-
-    // Get active signal
-    $gameSetting = GameSetting::where('is_active', true)
-        ->where('start_time', '<=', $nowLocal)
-        ->where('end_time', '>', $nowLocal)
-        ->orderBy('start_time', 'desc')
-        ->first();
-
-    if (!$gameSetting) {
-        return response()->json([
-            'success' => false,
-            'message' => 'The trading signal is not active or has expired.'
-        ]);
-    }
-
-    // Check for existing pending trade
-    $existingPendingInvestment = UserInvestment::where('user_id', $user->id)
-        ->where('game_setting_id', $gameSetting->id)
-        ->where('investment_result', 'pending')
-        ->exists();
-
-    if ($existingPendingInvestment) {
-        return response()->json([
-            'success' => false,
-            'message' => 'You already have an active trade in this signal.'
-        ]);
-    }
-
-    // Place trade in DB transaction
-    DB::beginTransaction();
-    try {
-        $user->balance -= $validatedData['amount'];
-        $user->save();
-
-        UserInvestment::create([
-            'user_id' => $user->id,
-            'game_setting_id' => $gameSetting->id,
-            'investment_date' => $nowLocal->toDateString(),
-            'amount' => $validatedData['amount'],
-            'game_start_time' => $gameSetting->start_time,
-            'game_end_time' => $gameSetting->end_time,
-            'type' => $validatedData['trade_type'],
-            'crypto_category' => $validatedData['crypto_category'],
-            'investment_result' => 'pending',
-            'daily_profit_amount' => 0,
-            'total_profit_paid_out' => 0,
-            'principal_returned' => false,
-        ]);
-
-        DB::commit();
-
-        // ✅ Return success for toast
-        return response()->json([
-            'success' => true,
-            'message' => 'Your trade has been placed successfully!'
-        ]);
-    } catch (\Exception $e) {
-        DB::rollBack();
-        Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
-
-        return response()->json([
-            'success' => false,
-            'message' => 'An unexpected server error occurred. Please try again.'
-        ]);
-    }
-}
 
 
     /**
