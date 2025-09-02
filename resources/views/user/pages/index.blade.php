@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="/client/assets/css/style.css">
     <script src="//code.jivosite.com/widget/lV3WFrkVOl" async></script>
     
-
 </head>
 
 <body id="dark">

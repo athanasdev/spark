@@ -39,7 +39,7 @@ class WithdrawalController extends Controller
     public function withdrawRequest(Request $request)
     {
         $request->validate([
-            'amount' => 'required|numeric|min:10',
+            'amount' => 'required|numeric|min:8',
             'withdraw_password' => 'required|string',
         ]);
 
@@ -276,6 +276,6 @@ class WithdrawalController extends Controller
         $user->save();
 
         return back()->with('success', 'Withdrawal PIN updated successfully.');
-        
+
     }
 }
