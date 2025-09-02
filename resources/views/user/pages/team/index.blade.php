@@ -52,13 +52,31 @@
                                     <div class="col-md-10 col-lg-10 mx-auto">
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="coinBTC" role="tabpanel">
-                                                
+
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Teams</h5>
                                                         <div class="row wallet-address">
                                                             <div class="col-md-8">
-                                                                <p>Invite friends and earn rewards! The more users you refer, the more bonuses you receive. Start sharing your referral link today and grow your rewards!</p>
+                                                                <p>When friend A registers with your registration link,
+                                                                    he becomes your first-level member. You can get 12%
+                                                                    commission from each of his trade services fees
+
+                                                                    When friend B registers with friend A's Registration
+                                                                    link, he becomes friend A's first-level member and
+                                                                    your second-level member at the same time. So every
+                                                                    time friend B trades, friend A can earn 12%
+                                                                    commission for each transaction service fee. You
+                                                                    will also earn 6% commission on each of his trade
+                                                                    service fees.
+
+                                                                    When Friend C uses the friend B Registration linkto
+                                                                    register as a first-level member of friend B, a
+                                                                    second-level member of friend A, and also your
+                                                                    third-level member. Friend B can earn 12% commission
+                                                                    per trade, friend A can earn 6% commission per trade
+                                                                    service fee, and you can earn 3% commission from his
+                                                                    each trade service fee.</p>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                         id="referralLinkInput"
