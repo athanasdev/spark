@@ -77,8 +77,7 @@
                                                                 </div>
                                                             </li>
                                                         </ul>
-                                                        {{-- <button class="btn green">Deposit</button>
-                                                        <button class="btn red">Withdraw</button> --}}
+                                                        
 
                                                         <a href="{{ route('deposit.form') }}"
                                                             class="btn green btn-success mr-2 text-white">Deposit</a>
@@ -220,7 +219,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="card" style="margin-top: 20px;">
+                                                {{-- <div class="card" style="margin-top: 20px;">
                                                     <div class="card-header">
                                                         <div class="card-title">
                                                             <i class="fas fa-list-ul"></i> My Referred Users
@@ -268,9 +267,7 @@
                                                             {{ $paginatedMembers->links() }}
                                                         </div>
                                                     </div>
-                                                </div>
-
-
+                                                </div> --}}
 
 
                                             </div>
@@ -305,7 +302,7 @@
                                                         <button class="btn red">Withdraw</button>
                                                     </div>
                                                 </div>
-                                                <di class="card">
+                                                <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Wallet Deposit Address</h5>
                                                         <div class="row wallet-address">
@@ -329,7 +326,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </di>
+                                                </div>
                                             </div>
 
                                         </div>
