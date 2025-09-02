@@ -194,7 +194,7 @@ class GameController extends Controller
                 'success' => true,
                 'message' => 'Your trade has been placed successfully!'
             ]);
-            
+
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
@@ -233,6 +233,7 @@ class GameController extends Controller
         }
 
         DB::beginTransaction();
+
         try {
             $investment->investment_result = 'gain';
             $investment->daily_profit_amount = 0;
@@ -261,6 +262,7 @@ class GameController extends Controller
             Log::error('Error cancelling trade: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Could not cancel trade. Please try again.');
         }
+
     }
 
 
@@ -308,5 +310,11 @@ class GameController extends Controller
             $currentReferrer = $currentReferrer->referrer;
             $level++;
         }
+
+
     }
+
+
 }
+
+

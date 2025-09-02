@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crypo</title>
+    <title>9dfe</title>
     <link rel="icon" href="/client/assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/client/assets/css/style.css">
     <script src="//code.jivosite.com/widget/lV3WFrkVOl" async></script>
@@ -48,128 +48,47 @@
                                     <div class="settings-profile">
                                         <form action="#">
                                             <img src="/client/assets/img/avatar.svg" alt="avatar">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="fileUpload"
-                                                    required />
-                                                <label class="custom-file-label" for="fileUpload">Choose
-                                                    avatar</label>
-                                            </div>
                                             <div class="form-row mt-4">
+
                                                 <div class="col-md-6">
-                                                    <label for="formFirst">First name</label>
+                                                    <label for="formFirst">Username</label>
                                                     <input id="formFirst" type="text" class="form-control"
-                                                        placeholder="First name">
+                                                        placeholder="" readonly
+                                                        value="{{ Auth::user()->username ?? 'Guest' }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="formLast">Last name</label>
+                                                    <label for="formFirst">UserID</label>
+                                                    <input id="formFirst" type="text" class="form-control"
+                                                        placeholder="" readonly
+                                                        value="{{ Auth::user()->unique_id ?? 'NULL' }}">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="formLast">Email</label>
                                                     <input id="formLast" type="text" class="form-control"
-                                                        placeholder="Last name">
+                                                        placeholder="Email" required
+                                                        value="{{ Auth::user()->email ?? 'no-email' }}">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label for="emailAddress">Email</label>
+                                                    <label for="emailAddress">status</label>
                                                     <input id="emailAddress" type="text" class="form-control"
-                                                        placeholder="Enter your email">
+                                                        value="{{ Auth::user()->status ?? 'blocked' }}">
                                                 </div>
+
                                                 <div class="col-md-6">
-                                                    <label for="phoneNumber">Phone</label>
-                                                    <input id="phoneNumber" type="text" class="form-control"
-                                                        placeholder="Enter phone number">
+                                                    <label for="balance">Balance</label>
+                                                    <div class="input-group">
+                                                        <input id="balance" type="number" class="form-control"
+                                                            value="{{ Auth::user()->balance ?? 0 }}" readonly>
+                                                        <span class="input-group-text">USDT</span>
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="selectLanguage">Language</label>
-                                                    <select id="selectLanguage" class="custom-select">
-                                                        <option selected>English</option>
-                                                        <option>Mandarin Chinese</option>
-                                                        <option>Spanish</option>
-                                                        <option>Arabic</option>
-                                                        <option>Russian</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="selectCurrency">Currency</label>
-                                                    <select id="selectCurrency" class="custom-select">
-                                                        <option selected>USD</option>
-                                                        <option>EUR</option>
-                                                        <option>GBP</option>
-                                                        <option>CHF</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <input type="submit" value="Update">
-                                                </div>
+
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Security Information</h5>
-                                    <div class="settings-profile">
-                                        <form action="#">
-                                            <div class="form-row">
-                                                <div class="col-md-6">
-                                                    <label for="currentPass">Current password</label>
-                                                    <input id="currentPass" type="text" class="form-control"
-                                                        placeholder="Enter your password" required />
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="newPass">New password</label>
-                                                    <input id="newPass" type="text" class="form-control"
-                                                        placeholder="Enter new password">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityOne">Security questions #1</label>
-                                                    <select id="securityOne" class="custom-select">
-                                                        <option selected>What was the name of your first pet?</option>
-                                                        <option>What's your Mother's middle name?</option>
-                                                        <option>What was the name of your first school?</option>
-                                                        <option>Where did you travel for the first time?</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityAnsOne">Answer</label>
-                                                    <input id="securityAnsOne" type="text" class="form-control"
-                                                        placeholder="Enter your answer">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityTwo">Security questions #2</label>
-                                                    <select id="securityTwo" class="custom-select">
-                                                        <option selected>Choose...</option>
-                                                        <option>What was the name of your first pet?</option>
-                                                        <option>What's your Mother's middle name?</option>
-                                                        <option>What was the name of your first school?</option>
-                                                        <option>Where did you travel for the first time?</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityAnsTwo">Answer</label>
-                                                    <input id="securityAnsTwo" type="text" class="form-control"
-                                                        placeholder="Enter your answer">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityThree">Security questions #3</label>
-                                                    <select id="securityThree" class="custom-select">
-                                                        <option selected>Choose...</option>
-                                                        <option>What was the name of your first pet?</option>
-                                                        <option>What's your Mother's middle name?</option>
-                                                        <option>What was the name of your first school?</option>
-                                                        <option>Where did you travel for the first time?</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label for="securityFore">Answer</label>
-                                                    <input id="securityFore" type="text" class="form-control"
-                                                        placeholder="Enter your answer">
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <input type="submit" value="Update">
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="tab-pane fade show active" id="settings-wallet" role="tabpanel"
                             aria-labelledby="settings-wallet-tab">
@@ -214,35 +133,7 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Withdraw Address Setup</h5>
-                                                        @if (session('info'))
-                                                            <div class="alert alert-info flex items-center space-x-2">
-                                                                <span>ℹ️</span>
-                                                                <span>{{ session('info') }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if (session('success'))
-                                                            <div
-                                                                class="alert alert-success flex items-center space-x-2">
-                                                                <span>✅</span>
-                                                                <span>{{ session('success') }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if (session('error'))
-                                                            <div class="alert-error flex items-center space-x-2">
-                                                                <span>❌</span>
-                                                                <span>{{ session('error') }}</span>
-                                                            </div>
-                                                        @endif
-                                                        @if ($errors->any())
-                                                            <div class="alert-error flex items-start space-x-2">
-                                                                <span class="mt-1">⚠️</span>
-                                                                <ul class="list-none m-0 p-0">
-                                                                    @foreach ($errors->all() as $error)
-                                                                        <li>{{ $error }}</li>
-                                                                    @endforeach
-                                                                </ul>
-                                                            </div>
-                                                        @endif
+
                                                         <div class="row wallet-address">
                                                             <div class="col-md-8">
                                                                 <p class="mb-3 text-muted"
@@ -295,9 +186,11 @@
                                                                             placeholder="{{ __('messages.placeholder_reenter_pin') }}"
                                                                             required>
                                                                     </div>
-                                                                    <button type="submit" class="submit-btn mt-3 btn-seccess">
-                                                                       save
+                                                                    <button type="submit"
+                                                                        class="submit-btn mt-3 btn-success">
+                                                                        save
                                                                     </button>
+
                                                                 </form>
                                                             </div>
                                                             <div class="col-md-4">
@@ -1023,78 +916,76 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                            
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Notifications</h5>
-                                    <div class="settings-notification">
-                                        <ul>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Update price</p>
-                                                    <span>Get the update price in your dashboard</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification1">
-                                                    <label class="custom-control-label" for="notification1"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>2FA</p>
-                                                    <span>Unable two factor authentication service</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification2" checked>
-                                                    <label class="custom-control-label" for="notification2"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Latest news</p>
-                                                    <span>Get the latest news in your mail</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification3">
-                                                    <label class="custom-control-label" for="notification3"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Email Service</p>
-                                                    <span>Get security code in your mail</span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification4" checked>
-                                                    <label class="custom-control-label" for="notification4"></label>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="notification-info">
-                                                    <p>Phone Notify</p>
-                                                    <span>Get transition notification in your phone </span>
-                                                </div>
-                                                <div class="custom-control custom-switch">
-                                                    <input type="checkbox" class="custom-control-input"
-                                                        id="notification5" checked>
-                                                    <label class="custom-control-label" for="notification5"></label>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <h5 class="card-title">Change Withdrawal Address</h5>
+                                    {{-- Show current address if exists --}}
+                                    @if (Auth::user()->withdrawal_address)
+                                        <div class="form-group">
+                                            <label>Current Withdrawal Address:</label>
+                                            <div class="current-address-display text-info">
+                                                {{ Auth::user()->withdrawal_address }}
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="alert alert-info">
+                                            No withdrawal address set.
+                                        </div>
+                                    @endif
+
+                                    {{-- Update Form --}}
+                                    <form method="POST" action="{{ route('withdrawal.address.update') }}">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <div class="form-group">
+                                            <label for="new_withdrawal_address">New USDT (TRC20)
+                                                Address:</label>
+                                            <input type="text" id="new_withdrawal_address"
+                                                name="new_withdrawal_address"
+                                                value="{{ old('new_withdrawal_address') }}"
+                                                class="form-control @error('new_withdrawal_address') is-invalid @enderror"
+                                                placeholder="Enter new USDT TRC20 address" required>
+                                            @error('new_withdrawal_address')
+                                                <span class="invalid-feedback"
+                                                    role="alert"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                            <small class="note text-info">Please double-check
+                                                the
+                                                address. Incorrect addresses may result in loss of
+                                                funds.</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="withdrawal_pin">Confirm with PIN:</label>
+                                            <input type="password" name="withdrawal_pin" id="withdrawal_pin"
+                                                class="form-control @error('withdrawal_pin') is-invalid @enderror"
+                                                placeholder="Enter your current PIN" required>
+                                            @error('withdrawal_pin')
+                                                <span class="invalid-feedback"
+                                                    role="alert"><strong>{{ $message }}</strong></span>
+                                            @enderror
+                                            <small class="note text-info">Enter your current
+                                                withdrawal PIN
+                                                to authorize this change.</small>
+                                        </div>
+
+                                        <button type="submit"
+                                            class="submit-btn btn-md mt-3 btn-success btn-rounded rounded-2xl">
+                                            <i class="fas fa-save"></i> Update Address
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="card settings-profile">
                                 <div class="card-body">
-                                    <h5 class="card-title">Create API Key</h5>
+                                    <h5 class="card-title">Update Withdraw Password</h5>
                                     <div class="form-row">
                                         <div class="col-md-6">
-                                            <label for="generateKey">Generate key name</label>
+                                            <label for="generateKey">Password</label>
                                             <input id="generateKey" type="text" class="form-control"
-                                                placeholder="Enter your key name">
+                                                placeholder="Enter your password">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="rewritePassword">Confirm password</label>
@@ -1102,79 +993,8 @@
                                                 placeholder="Confirm your password">
                                         </div>
                                         <div class="col-md-12">
-                                            <input type="submit" value="Create API key">
+                                            <input type="submit" value="Update">
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Your API Keys</h5>
-                                    <div class="wallet-history">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Key</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>zRmWVcrAZ1C0RZkFMu7K5v0KWC9jUJLt</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus1" checked>
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus1"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Rv5dgnKdmVPyHwxeExBYz8uFwYQz3Jvg</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus2">
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus2"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>VxEYIs1HwgmtKTUMA4aknjSEjjePZIWu</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus3">
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus3"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>M01DueJ4x3awI1SSLGT3CP1EeLSnqt8o</td>
-                                                    <td>
-                                                        <div class="custom-control custom-switch">
-                                                            <input type="checkbox" class="custom-control-input"
-                                                                id="apiStatus4">
-                                                            <label class="custom-control-label"
-                                                                for="apiStatus4"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><i class="icon ion-md-trash"></i></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -1191,48 +1011,48 @@
     <script src="/client/assets/js/amcharts-core.min.js"></script>
     <script src="/client/assets/js/amcharts.min.js"></script>
     <script src="/client/assets/js/custom.js"></script>
-        <!-- Include SweetAlert2 and Axios -->
+    <!-- Include SweetAlert2 and Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: '{{ session("success") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 3000,
-            showConfirmButton: false
-        });
-    @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
 
-    @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: '{{ session("error") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            showConfirmButton: false
-        });
-    @endif
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: '{{ session('error') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 4000,
+                    showConfirmButton: false
+                });
+            @endif
 
-    @if($errors->any())
-        @foreach ($errors->all() as $error)
-            Swal.fire({
-                icon: 'error',
-                title: '{{ $error }}',
-                toast: true,
-                position: 'top-end',
-                timer: 4000,
-                showConfirmButton: false
-            });
-        @endforeach
-    @endif
-});
-</script>
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{{ $error }}',
+                        toast: true,
+                        position: 'top-end',
+                        timer: 4000,
+                        showConfirmButton: false
+                    });
+                @endforeach
+            @endif
+        });
+    </script>
 </body>
 
 

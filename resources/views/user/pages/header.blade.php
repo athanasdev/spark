@@ -135,7 +135,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="/withdraw/setup" class="nav-link">
                                         <i class="icon ion-md-settings"></i>
                                         <span>Settings</span>
                                     </a>
