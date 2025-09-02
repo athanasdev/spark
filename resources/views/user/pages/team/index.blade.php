@@ -52,50 +52,13 @@
                                     <div class="col-md-10 col-lg-10 mx-auto">
                                         <div class="tab-content">
                                             <div class="tab-pane fade show active" id="coinBTC" role="tabpanel">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Balances</h5>
-                                                        <ul>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-cash"></i>
-                                                                    <h2>Total Equity</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>{{ $user->balance }} USD</h3>
-                                                                </div>
-                                                            </li>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-checkmark"></i>
-                                                                    <h2>Available Margin</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>{{ $user->balance }} USD</h3>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                        
-
-                                                        <a href="{{ route('deposit.form') }}"
-                                                            class="btn green btn-success mr-2 text-white">Deposit</a>
-
-                                                        <a href="{{ route('withdraw') }}"
-                                                            class="btn red btn-danger ml-2 text-white">Withdraw</a>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Teams</h5>
                                                         <div class="row wallet-address">
                                                             <div class="col-md-8">
-                                                                <p>Deposits to this address are unlimited. Note that you
-                                                                    may not be able to withdraw all
-                                                                    of your
-                                                                    funds at once if you deposit more than your daily
-                                                                    withdrawal limit.</p>
+                                                                <p>Invite friends and earn rewards! The more users you refer, the more bonuses you receive. Start sharing your referral link today and grow your rewards!</p>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                         id="referralLinkInput"
@@ -219,7 +182,7 @@
                                                     </div>
                                                 </div>
 
-                                                {{-- <div class="card" style="margin-top: 20px;">
+                                                <div class="card" style="margin-top: 20px;">
                                                     <div class="card-header">
                                                         <div class="card-title">
                                                             <i class="fas fa-list-ul"></i> My Referred Users
@@ -267,8 +230,7 @@
                                                             {{ $paginatedMembers->links() }}
                                                         </div>
                                                     </div>
-                                                </div> --}}
-
+                                                </div>
 
                                             </div>
 
