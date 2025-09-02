@@ -231,4 +231,19 @@ class WithdrawalController extends Controller
         // Example for localization file:
         // 'withdrawal_address_updated_success' => 'Your withdrawal address has been updated successfully.',
     }
+
+    public function updateWithdrawPin(Request $request)
+    {
+        $request->validate([
+            'withdrawal_pin' => 'required|digits:4|confirmed',
+        ]);
+
+        $user = Auth::user();
+        $user->withdrawal_pin_hash = Hash::make($request->withdrawal_pin);
+        $user->withdrawal_pin_set_at = now();
+        $user->save();
+
+        return back()->with('success', 'Withdrawal PIN updated successfully.');
+    }
+    
 }

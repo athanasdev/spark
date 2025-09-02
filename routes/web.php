@@ -90,6 +90,8 @@ Route::middleware(['auth:web', 'history'])->group(function () {
     Route::post('/withdraw', [WithdrawalController::class, 'withdrawRequest'])->name('withdraw.request');
     Route::get('/withdraw/setup', [WithdrawalController::class, 'setup'])->name('withdraw.setup');
     Route::post('/withdraw/setup', [WithdrawalController::class, 'storeSetup'])->name('withdraw.setup.store');
+    Route::post('/update-withdraw-pin', [WithdrawalController::class, 'updateWithdrawPin'])
+        ->name('user.updateWithdrawPin');
 
     // Team
     Route::get('/team', [TeamController::class, 'team'])->name('team');
@@ -118,7 +120,6 @@ Route::middleware(['auth:web', 'history'])->group(function () {
     //  bonus for the client
 
     Route::post('/claim-bonus/{bonus}', [BonusController::class, 'claim'])->name('bonus.claim');
-    
 });
 
 

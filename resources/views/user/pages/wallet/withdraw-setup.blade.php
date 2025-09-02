@@ -915,7 +915,7 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                            
+
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="card-title">Change Withdrawal Address</h5>
@@ -980,23 +980,29 @@
                             <div class="card settings-profile">
                                 <div class="card-body">
                                     <h5 class="card-title">Update Withdraw Password</h5>
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <label for="generateKey">Password</label>
-                                            <input id="generateKey" type="text" class="form-control"
-                                                placeholder="Enter your password">
+
+                                    <form method="POST" action="{{ route('user.updateWithdrawPin') }}">
+                                        @csrf
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label for="generateKey">Password</label>
+                                                <input id="generateKey" type="password" name="withdrawal_pin"
+                                                    class="form-control" placeholder="Enter your password" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label for="rewritePassword">Confirm password</label>
+                                                <input id="rewritePassword" type="password"
+                                                    name="withdrawal_pin_confirmation" class="form-control"
+                                                    placeholder="Confirm your password" required>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-primary">Update</button>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="rewritePassword">Confirm password</label>
-                                            <input id="rewritePassword" type="password" class="form-control"
-                                                placeholder="Confirm your password">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input type="submit" value="Update">
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
