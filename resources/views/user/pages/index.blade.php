@@ -14,6 +14,7 @@
     <link rel="icon" href="/client/assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/client/assets/css/style.css">
     <script src="//code.jivosite.com/widget/lV3WFrkVOl" async></script>
+    
 
 </head>
 
@@ -1303,7 +1304,7 @@
             </div> --}}
 
 
-            <div class="col-md-9">
+            {{-- <div class="col-md-9">
                 <div class="market-history market-order mt-3">
                     <ul class="nav nav-pills mb-3" role="tablist">
                         <li class="nav-item">
@@ -1317,7 +1318,7 @@
                     </ul>
 
                     <div class="tab-content">
-                        {{-- OPEN ORDERS (Pending investments) --}}
+                        
                         <div class="tab-pane fade show active" id="open-orders" role="tabpanel">
                             @if ($activeUserInvestment->isEmpty())
                                 <div class="text-center text-muted p-3">
@@ -1354,7 +1355,7 @@
                             @endif
                         </div>
 
-                        {{-- ORDER HISTORY (All investments) --}}
+                        
                         <div class="tab-pane fade" id="order-history" role="tabpanel">
                             @if ($allUserInvestments->isEmpty())
                                 <div class="text-center text-muted p-3">
@@ -1399,9 +1400,109 @@
                         </div>
                     </div>
                 </div>
+            </div> --}}
+
+            <div class="col-md-9">
+                <div class="market-history market-order mt-3">
+                    <ul class="nav nav-pills mb-3" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="pill" href="#open-orders" role="tab"
+                                aria-selected="true">Open Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="pill" href="#order-history" role="tab"
+                                aria-selected="false">Order History</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        {{-- OPEN ORDERS (Pending investments) --}}
+                        <div class="tab-pane fade show active" id="open-orders" role="tabpanel">
+                            @if ($activeUserInvestment->isEmpty())
+                                <div class="text-center text-muted p-3">
+                                    <i class="icon ion-md-document"></i> No pending investments
+                                </div>
+                            @else
+                                <div class="table-responsive">
+                                    <table class="table table-striped mb-0">
+
+                                        <tbody>
+                                            @foreach ($activeUserInvestment as $inv)
+                                                <tr>
+                                                    <td>{{ $inv->created_at->format('Y-m-d H:i') }}</td>
+                                                    <td>{{ $inv->crypto_category ?? '-' }}</td>
+                                                    <td>{{ number_format($inv->amount, 2) }}</td>
+                                                    <td>{{ number_format($inv->daily_profit_amount, 2) }}</td>
+                                                    <td>
+                                                        <span
+                                                            class="badge badge-warning">{{ ucfirst($inv->investment_result) }}</span>
+                                                    </td>
+                                                    <td>
+                                                        @if ($inv->investment_result === 'pending')
+                                                            <form method="POST"
+                                                                action="{{ route('bot.close_trade') }}"
+                                                                onsubmit="return confirm('Are you sure you want to close this trade?');">
+                                                                @csrf
+                                                                <input type="hidden" name="user_investment_id"
+                                                                    value="{{ $inv->id }}">
+                                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                                    <i class="fas fa-times-circle"></i> Close
+                                                                </button>
+                                                            </form>
+                                                        @else
+                                                            -
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+                        </div>
+
+                        {{-- ORDER HISTORY (All investments) --}}
+                        <div class="tab-pane fade" id="order-history" role="tabpanel">
+                            @if ($allUserInvestments->isEmpty())
+                                <div class="text-center text-muted p-3">
+                                    <i class="icon ion-md-document"></i> No investment history
+                                </div>
+                            @else
+                                <div class="table-responsive">
+                                    <table class="table table-striped  mb-0 ">
+
+                                        <tbody>
+                                            @foreach ($allUserInvestments as $inv)
+                                                <tr>
+                                                    <td>{{ $inv->created_at->format('Y-m-d H:i') }}</td>
+                                                    <td>{{ $inv->crypto_category ?? '-' }}</td>
+                                                    <td>{{ number_format($inv->amount, 2) }}</td>
+                                                    <td>{{ number_format($inv->daily_profit_amount, 2) }}</td>
+                                                    <td>{{ number_format($inv->total_profit_paid_out, 2) }}</td>
+                                                    <td>
+                                                        @if ($inv->investment_result == 'gain')
+                                                            <span class="badge badge-success">Gain</span>
+                                                        @elseif ($inv->investment_result == 'lose')
+                                                            <span class="badge badge-danger">Lose</span>
+                                                        @else
+                                                            <span class="badge badge-warning">Pending</span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
+
         </div>
+
     </div>
 
     <script src="/client/assets/js/jquery-3.4.1.min.js"></script>

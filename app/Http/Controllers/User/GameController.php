@@ -95,7 +95,7 @@ class GameController extends Controller
         $is_bot_globally_active = $user->is_trading_bot_enabled ?? false;
 
         // Pass all calculated variables to the view
-        return view('user.layouts.bot', compact(
+        return view('user.pages.index', compact(
             'user',
             'activeGameSetting',
             'activeUserInvestment',
@@ -307,12 +307,13 @@ class GameController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('ai-trading')->with('success', 'Trade cancelled. Your investment has been refunded.');
+            return redirect()->route('dashboard')->with('success', 'Trade cancelled. Your investment has been refunded.');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Error cancelling trade: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Could not cancel trade. Please try again.');
         }
+
     }
 
 

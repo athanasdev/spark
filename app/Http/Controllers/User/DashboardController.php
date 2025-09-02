@@ -21,60 +21,60 @@ class DashboardController extends Controller
 
 
 
-    public function home()
-    {
-        $user = Auth::user();
-
-        $nowUTC = Carbon::now('UTC');
-
-        // Fetch the currently active game
-        $activeGameSetting = GameSetting::where('is_active', 1)
-            ->where('start_time', '<=', $nowUTC)
-            ->where('end_time', '>', $nowUTC)
-            ->orderBy('start_time', 'desc')
-            ->first();
-
-        // Fetch pending investments only for the active game
-        $activeUserInvestment = collect(); // default empty
-        if ($activeGameSetting) {
-            $activeUserInvestment = UserInvestment::where('user_id', $user->id)
-                ->where('game_setting_id', $activeGameSetting->id)
-                ->where('investment_result', 'pending')
-                ->orderBy('created_at', 'desc')
-                ->get();
-        }
-
-        // Fetch all investments for history
-        $allUserInvestments = UserInvestment::where('user_id', $user->id)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('user.pages.index', compact(
-            'user',
-            'activeGameSetting',
-            'activeUserInvestment',
-            'allUserInvestments'
-        ));
-    }
-
-
     // public function home()
     // {
     //     $user = Auth::user();
 
-    //     // Fetch **all pending investments** for Open Orders
-    //     $activeUserInvestment = UserInvestment::where('user_id', $user->id)
-    //         ->where('investment_result', 'pending')
-    //         ->orderBy('created_at', 'desc')
-    //         ->get();
+    //     $nowUTC = Carbon::now('UTC');
 
-    //     // Fetch all investments for Order History
+    //     // Fetch the currently active game
+    //     $activeGameSetting = GameSetting::where('is_active', 1)
+    //         ->where('start_time', '<=', $nowUTC)
+    //         ->where('end_time', '>', $nowUTC)
+    //         ->orderBy('start_time', 'desc')
+    //         ->first();
+
+    //     // Fetch pending investments only for the active game
+    //     $activeUserInvestment = collect(); // default empty
+    //     if ($activeGameSetting) {
+    //         $activeUserInvestment = UserInvestment::where('user_id', $user->id)
+    //             ->where('game_setting_id', $activeGameSetting->id)
+    //             ->where('investment_result', 'pending')
+    //             ->orderBy('created_at', 'desc')
+    //             ->get();
+    //     }
+
+    //     // Fetch all investments for history
     //     $allUserInvestments = UserInvestment::where('user_id', $user->id)
     //         ->orderBy('created_at', 'desc')
     //         ->get();
 
-    //     return view('user.pages.index', compact('user', 'activeUserInvestment', 'allUserInvestments'));
+    //     return view('user.pages.index', compact(
+    //         'user',
+    //         'activeGameSetting',
+    //         'activeUserInvestment',
+    //         'allUserInvestments'
+    //     ));
     // }
+
+
+    public function home()
+    {
+        $user = Auth::user();
+
+        // Fetch **all pending investments** for Open Orders
+        $activeUserInvestment = UserInvestment::where('user_id', $user->id)
+            ->where('investment_result', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Fetch all investments for Order History
+        $allUserInvestments = UserInvestment::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('user.pages.index', compact('user', 'activeUserInvestment', 'allUserInvestments'));
+    }
 
 
 
