@@ -104,22 +104,13 @@
                                                                 class="d-flex justify-content-between align-items-center">
                                                                 <div class="d-flex align-items-center">
                                                                     <i class="icon ion-md-cash"></i>
-                                                                    <h2>Total Equity</h2>
+                                                                    <h2>Total Balance</h2>
                                                                 </div>
                                                                 <div>
                                                                     <h3>{{ $user->balance }} USDT</h3>
                                                                 </div>
                                                             </li>
-                                                            <li
-                                                                class="d-flex justify-content-between align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <i class="icon ion-md-checkmark"></i>
-                                                                    <h2>Available Margin</h2>
-                                                                </div>
-                                                                <div>
-                                                                    <h3>{{ $user->balance }} USDT</h3>
-                                                                </div>
-                                                            </li>
+                                                            
                                                         </ul>
                                                         <a href="{{ route('deposit.form') }}"
                                                             class="btn btn-success mr-2">Deposit</a>
