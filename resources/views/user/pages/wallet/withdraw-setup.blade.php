@@ -971,8 +971,8 @@
                                         </div>
 
                                         <button type="submit"
-                                            class="submit-btn btn-md mt-3 btn-success btn-rounded rounded-2xl">
-                                            <i class="fas fa-save"></i> Update Address
+                                           class="btn btn-primary">
+                                             Update Address
                                         </button>
                                     </form>
                                 </div>
