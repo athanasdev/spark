@@ -1168,7 +1168,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 d-none d-lg-block">
                 <div class="market-news mt15">
                     <h2 class="heading">Market News</h2>
                     <ul>
@@ -1324,14 +1324,14 @@
                                     <i class="icon ion-md-document"></i> No pending investments
                                 </div>
                             @else
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered mb-0">
+                                <div class="table-responsive ">
+                                    <table class="table  table-striped  mb-0 ">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>Time</th>
                                                 <th>Crypto</th>
-                                                <th>Amount</th>
-                                                <th>Daily Profit</th>
+                                                <th>Amount (USD)</th>
+                                                <th>Daily Profit (USD)</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -1339,7 +1339,7 @@
                                             @foreach ($activeUserInvestment as $inv)
                                                 <tr>
                                                     <td>{{ $inv->created_at->format('Y-m-d H:i') }}</td>
-                                                    <td>{{ $inv->crypto_category }}</td>
+                                                    <td>{{ $inv->crypto_category ?? '-' }}</td>
                                                     <td>{{ number_format($inv->amount, 2) }}</td>
                                                     <td>{{ number_format($inv->daily_profit_amount, 2) }}</td>
                                                     <td>
@@ -1362,14 +1362,14 @@
                                 </div>
                             @else
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered mb-0">
-                                        <thead class="thead-dark">
+                                    <table class="table table-striped  mb-0">
+                                        <thead class="">
                                             <tr>
                                                 <th>Time</th>
                                                 <th>Crypto</th>
-                                                <th>Amount</th>
-                                                <th>Daily Profit</th>
-                                                <th>Total Paid</th>
+                                                <th>Amount (USD)</th>
+                                                <th>Daily Profit (USD)</th>
+                                                <th>Total Paid (USD)</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
@@ -1377,7 +1377,7 @@
                                             @foreach ($allUserInvestments as $inv)
                                                 <tr>
                                                     <td>{{ $inv->created_at->format('Y-m-d H:i') }}</td>
-                                                    <td>{{ $inv->crypto_category }}</td>
+                                                    <td>{{ $inv->crypto_category ?? '-' }}</td>
                                                     <td>{{ number_format($inv->amount, 2) }}</td>
                                                     <td>{{ number_format($inv->daily_profit_amount, 2) }}</td>
                                                     <td>{{ number_format($inv->total_profit_paid_out, 2) }}</td>
