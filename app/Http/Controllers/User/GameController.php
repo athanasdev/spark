@@ -58,6 +58,7 @@ class GameController extends Controller
                 ->get();
         }
 
+    
         // --- Bot Statistics ---
 
         // The corrected query to SUM the profit from all 'gain' trades in the last 24 hours
@@ -100,7 +101,7 @@ class GameController extends Controller
             'activeUserInvestment',
             'bot_profit_24h',
             'bot_trades_24h',
-            'bot_success_rate', // Correctly passing the calculated rate
+            'bot_success_rate', 
             'bot_uptime_seconds',
             'is_bot_globally_active'
         ));

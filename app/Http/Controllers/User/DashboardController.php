@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\GameSetting;
 use App\Models\Payment;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\User; // Your User model
 use App\Models\UserInvestment;
 use App\Models\Withdrawal;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -17,23 +19,65 @@ use Illuminate\Support\Facades\Session;
 class DashboardController extends Controller
 {
 
+
+
     public function home()
     {
         $user = Auth::user();
-        return view('user.pages.index', compact('user'));
+
+        $nowUTC = Carbon::now('UTC');
+
+        // Fetch the currently active game
+        $activeGameSetting = GameSetting::where('is_active', 1)
+            ->where('start_time', '<=', $nowUTC)
+            ->where('end_time', '>', $nowUTC)
+            ->orderBy('start_time', 'desc')
+            ->first();
+
+        // Fetch pending investments only for the active game
+        $activeUserInvestment = collect(); // default empty
+        if ($activeGameSetting) {
+            $activeUserInvestment = UserInvestment::where('user_id', $user->id)
+                ->where('game_setting_id', $activeGameSetting->id)
+                ->where('investment_result', 'pending')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        // Fetch all investments for history
+        $allUserInvestments = UserInvestment::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('user.pages.index', compact(
+            'user',
+            'activeGameSetting',
+            'activeUserInvestment',
+            'allUserInvestments'
+        ));
     }
+
 
     // public function home()
     // {
-    //     $userId = Auth::id();
+    //     $user = Auth::user();
 
-    //     // Cache for 10 minutes
-    //     $user = Cache::remember("user_home_{$userId}", 600, function () use ($userId) {
-    //         return Auth::user(); // or User::find($userId);
-    //     });
+    //     // Fetch **all pending investments** for Open Orders
+    //     $activeUserInvestment = UserInvestment::where('user_id', $user->id)
+    //         ->where('investment_result', 'pending')
+    //         ->orderBy('created_at', 'desc')
+    //         ->get();
 
-    //     return view('user.pages.index', compact('user'));
+    //     // Fetch all investments for Order History
+    //     $allUserInvestments = UserInvestment::where('user_id', $user->id)
+    //         ->orderBy('created_at', 'desc')
+    //         ->get();
+
+    //     return view('user.pages.index', compact('user', 'activeUserInvestment', 'allUserInvestments'));
     // }
+
+
+
 
 
 
@@ -43,7 +87,6 @@ class DashboardController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        // We add pagination here. `paginate(10)` will show 10 items per page.
         // The last argument ('transactions_page') is important for multiple paginations on one page.
         $transactions = Transaction::where('user_id', $user->id)
             ->orderBy('created_at', 'desc')
@@ -98,11 +141,12 @@ class DashboardController extends Controller
         ));
     }
 
+
+
     public function mywallet()
     {
         $user = Auth::user();
         return view('user.pages.wallet.wallet', compact('user'));
-        
     }
 
 

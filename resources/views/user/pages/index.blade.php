@@ -1210,13 +1210,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-9">
+            {{-- <div class="col-md-9">
                 <div class="market-history market-order mt15">
                     <ul class="nav nav-pills" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="pill" href="#open-orders" role="tab"
                                 aria-selected="true">Open
-                                Orders</a>
+                                Orders </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="pill" href="#stop-orders" role="tab"
@@ -1300,7 +1300,107 @@
                         </div>
                     </div>
                 </div>
+            </div> --}}
+
+
+            <div class="col-md-9">
+                <div class="market-history market-order mt-3">
+                    <ul class="nav nav-pills mb-3" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="pill" href="#open-orders" role="tab"
+                                aria-selected="true">Open Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="pill" href="#order-history" role="tab"
+                                aria-selected="false">Order History</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        {{-- OPEN ORDERS (Pending investments) --}}
+                        <div class="tab-pane fade show active" id="open-orders" role="tabpanel">
+                            @if ($activeUserInvestment->isEmpty())
+                                <div class="text-center text-muted p-3">
+                                    <i class="icon ion-md-document"></i> No pending investments
+                                </div>
+                            @else
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered mb-0">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Crypto</th>
+                                                <th>Amount</th>
+                                                <th>Daily Profit</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($activeUserInvestment as $inv)
+                                                <tr>
+                                                    <td>{{ $inv->created_at->format('Y-m-d H:i') }}</td>
+                                                    <td>{{ $inv->crypto_category }}</td>
+                                                    <td>{{ number_format($inv->amount, 2) }}</td>
+                                                    <td>{{ number_format($inv->daily_profit_amount, 2) }}</td>
+                                                    <td>
+                                                        <span
+                                                            class="badge badge-warning">{{ ucfirst($inv->investment_result) }}</span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+                        </div>
+
+                        {{-- ORDER HISTORY (All investments) --}}
+                        <div class="tab-pane fade" id="order-history" role="tabpanel">
+                            @if ($allUserInvestments->isEmpty())
+                                <div class="text-center text-muted p-3">
+                                    <i class="icon ion-md-document"></i> No investment history
+                                </div>
+                            @else
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered mb-0">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Crypto</th>
+                                                <th>Amount</th>
+                                                <th>Daily Profit</th>
+                                                <th>Total Paid</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($allUserInvestments as $inv)
+                                                <tr>
+                                                    <td>{{ $inv->created_at->format('Y-m-d H:i') }}</td>
+                                                    <td>{{ $inv->crypto_category }}</td>
+                                                    <td>{{ number_format($inv->amount, 2) }}</td>
+                                                    <td>{{ number_format($inv->daily_profit_amount, 2) }}</td>
+                                                    <td>{{ number_format($inv->total_profit_paid_out, 2) }}</td>
+                                                    <td>
+                                                        @if ($inv->investment_result == 'gain')
+                                                            <span class="badge badge-success">Gain</span>
+                                                        @elseif ($inv->investment_result == 'lose')
+                                                            <span class="badge badge-danger">Lose</span>
+                                                        @else
+                                                            <span class="badge badge-warning">Pending</span>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
