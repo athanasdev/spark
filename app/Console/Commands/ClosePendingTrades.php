@@ -20,9 +20,11 @@ class ClosePendingTrades extends Command
     public function handle()
     {
         $this->info("Checking for pending trades to close...");
-        $now = Carbon::now();
+        
+        // Force UTC timezone
+        $now = Carbon::now('UTC');
 
-        // Get all trades that are still pending.
+        // Get all trades that are still pending
         $pendingTrades = UserInvestment::where('investment_result', 'pending')->get();
 
         if ($pendingTrades->isEmpty()) {
@@ -34,19 +36,23 @@ class ClosePendingTrades extends Command
             $gameSetting = GameSetting::find($investment->game_setting_id);
 
             if (!$gameSetting) {
-                Log::warning("No valid siginal found for trade ID {$investment->id}");
+                Log::warning("No valid signal found for trade ID {$investment->id}");
                 continue;
             }
 
-            // Calculate the duration of the game in seconds
-            $gameDuration = Carbon::parse($gameSetting->end_time)->diffInSeconds(Carbon::parse($gameSetting->start_time));
+            // Ensure times are treated as UTC
+            $gameStartUtc = Carbon::parse($gameSetting->start_time, 'UTC');
+            $gameEndUtc   = Carbon::parse($gameSetting->end_time, 'UTC');
+
+            // Game duration in seconds
+            $gameDuration = $gameStartUtc->diffInSeconds($gameEndUtc);
 
             // Calculate the trade-specific end time
-            $tradeEndTime = Carbon::parse($investment->game_start_time)->addSeconds($gameDuration);
+            $tradeEndTime = Carbon::parse($investment->game_start_time, 'UTC')->addSeconds($gameDuration);
 
             // Skip if the trade's game is still active
             if ($now->lt($tradeEndTime)) {
-                $this->line("Skipping Trade ID {$investment->id} - Its game is still active until {$tradeEndTime}");
+                $this->line("Skipping Trade ID {$investment->id} - Its game is still active until {$tradeEndTime->toDateTimeString()} UTC");
                 continue;
             }
 
@@ -139,6 +145,4 @@ class ClosePendingTrades extends Command
         }
 
     }
-
-    
 }
