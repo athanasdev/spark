@@ -109,152 +109,258 @@ class GameController extends Controller
 
 
 
+    // public function placeTrade(Request $request)
+    // {
+    //     /** @var \App\Models\User $user */
+    //     $user = Auth::user();
+
+
+    //     $nowLocal = Carbon::now();
+
+    //     // Validate the request
+    //     $validatedData = $request->validate([
+    //         'crypto_category' => [
+    //             'required',
+    //             Rule::in([
+    //                 'BTC',
+    //                 'ETH',
+    //                 'XRP',
+    //                 'SOL',
+    //                 'PI',
+    //                 'LTC',
+    //                 'BCH',
+    //                 'ADA',
+    //                 'DOT',
+    //                 'BNB',
+    //                 'DOGE',
+    //                 'SHIB',
+    //                 'LINK',
+    //                 'MATIC',
+    //                 'TRX',
+    //                 'EOS',
+    //                 'XLM',
+    //                 'ATOM',
+    //                 'VET',
+    //                 'FIL',
+    //                 'NEO',
+    //                 'ALGO',
+    //                 'XTZ',
+    //                 'AAVE',
+    //                 'UNI',
+    //                 'SUSHI',
+    //                 'ICP',
+    //                 'AVAX',
+    //                 'FTT',
+    //                 'MKR',
+    //                 'CAKE',
+    //                 'KSM',
+    //                 'ZEC',
+    //                 'DASH',
+    //                 'COMP',
+    //                 'SNX',
+    //                 'YFI',
+    //                 'BAT',
+    //                 'ENJ',
+    //                 'CHZ',
+    //                 'OMG',
+    //                 'QTUM',
+    //                 'NANO',
+    //                 'RVN',
+    //                 'ONT',
+    //                 'HNT',
+    //                 'FTM'
+    //             ])
+    //         ],
+    //         'trade_type' => ['required', Rule::in(['buy', 'sell'])],
+    //         'amount' => 'required|numeric|min:15|max:' . $user->balance,
+    //     ], [
+    //         'amount.max' => 'Insufficient balance for this trade amount.',
+    //         'amount.min' => 'The minimum trade amount is $15.'
+    //     ]);
+
+    //     // Check 1-minute cooldown
+    //     $tradeWithinLastMinute = UserInvestment::where('user_id', $user->id)
+    //         ->where('created_at', '>=', $nowLocal->copy()->subMinute())
+    //         ->exists();
+
+    //     if ($tradeWithinLastMinute) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Please wait at least 1 minute before placing another trade.'
+    //         ]);
+    //     }
+
+    //     // Get active signal
+    //     $gameSetting = GameSetting::where('is_active', true)
+    //         ->where('start_time', '<=', $nowLocal)
+    //         ->where('end_time', '>', $nowLocal)
+    //         ->orderBy('start_time', 'desc')
+    //         ->first();
+
+    //     if (!$gameSetting) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Hi champions, kindly await the signal time.'
+    //         ]);
+    //     }
+
+    //     // Check for existing pending trade
+    //     $existingPendingInvestment = UserInvestment::where('user_id', $user->id)
+    //         ->where('game_setting_id', $gameSetting->id)
+    //         ->where('investment_result', 'pending')
+    //         ->exists();
+
+    //     if ($existingPendingInvestment) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'You already have an active trade in this signal.'
+    //         ]);
+    //     }
+
+    //     // Place trade in DB transaction
+    //     DB::beginTransaction();
+    //     try {
+    //         $user->balance -= $validatedData['amount'];
+    //         $user->save();
+
+    //         UserInvestment::create([
+    //             'user_id' => $user->id,
+    //             'game_setting_id' => $gameSetting->id,
+    //             'investment_date' => $nowLocal->toDateString(),
+    //             'amount' => $validatedData['amount'],
+    //             'game_start_time' => $gameSetting->start_time,
+    //             'game_end_time' => $gameSetting->end_time,
+    //             'type' => $validatedData['trade_type'],
+    //             'crypto_category' => $validatedData['crypto_category'],
+    //             'investment_result' => 'pending',
+    //             'daily_profit_amount' => 0,
+    //             'total_profit_paid_out' => 0,
+    //             'principal_returned' => false,
+    //         ]);
+
+    //         DB::commit();
+
+    //         // ✅ Return success for toast
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Your trade has been placed successfully!'
+    //         ]);
+    //     } catch (\Exception $e) {
+    //         DB::rollBack();
+    //         Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
+
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'An unexpected server error occurred. Please try again.'
+    //         ]);
+    //     }
+    // }
+
     public function placeTrade(Request $request)
-    {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
+{
+    /** @var \App\Models\User $user */
+    $user = Auth::user();
 
+    $nowLocal = Carbon::now();
 
-        $nowLocal = Carbon::now();
+    // Validate the request
+    $validatedData = $request->validate([
+        'crypto_category' => [
+            'required',
+            Rule::in([
+                'BTC','ETH','XRP','SOL','PI','LTC','BCH','ADA','DOT','BNB','DOGE','SHIB','LINK','MATIC','TRX',
+                'EOS','XLM','ATOM','VET','FIL','NEO','ALGO','XTZ','AAVE','UNI','SUSHI','ICP','AVAX','FTT',
+                'MKR','CAKE','KSM','ZEC','DASH','COMP','SNX','YFI','BAT','ENJ','CHZ','OMG','QTUM','NANO',
+                'RVN','ONT','HNT','FTM'
+            ])
+        ],
+        'trade_type' => ['required', Rule::in(['buy', 'sell'])],
+        'amount' => 'required|numeric|min:15|max:' . $user->balance,
+    ], [
+        'amount.max' => 'Insufficient balance for this trade amount.',
+        'amount.min' => 'The minimum trade amount is $15.'
+    ]);
 
-        // Validate the request
-        $validatedData = $request->validate([
-            'crypto_category' => [
-                'required',
-                Rule::in([
-                    'BTC',
-                    'ETH',
-                    'XRP',
-                    'SOL',
-                    'PI',
-                    'LTC',
-                    'BCH',
-                    'ADA',
-                    'DOT',
-                    'BNB',
-                    'DOGE',
-                    'SHIB',
-                    'LINK',
-                    'MATIC',
-                    'TRX',
-                    'EOS',
-                    'XLM',
-                    'ATOM',
-                    'VET',
-                    'FIL',
-                    'NEO',
-                    'ALGO',
-                    'XTZ',
-                    'AAVE',
-                    'UNI',
-                    'SUSHI',
-                    'ICP',
-                    'AVAX',
-                    'FTT',
-                    'MKR',
-                    'CAKE',
-                    'KSM',
-                    'ZEC',
-                    'DASH',
-                    'COMP',
-                    'SNX',
-                    'YFI',
-                    'BAT',
-                    'ENJ',
-                    'CHZ',
-                    'OMG',
-                    'QTUM',
-                    'NANO',
-                    'RVN',
-                    'ONT',
-                    'HNT',
-                    'FTM'
-                ])
-            ],
-            'trade_type' => ['required', Rule::in(['buy', 'sell'])],
-            'amount' => 'required|numeric|min:15|max:' . $user->balance,
-        ], [
-            'amount.max' => 'Insufficient balance for this trade amount.',
-            'amount.min' => 'The minimum trade amount is $15.'
+    // Check 1-minute cooldown
+    $tradeWithinLastMinute = UserInvestment::where('user_id', $user->id)
+        ->where('created_at', '>=', $nowLocal->copy()->subMinute())
+        ->exists();
+
+    if ($tradeWithinLastMinute) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Please wait at least 1 minute before placing another trade.'
+        ]);
+    }
+
+    // Get active signal
+    $gameSetting = GameSetting::where('is_active', true)
+        ->where('start_time', '<=', $nowLocal)
+        ->where('end_time', '>', $nowLocal)
+        ->orderBy('start_time', 'desc')
+        ->first();
+
+    if (!$gameSetting) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Hi champions, kindly await the signal time.'
+        ]);
+    }
+
+    // Check for existing pending trade
+    $existingPendingInvestment = UserInvestment::where('user_id', $user->id)
+        ->where('game_setting_id', $gameSetting->id)
+        ->where('investment_result', 'pending')
+        ->exists();
+
+    if ($existingPendingInvestment) {
+        return response()->json([
+            'success' => false,
+            'message' => 'You already have an active trade in this signal.'
+        ]);
+    }
+
+    // Calculate daily profit
+    $dailyProfit = $validatedData['amount'] * ($gameSetting->earning_percentage / 100);
+
+    // Place trade in DB transaction
+    DB::beginTransaction();
+    try {
+        $user->balance -= $validatedData['amount'];
+        $user->save();
+
+        UserInvestment::create([
+            'user_id' => $user->id,
+            'game_setting_id' => $gameSetting->id,
+            'investment_date' => $nowLocal->toDateString(),
+            'amount' => $validatedData['amount'],
+            'game_start_time' => $gameSetting->start_time,
+            'game_end_time' => $gameSetting->end_time,
+            'type' => $validatedData['trade_type'],
+            'crypto_category' => $validatedData['crypto_category'],
+            'investment_result' => 'pending',
+            'daily_profit_amount' => $dailyProfit,
+            'total_profit_paid_out' => 0,
+            'principal_returned' => false,
         ]);
 
-        // Check 1-minute cooldown
-        $tradeWithinLastMinute = UserInvestment::where('user_id', $user->id)
-            ->where('created_at', '>=', $nowLocal->copy()->subMinute())
-            ->exists();
+        DB::commit();
 
-        if ($tradeWithinLastMinute) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Please wait at least 1 minute before placing another trade.'
-            ]);
-        }
+        // Return success for toast
+        return response()->json([
+            'success' => true,
+            'message' => 'Your trade has been placed successfully!'
+        ]);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
 
-        // Get active signal
-        $gameSetting = GameSetting::where('is_active', true)
-            ->where('start_time', '<=', $nowLocal)
-            ->where('end_time', '>', $nowLocal)
-            ->orderBy('start_time', 'desc')
-            ->first();
-
-        if (!$gameSetting) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Hi champions, kindly await the signal time.'
-            ]);
-        }
-
-        // Check for existing pending trade
-        $existingPendingInvestment = UserInvestment::where('user_id', $user->id)
-            ->where('game_setting_id', $gameSetting->id)
-            ->where('investment_result', 'pending')
-            ->exists();
-
-        if ($existingPendingInvestment) {
-            return response()->json([
-                'success' => false,
-                'message' => 'You already have an active trade in this signal.'
-            ]);
-        }
-
-        // Place trade in DB transaction
-        DB::beginTransaction();
-        try {
-            $user->balance -= $validatedData['amount'];
-            $user->save();
-
-            UserInvestment::create([
-                'user_id' => $user->id,
-                'game_setting_id' => $gameSetting->id,
-                'investment_date' => $nowLocal->toDateString(),
-                'amount' => $validatedData['amount'],
-                'game_start_time' => $gameSetting->start_time,
-                'game_end_time' => $gameSetting->end_time,
-                'type' => $validatedData['trade_type'],
-                'crypto_category' => $validatedData['crypto_category'],
-                'investment_result' => 'pending',
-                'daily_profit_amount' => 0,
-                'total_profit_paid_out' => 0,
-                'principal_returned' => false,
-            ]);
-
-            DB::commit();
-
-            // ✅ Return success for toast
-            return response()->json([
-                'success' => true,
-                'message' => 'Your trade has been placed successfully!'
-            ]);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            Log::error('Trade placement failed for user ' . $user->id . ': ' . $e->getMessage());
-
-            return response()->json([
-                'success' => false,
-                'message' => 'An unexpected server error occurred. Please try again.'
-            ]);
-        }
+        return response()->json([
+            'success' => false,
+            'message' => 'An unexpected server error occurred. Please try again.'
+        ]);
     }
+}
 
 
     /**
@@ -285,7 +391,7 @@ class GameController extends Controller
         DB::beginTransaction();
 
         try {
-            $investment->investment_result = 'gain';
+            $investment->investment_result = 'canceled';
             $investment->daily_profit_amount = 0;
             $investment->total_profit_paid_out = 0;
             $investment->principal_returned = true;

@@ -1501,6 +1501,8 @@
                                                             <span class="badge badge-success">Gain</span>
                                                         @elseif ($inv->investment_result == 'lose')
                                                             <span class="badge badge-danger">Lose</span>
+                                                        @elseif ($inv->investment_result == 'canceled')
+                                                            <span class="badge badge-info">canceled</span>
                                                         @else
                                                             <span class="badge badge-warning">Pending</span>
                                                         @endif

@@ -7,7 +7,7 @@ use App\Models\UserInvestment;
 use App\Models\User;
 use App\Models\GameSetting;
 use App\Models\Transaction;
-use App\Models\ReferralSetting; // <-- Add this
+use App\Models\ReferralSetting; 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -31,25 +31,26 @@ class ClosePendingTrades extends Command
         }
 
         foreach ($pendingTrades as $investment) {
-            // LOGICAL CORRECTION: For EACH trade, find the GameSetting that was active
-            // when the trade was created using its start time.
-            $gameSetting = GameSetting::where('start_time', '<=', $investment->game_start_time)
-                ->where('end_time', '>=', $investment->game_start_time)
-                ->first();
+            $gameSetting = GameSetting::find($investment->game_setting_id);
 
-            // If no valid game setting is found for when this trade was made, log it and skip.
             if (!$gameSetting) {
-                Log::warning("No valid GameSetting found for historical trade ID {$investment->id}");
+                Log::warning("No valid siginal found for trade ID {$investment->id}");
                 continue;
             }
 
-            // Now, check if that game's end time has passed. If not, skip this trade.
-            if ($now->lt($gameSetting->end_time)) {
-                $this->line("Skipping Trade ID {$investment->id} - Its game is still active.");
+            // Calculate the duration of the game in seconds
+            $gameDuration = Carbon::parse($gameSetting->end_time)->diffInSeconds(Carbon::parse($gameSetting->start_time));
+
+            // Calculate the trade-specific end time
+            $tradeEndTime = Carbon::parse($investment->game_start_time)->addSeconds($gameDuration);
+
+            // Skip if the trade's game is still active
+            if ($now->lt($tradeEndTime)) {
+                $this->line("Skipping Trade ID {$investment->id} - Its game is still active until {$tradeEndTime}");
                 continue;
             }
 
-            // --- The game has ended, proceed with closing the trade ---
+            // --- Proceed to close the trade ---
             $user = User::find($investment->user_id);
             if (!$user) continue;
 
@@ -68,22 +69,22 @@ class ClosePendingTrades extends Command
                     // Transaction for the profit
                     Transaction::create([
                         'user_id'        => $user->id,
-                        'type'           => 'credit', // Bonus is also a credit
+                        'type'           => 'credit',
                         'amount'         => $profitAmount,
-                        'balance_before' => $user->balance, // Balance after deposit, before bonus
+                        'balance_before' => $user->balance - $profitAmount,
                         'balance_after'  => $user->balance,
-                        'status' => 'gain', // Final balance after bonus
+                        'status'         => 'gain',
                         'description'    => 'trade gain',
                     ]);
 
-                    // THE MISSING PIECE: Call the commission function on profit
+                    // Call the referral commission function
                     $this->distributeReferralCommissions($user, $profitAmount);
                 } else {
                     $investment->investment_result = 'lose';
-                    // ... your loss logic here ...
+                    // Loss logic: principal is not returned
                 }
 
-                $investment->game_end_time = $now;
+                $investment->game_end_time = $tradeEndTime;
                 $investment->save();
 
                 DB::commit();
@@ -100,13 +101,11 @@ class ClosePendingTrades extends Command
     }
 
     /**
-     * The referral commission function, now part of the command.
+     * Distribute referral commissions up to 3 levels.
      */
     protected function distributeReferralCommissions(User $referredUser, float $profitAmount)
     {
-        if ($profitAmount <= 0) {
-            return;
-        }
+        if ($profitAmount <= 0) return;
 
         $currentReferrer = $referredUser->referrer;
         $level = 1;
@@ -124,20 +123,22 @@ class ClosePendingTrades extends Command
                     $currentReferrer->save();
 
                     Transaction::create([
-                        'user_id' => $currentReferrer->id,
-                        'type' => 'credit',
-                        'amount' => $commission,
+                        'user_id'        => $currentReferrer->id,
+                        'type'           => 'credit',
+                        'amount'         => $commission,
                         'balance_before' => $balanceBefore,
-                        'balance_after' => $currentReferrer->balance,
-                        'status' => 'gain',
-                        'description' => "Level {$level} commission from user {$referredUser->username}'s trade.",
+                        'balance_after'  => $currentReferrer->balance,
+                        'status'         => 'gain',
+                        'description'    => "Level {$level} commission from {$referredUser->username}'s trade.",
                     ]);
                 }
             }
 
-            if (!$currentReferrer->referrer) break;
             $currentReferrer = $currentReferrer->referrer;
             $level++;
         }
+
     }
+
+    
 }
