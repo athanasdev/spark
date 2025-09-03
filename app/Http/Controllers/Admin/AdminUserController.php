@@ -67,7 +67,7 @@ class AdminUserController extends Controller
 
     public function depost()
     {
-        $deposits = Deposit::with('user')->orderBy('created_at', 'desc')->paginate(10);
+        $deposits = Deposit::with('user')->orderBy('created_at', 'desc')->paginate(100000);
 
         $pendingCount = Deposit::where('status', 'pending')->count();
         $completedCount = Deposit::where('status', 'completed')->count();
