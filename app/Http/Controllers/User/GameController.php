@@ -114,7 +114,6 @@ class GameController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        Log::info("The request is;", ['Data' => $request->all()]);
 
         $nowLocal = Carbon::now();
 
@@ -173,10 +172,10 @@ class GameController extends Controller
                 ])
             ],
             'trade_type' => ['required', Rule::in(['buy', 'sell'])],
-            'amount' => 'required|numeric|min:10|max:' . $user->balance,
+            'amount' => 'required|numeric|min:15|max:' . $user->balance,
         ], [
             'amount.max' => 'Insufficient balance for this trade amount.',
-            'amount.min' => 'The minimum trade amount is $10.'
+            'amount.min' => 'The minimum trade amount is $15.'
         ]);
 
         // Check 1-minute cooldown
