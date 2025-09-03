@@ -14,7 +14,7 @@
     <link rel="icon" href="/client/assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/client/assets/css/style.css">
     <script src="//code.jivosite.com/widget/lV3WFrkVOl" async></script>
-    
+
 </head>
 
 <body id="dark">
@@ -1415,16 +1415,25 @@
                     </ul>
 
                     <div class="tab-content">
-                        {{-- OPEN ORDERS (Pending investments) --}}
+                        {{-- OPEN ORDERS --}}
                         <div class="tab-pane fade show active" id="open-orders" role="tabpanel">
                             @if ($activeUserInvestment->isEmpty())
                                 <div class="text-center text-muted p-3">
                                     <i class="icon ion-md-document"></i> No pending investments
                                 </div>
                             @else
-                                <div class="table-responsive">
-                                    <table class="table table-striped mb-0">
-
+                                <div class="table-responsive" style="overflow-x:auto;">
+                                    <table class="table table-striped mb-0 " style="min-width: 800px;">
+                                        <thead class="">
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Crypto</th>
+                                                <th>Amount (USD)</th>
+                                                <th>Daily Profit (USD)</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             @foreach ($activeUserInvestment as $inv)
                                                 <tr>
@@ -1460,16 +1469,25 @@
                             @endif
                         </div>
 
-                        {{-- ORDER HISTORY (All investments) --}}
+                        {{-- ORDER HISTORY --}}
                         <div class="tab-pane fade" id="order-history" role="tabpanel">
                             @if ($allUserInvestments->isEmpty())
                                 <div class="text-center text-muted p-3">
                                     <i class="icon ion-md-document"></i> No investment history
                                 </div>
                             @else
-                                <div class="table-responsive">
-                                    <table class="table table-striped  mb-0 ">
-
+                                <div class="table-responsive" style="overflow-x:auto;">
+                                    <table class="table table-striped mb-0 " style="min-width: 800px;">
+                                        <thead class="">
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Crypto</th>
+                                                <th>Amount (USD)</th>
+                                                <th>Daily Profit (USD)</th>
+                                                <th>Total Paid (USD)</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
                                             @foreach ($allUserInvestments as $inv)
                                                 <tr>
@@ -1492,9 +1510,9 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                             @endif
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -1511,6 +1529,9 @@
     <script src="/client/assets/js/amcharts.min.js"></script>
     <script src="/client/assets/js/jquery.mCustomScrollbar.js"></script>
     <script src="/client/assets/js/custom.js"></script>
+
+
+
     <script>
         $('tbody, .market-news ul').mCustomScrollbar({
             theme: 'minimal',

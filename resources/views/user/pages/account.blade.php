@@ -2,8 +2,6 @@
 <html lang="en">
 
 
-<!-- Mirrored from crypo-laravel-live.netlify.app/profile/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:56:00 GMT -->
-<!-- Added by HTTrack -->
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 
 <head>
@@ -88,7 +86,7 @@
 
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Latest Transactions 7</h5>
+                                    <h5 class="card-title">Latest Transactions </h5>
                                     <div class="wallet-history  table-responsive">
                                         <table class="table">
                                             <thead>
@@ -97,6 +95,7 @@
                                                     <th>Date</th>
                                                     <th>Status</th>
                                                     <th>Amount</th>
+                                                    <th>Description</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -115,6 +114,7 @@
                                                             @endif
                                                         </td>
                                                         <td>{{ number_format($transaction->amount, 8) }} USDT</td>
+                                                        <td>{{$transaction->description}}</td>
                                                     </tr>
                                                 @empty
                                                     <tr>
