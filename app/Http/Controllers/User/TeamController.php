@@ -193,7 +193,7 @@ class TeamController extends Controller
         // --- 5. Merge Members & Paginate ---
         $allMembers = $level1_members->merge($level2_members)->merge($level3_members)
             ->sortBy(['level', 'username'])->values();
-        $perPage = 10;
+        $perPage = 1000;
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $currentItems = $allMembers->slice(($currentPage - 1) * $perPage, $perPage)->values();
         $paginatedMembers = new LengthAwarePaginator(

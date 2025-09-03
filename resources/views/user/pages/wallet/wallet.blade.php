@@ -233,7 +233,7 @@
                                                                     <h3>{{ $user->balance }} USD</h3>
                                                                 </div>
                                                             </li>
-                                                            
+
                                                         </ul>
 
                                                         <a href="{{ route('deposit.form') }}"
@@ -248,7 +248,8 @@
                                                         <h5 class="card-title">My withdraw Address</h5>
                                                         <div class="row wallet-address">
                                                             <div class="col-md-8">
-                                                                <p>The more you deposit, the more you can earn and receive rewards</p>
+                                                                <p>The more you deposit, the more you can earn and
+                                                                    receive rewards</p>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                         value=`{{ $user->withdrawal_address }}`>
