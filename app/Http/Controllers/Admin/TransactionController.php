@@ -52,8 +52,8 @@ class TransactionController extends Controller
             if ($type === 'credit') {
                 $balanceAfter = $balanceBefore + $amount;
 
-                // Calculate and apply 1% deposit bonus
-                $depositBonusRate = 0.01; // 1%
+                // Calculate and apply 2% deposit bonus
+                $depositBonusRate = 0.02; // 2%
                 $bonusAmount = $amount * $depositBonusRate;
                 $balanceAfter += $bonusAmount; // Add bonus to the balance
 
@@ -78,7 +78,7 @@ class TransactionController extends Controller
                     'amount'         => $bonusAmount,
                     'balance_before' => $balanceBefore + $amount, // Balance after deposit, before bonus
                     'balance_after'  => $balanceAfter, // Final balance after bonus
-                    'description'    => '1% Deposit Bonus',
+                    'description'    => '2% Deposit Bonus',
                 ]);
 
                 // Record the deposit in the 'deposits' table
@@ -120,7 +120,7 @@ class TransactionController extends Controller
 
             DB::commit(); // Commit all changes if everything went well
 
-            return back()->with('success', 'Transaction processed, balance updated, and 1% bonus added successfully!');
+            return back()->with('success', 'Transaction processed, balance updated, and 2% bonus added successfully!');
         } catch (\Exception $e) {
             DB::rollBack(); // Rollback all changes if any error occurred
             Log::error("Transaction processing failed: " . $e->getMessage());

@@ -34,7 +34,7 @@ class AdminUserController extends Controller
     {
 
         $traders = User::select('id', 'unique_id', 'username', 'email', 'balance', 'status', 'Withdraw_amount', 'email', 'created_at')
-            ->paginate(10);
+            ->paginate(2000);
 
         $totalUsers = User::count();
 
