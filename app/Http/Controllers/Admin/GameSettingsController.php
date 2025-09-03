@@ -7,7 +7,6 @@ use App\Models\GameSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
-use Illuminate\Validation\Rule;
 
 class GameSettingsController extends Controller
 {
@@ -175,60 +174,7 @@ class GameSettingsController extends Controller
             'end_time' => 'required|date|after:start_time',
             'earning_percentage' => 'required|numeric|min:0',
             'type' => 'required|in:buy,sell',
-            'crypto_category' => [
-                'required',
-                Rule::in([
-                    'BTC',
-                    'ETH',
-                    'XRP',
-                    'SOL',
-                    'SOLANA',
-                    'PI',
-                    'LTC',
-                    'BCH',
-                    'ADA',
-                    'DOT',
-                    'BNB',
-                    'DOGE',
-                    'SHIB',
-                    'LINK',
-                    'MATIC',
-                    'TRX',
-                    'EOS',
-                    'XLM',
-                    'ATOM',
-                    'VET',
-                    'FIL',
-                    'NEO',
-                    'ALGO',
-                    'XTZ',
-                    'AAVE',
-                    'UNI',
-                    'SUSHI',
-                    'ICP',
-                    'AVAX',
-                    'FTT',
-                    'MKR',
-                    'CAKE',
-                    'KSM',
-                    'ZEC',
-                    'DASH',
-                    'COMP',
-                    'SNX',
-                    'YFI',
-                    'BAT',
-                    'ENJ',
-                    'CHZ',
-                    'OMG',
-                    'QTUM',
-                    'NANO',
-                    'RVN',
-                    'ONT',
-                    'HNT',
-                    'FTM'
-                ])
-            ],
-
+            'crypto_category' => 'required|in:BTC,ETH,XRP,SOL,SOLANA,PI,LTC,BCH,ADA,DOT,BNB,DOGE,SHIB,LINK,MATIC,TRX,EOS,XLM,ATOM,VET,FIL,NEO,ALGO,XTZ,AAVE,UNI,SUSHI,ICP,AVAX,FTT,MKR,CAKE,KSM,ZEC,DASH,COMP,SNX,YFI,BAT,ENJ,CHZ,OMG,QTUM,NANO,RVN,ONT,HNT,FTM',
         ]);
 
         // Get the application's configured timezone (e.g., 'Africa/Nairobi')
@@ -269,60 +215,7 @@ class GameSettingsController extends Controller
             'end_time' => 'required|date|after:start_time',
             'earning_percentage' => 'required|numeric|min:0',
             'type' => 'required|in:buy,sell',
-            'crypto_category' => [
-                'required',
-                Rule::in([
-                    'BTC',
-                    'ETH',
-                    'XRP',
-                    'SOL',
-                    'SOLANA',
-                    'PI',
-                    'LTC',
-                    'BCH',
-                    'ADA',
-                    'DOT',
-                    'BNB',
-                    'DOGE',
-                    'SHIB',
-                    'LINK',
-                    'MATIC',
-                    'TRX',
-                    'EOS',
-                    'XLM',
-                    'ATOM',
-                    'VET',
-                    'FIL',
-                    'NEO',
-                    'ALGO',
-                    'XTZ',
-                    'AAVE',
-                    'UNI',
-                    'SUSHI',
-                    'ICP',
-                    'AVAX',
-                    'FTT',
-                    'MKR',
-                    'CAKE',
-                    'KSM',
-                    'ZEC',
-                    'DASH',
-                    'COMP',
-                    'SNX',
-                    'YFI',
-                    'BAT',
-                    'ENJ',
-                    'CHZ',
-                    'OMG',
-                    'QTUM',
-                    'NANO',
-                    'RVN',
-                    'ONT',
-                    'HNT',
-                    'FTM'
-                ])
-            ],
-
+             'crypto_category' => 'required|in:BTC,ETH,XRP,SOL,SOLANA,PI,LTC,BCH,ADA,DOT,BNB,DOGE,SHIB,LINK,MATIC,TRX,EOS,XLM,ATOM,VET,FIL,NEO,ALGO,XTZ,AAVE,UNI,SUSHI,ICP,AVAX,FTT,MKR,CAKE,KSM,ZEC,DASH,COMP,SNX,YFI,BAT,ENJ,CHZ,OMG,QTUM,NANO,RVN,ONT,HNT,FTM',
         ]);
 
         $appTimezone = config('app.timezone');
