@@ -97,7 +97,7 @@ class AdminUserController extends Controller
         $completedTotal = Withdrawal::where('status', 'completed')->sum('amount');
 
         // Eager load users to prevent N+1
-        $withdraws = Withdrawal::with('user')->latest()->paginate(10);
+        $withdraws = Withdrawal::with('user')->latest()->paginate(100000);
 
         return view('admin.dashbord.pages.withdraw', compact(
             'pendingCount',
