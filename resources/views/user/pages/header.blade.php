@@ -30,6 +30,10 @@
                     </a>
                 @endauth
 
+                <a class="nav-link" href="https://t.me/+CDK-OdiT3QMwNjk0" target="_blank">
+                    Community Support
+                </a>
+
 
             </ul>
             <ul class="navbar-nav ml-auto">
