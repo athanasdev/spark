@@ -89,6 +89,7 @@
                             <select id="crypto_category" name="crypto_category"
                                 class="form-control @error('crypto_category') is-invalid @enderror" required>
                                 <option value="" disabled>-- Select Crypto Category --</option>
+
                                 <option value="BTC"
                                     {{ old('crypto_category', $gameSetting->crypto_category) == 'BTC' ? 'selected' : '' }}>
                                     USDT/BTC</option>
@@ -122,9 +123,14 @@
                                 <option value="SOLANA"
                                     {{ old('crypto_category', $gameSetting->crypto_category) == 'SOLANA' ? 'selected' : '' }}>
                                     USDT/SOLANA</option>
+
                             </select>
 
+                            @error('crypto_category')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            @enderror
                         </div>
+
 
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1"
