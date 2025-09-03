@@ -248,11 +248,7 @@
                                                         <h5 class="card-title">My withdraw Address</h5>
                                                         <div class="row wallet-address">
                                                             <div class="col-md-8">
-                                                                <p>Deposits to this address are unlimited. Note that you
-                                                                    may not be able to withdraw all
-                                                                    of your
-                                                                    funds at once if you deposit more than your daily
-                                                                    withdrawal limit.</p>
+                                                                <p>The more you deposit, the more you can earn and receive rewards</p>
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                         value=`{{ $user->withdrawal_address }}`>
@@ -267,7 +263,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card">
-                                                    <div class="card-body">
+                                                    {{-- <div class="card-body">
                                                         <h5 class="card-title">Latest Transactions</h5>
                                                         <div class="wallet-history">
                                                             <table class="table">
@@ -323,7 +319,7 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="coinETH" role="tabpanel">
@@ -381,7 +377,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card">
-                                                    <div class="card-body">
+                                                    {{-- <div class="card-body">
                                                         <h5 class="card-title">Latest Transactions</h5>
                                                         <div class="wallet-history">
                                                             <table class="table">
@@ -437,7 +433,7 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="coinBNB" role="tabpanel">
@@ -495,7 +491,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card">
+                                                {{-- <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Latest Transactions</h5>
                                                         <div class="wallet-history">
@@ -553,7 +549,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="tab-pane fade" id="coinTRX" role="tabpanel">
                                                 <div class="card">
@@ -610,7 +606,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card">
+                                                {{-- <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Latest Transactions</h5>
                                                         <div class="wallet-history">
@@ -668,7 +664,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="tab-pane fade" id="coinEOS" role="tabpanel">
                                                 <div class="card">
@@ -726,7 +722,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card">
-                                                    <div class="card-body">
+                                                    {{-- <div class="card-body">
                                                         <h5 class="card-title">Latest Transactions</h5>
                                                         <div class="wallet-history">
                                                             <table class="table">
@@ -782,7 +778,7 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="coinXMR" role="tabpanel">
