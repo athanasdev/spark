@@ -85,7 +85,7 @@
 
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title pl-4">Latest  Transactions </h5>
+                                    <h5 class="card-title pl-4">Latest Transactions </h5>
                                     <div class="wallet-history  table-responsive">
                                         <table class="table">
                                             <thead>

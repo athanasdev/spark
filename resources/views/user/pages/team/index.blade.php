@@ -244,8 +244,9 @@
                                                         </div>
 
                                                         <!-- Pagination -->
-                                                        <div class="d-flex justify-content-center mt-3">
-                                                            {{ $paginatedMembers->links() }}
+                                                        <div
+                                                            class="d-flex justify-content-center mt-3 pagination-wrapper">
+                                                            {{ $paginatedMembers->links('vendor.pagination.custom') }}
                                                         </div>
                                                     </div>
                                                 </div>
