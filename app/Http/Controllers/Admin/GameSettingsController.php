@@ -244,7 +244,6 @@ class GameSettingsController extends Controller
 
 
 
-
     public function destroy(GameSetting $gameSetting)
     {
         try {
