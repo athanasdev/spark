@@ -124,8 +124,6 @@ Route::middleware(['auth:web', 'history'])->group(function () {
 
 
 
-
-
 // ==========================
 // Protected Admin Routes
 // ==========================

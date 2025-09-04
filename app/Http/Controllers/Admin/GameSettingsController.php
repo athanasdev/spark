@@ -238,9 +238,9 @@ class GameSettingsController extends Controller
             Log::error("Error updating game setting {$gameSetting->id}: " . $e->getMessage());
             return back()->withInput()->with('error', 'Failed to update game setting. Please try again.');
         }
+
+
     }
-
-
 
 
 

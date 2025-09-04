@@ -120,9 +120,7 @@
                                 <option value="PI"
                                     {{ old('crypto_category', $gameSetting->crypto_category) == 'PI' ? 'selected' : '' }}>
                                     USDT/PI</option>
-                                <option value="SOLANA"
-                                    {{ old('crypto_category', $gameSetting->crypto_category) == 'SOLANA' ? 'selected' : '' }}>
-                                    USDT/SOLANA</option>
+                                
 
                             </select>
 

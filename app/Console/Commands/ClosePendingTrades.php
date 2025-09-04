@@ -69,7 +69,7 @@ class ClosePendingTrades extends Command
                     $profitAmount = $investment->amount * ($gameSetting->earning_percentage / 100);
                     $investment->daily_profit_amount = $profitAmount;
 
-                    $user->balance += $investment->amount + $profitAmount; // Return principal + profit
+                    $user->balance += $investment->amount + $profitAmount; 
                     $user->save();
 
                     // Transaction for the profit
@@ -145,4 +145,9 @@ class ClosePendingTrades extends Command
         }
 
     }
+
 }
+
+
+
+
