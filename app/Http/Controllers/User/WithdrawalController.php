@@ -111,7 +111,7 @@ class WithdrawalController extends Controller
             $remainingSeconds = $remaining->s;
 
             return redirect()->back()->withErrors([
-                'error' => "One day before making a withdrawal ,you should not trading."
+                'error' => "You must complete at least 4 valid trades before making a withdrawal."
             ]);
         }
 
