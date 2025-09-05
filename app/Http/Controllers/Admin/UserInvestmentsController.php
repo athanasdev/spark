@@ -14,7 +14,7 @@ class UserInvestmentsController extends Controller
 {
     public function index()
     {
-        $investments = UserInvestment::with('user')->latest()->paginate(10);
+        $investments = UserInvestment::with('user')->latest()->paginate(10000000000);
         return view('admin.dashbord.game.investments', compact('investments'));
     }
 
