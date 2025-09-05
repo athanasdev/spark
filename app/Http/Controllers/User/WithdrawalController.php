@@ -159,7 +159,7 @@ class WithdrawalController extends Controller
         ->exists();
 
     if ($todayRequest) {
-        return redirect()->back()->withErrors(['error' => 'Hi, withdrawal is allowed only once per day.']);
+        return redirect()->back()->withErrors(['error' => 'Hi, Single Withdrawal per day.']);
     }
 
     $investments = DB::table('user_investments')
