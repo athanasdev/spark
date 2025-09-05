@@ -10,6 +10,9 @@
                     </div>
                 </div>
 
+
+                {{-- WITHDRAWS MANAGEMENTS  --}}
+
                 <div class="card-box mb-10">
                     <div class="pd-20">
                         <h4 class="text-blue h4">Withdraw Requests</h4>
@@ -62,7 +65,7 @@
                                         </td>
                                         <td>{{ $withdraw->updated_at && $withdraw->status != 'pending' ? $withdraw->updated_at->format('d-m-Y H:i') : 'N/A' }}
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             @if ($withdraw->status == 'pending')
                                                 <form method="POST"
                                                     action="{{ route('admin.withdraw.pay', $withdraw->id) }}"
@@ -77,7 +80,28 @@
 
                                             <a class="btn btn-secondary btn-sm ml-1"
                                                 href="{{ url()->previous() }}">Return</a>
+                                        </td> --}}
+
+                                        <td>
+                                            @if ($withdraw->status == 'pending')
+                                                <form method="POST"
+                                                    action="{{ route('admin.withdraw.pay', $withdraw->id) }}"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-success btn-sm">Pay</button>
+                                                </form>
+
+                                                <form method="POST"
+                                                    action="{{ route('admin.withdraw.return', $withdraw->id) }}"
+                                                    class="d-inline ml-1">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-secondary btn-sm">Return</button>
+                                                </form>
+                                            @else
+                                                <span class="badge badge-success">Processed</span>
+                                            @endif
                                         </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -3,23 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Deposit;
+use App\Models\Referral;
+use App\Models\ReferralSetting;
+use App\Models\ReferralSettings;
+use App\Models\Team;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Withdrawal;
-use App\Models\ReferralSettings;
-use App\Models\ReferralSetting;
-use App\Models\Deposit;
-use App\Models\Transaction;
-use App\Models\Team;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use App\Models\Referral;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AdminUserController extends Controller
 {
-
     public function passwordResetList()
     {
         $resetRequests = DB::table('password_reset_tokens')
@@ -29,10 +27,8 @@ class AdminUserController extends Controller
         return view('admin.dashbord.pages.password', compact('resetRequests'));
     }
 
-
     public function traderList()
     {
-
         $traders = User::select('id', 'unique_id', 'username', 'email', 'balance', 'status', 'Withdraw_amount', 'email', 'created_at')
             ->paginate(10000);
 
@@ -44,7 +40,6 @@ class AdminUserController extends Controller
 
         $withdrawRequests = Withdrawal::where('status', 'pending')->distinct('user_id')->count('user_id');
 
-
         return view('admin.dashbord.pages.trader', compact(
             'traders',
             'totalUsers',
@@ -54,16 +49,12 @@ class AdminUserController extends Controller
         ));
     }
 
-
     public function systemLogs()
-
     {
         $transactions = Transaction::select('id', 'user_id', 'type', 'amount', 'description', 'created_at')
             ->paginate(10);
         return view('admin.dashbord.pages.logs', compact('transactions'));
     }
-
-
 
     public function depost()
     {
@@ -76,16 +67,13 @@ class AdminUserController extends Controller
         $completedTotal = Deposit::where('status', 'completed')->sum('amount');
 
         return view('admin.dashbord.pages.depost', [
-
             'withdraws' => $deposits,
             'pendingCount' => $pendingCount,
             'completedCount' => $completedCount,
             'pendingTotal' => $pendingTotal,
             'completedTotal' => $completedTotal,
-
         ]);
     }
-
 
     public function withdraw()
     {
@@ -112,8 +100,6 @@ class AdminUserController extends Controller
     {
         return view('admin.dashbord.pages.team');
     }
-
-
 
     public function traderDetails($id)
     {
@@ -146,20 +132,20 @@ class AdminUserController extends Controller
         $level3_count = $level3_members->count();
 
         $total_registered_users = $level1_count + $level2_count + $level3_count;
-        $active_users = 0; // You'll need to implement logic to determine active users
+        $active_users = 0;  // You'll need to implement logic to determine active users
 
         // You'll need to implement logic for Deposit and Commissions based on your application's flow.
-        $level1_deposit = 0.00;
-        $level1_commissions = 0.00;
-        $level2_deposit = 0.00;
-        $level2_commissions = 0.00;
-        $level3_deposit = 0.00;
-        $level3_commissions = 0.00;
-        $total_deposits = 0.00;
-        $total_commissions = 0.00;
+        $level1_deposit = 0.0;
+        $level1_commissions = 0.0;
+        $level2_deposit = 0.0;
+        $level2_commissions = 0.0;
+        $level3_deposit = 0.0;
+        $level3_commissions = 0.0;
+        $total_deposits = 0.0;
+        $total_commissions = 0.0;
 
         // Combine referral data (if you still need the original referralSummary structure)
-        $teams = Team::where('user_id', $user->id)->get()->groupBy('level'); // Assuming you have a Team model
+        $teams = Team::where('user_id', $user->id)->get()->groupBy('level');  // Assuming you have a Team model
         $referralSummary = [
             'totalMembers' => $teams->flatten()->count(),
             'totalDeposit' => $teams->flatten()->sum('deposit'),
@@ -170,8 +156,8 @@ class AdminUserController extends Controller
         return view('admin.dashbord.pages.traderdetails', compact(
             'user',
             'transactions',
-            'referralSummary', // Keep this if your original UI part uses it
-            'total_registered_users', // Add these new variables
+            'referralSummary',  // Keep this if your original UI part uses it
+            'total_registered_users',  // Add these new variables
             'active_users',
             'level1_count',
             'level2_count',
@@ -187,10 +173,7 @@ class AdminUserController extends Controller
         ));
     }
 
-
-
     public function toggleTraderStatus(Request $request, $id)
-
     {
         $user = User::findOrFail($id);
 
@@ -208,22 +191,17 @@ class AdminUserController extends Controller
         return redirect()->back()->with('success', $message);
     }
 
-
-
     public function settings()
     {
         // Fetch all referral levels from the new 'referrals' table
         // If you paginate here, ensure your view handles pagination links
-        $referrals = Referral::orderBy('level')->get(); // Or paginate(20) if you expect many levels
+        $referrals = Referral::orderBy('level')->get();  // Or paginate(20) if you expect many levels
 
         // If you have other general settings, you might fetch them here too
         // For now, we'll focus on referrals
 
         return view('admin.dashbord.pages.settings', compact('referrals'));
     }
-
-
-
 
     public function aproveDepost(Request $request, $id)
     {
@@ -262,7 +240,6 @@ class AdminUserController extends Controller
         }
     }
 
-
     //  Aprovie with draws for the users
 
     public function pay($id)
@@ -277,7 +254,22 @@ class AdminUserController extends Controller
         $withdraw->save();
 
         return back()->with('success', 'Payment marked as complete.');
+    }
 
+
+    
+    public function returnWithdraw($id)
+    {
+        $withdraw = Withdrawal::with('user')->findOrFail($id);
+
+        // Add the amount back to the user balance
+        $withdraw->user->balance += $withdraw->amount;
+        $withdraw->user->save();
+
+        // Delete withdrawal record
+        $withdraw->delete();
+
+        return redirect()->back()->with('success', 'Withdrawal amount returned to user balance.');
     }
 
 

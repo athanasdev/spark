@@ -136,6 +136,9 @@ Route::prefix('admin', 'history')->middleware('auth:admin')->group(function () {
     Route::get('/depost', [AdminUserController::class, 'depost'])->name('admin.depost');
     Route::get('/withdraw', [AdminUserController::class, 'withdraw'])->name('admin.withdraw');
     Route::post('/withdraw/pay/{id}', [AdminUserController::class, 'pay'])->name('admin.withdraw.pay');
+    Route::post('/withdraw/{id}/return', [AdminUserController::class, 'returnWithdraw'])
+    ->name('admin.withdraw.return');
+
 
     Route::get('/user-team', [AdminUserController::class, 'team'])->name('admin.team');
     Route::get('/trader-details/{id}', [AdminUserController::class, 'traderDetails'])->name('admin.trader-details');
