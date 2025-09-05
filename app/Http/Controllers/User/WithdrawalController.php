@@ -36,109 +36,182 @@ class WithdrawalController extends Controller
     }
 
 
+    // public function withdrawRequest(Request $request)
+    // {
+    //     $request->validate([
+    //         'amount' => 'required|numeric|min:8',
+    //         'withdraw_password' => 'required|string',
+    //     ]);
+
+    //     /** @var \Illuminate\Auth\AuthManager $auth */
+    //     $auth = auth();
+    //     $user = auth()->user();
+
+    //     if (!$user->withdrawal_pin_hash) {
+    //         return redirect()->back()->withErrors(['error' => 'You have not set a withdrawal PIN.']);
+    //     }
+
+    //     if (!Hash::check($request->withdraw_password, $user->withdrawal_pin_hash)) {
+    //         return redirect()->back()->withErrors(['error' => 'Incorrect withdrawal password.']);
+    //     }
+
+    //     if (!$user->withdrawal_address) {
+    //         return redirect()->back()->withErrors(['error' => 'No withdrawal address set.']);
+    //     }
+
+    //     $investments = DB::table('user_investments')
+    //         ->where('user_id', $user->id)
+    //         ->get();
+
+    //     // if ($investments->isEmpty()) {
+    //     //     return redirect()->back()->withErrors(['error' => 'A minimum of one trade is required prior to a withdrawal.']);
+    //     // }
+
+    //     // Filter only real trades with non-null end time
+    //     $trades = $investments->filter(function ($inv) {
+    //         return in_array($inv->type, ['buy', 'sell']) && !is_null($inv->game_end_time);
+    //     });
+
+    //     if ($trades->count() < 4) {
+    //         return redirect()->back()->withErrors([
+    //             'error' => 'You must complete at least 4 valid trades before making a withdrawal.'
+    //         ]);
+    //     }
+
+    //     $setting = Setting::first();
+    //     if (!$setting) {
+    //         return redirect()->back()->withErrors([
+    //             'error' => 'Withdrawal settings not configured.'
+    //         ]);
+    //     }
+
+
+    //     $amount = $request->amount;
+
+    //     if ($amount < $setting->min_withdraw_amount) {
+    //         return redirect()->back()->withErrors(['error' => 'Amount is less than the minimum withdrawal limit.']);
+    //     }
+
+    //     $lastTradeEndTime = $trades->max('game_end_time');
+
+    //     if (!$lastTradeEndTime) {
+    //         return redirect()->back()->withErrors(['error' => 'Could not determine last trade completion time.']);
+    //     }
+
+    //     $lastTradeCarbon = Carbon::parse($lastTradeEndTime);
+    //     $nowUtc = Carbon::now();
+
+    //     // Require 24 full hours between last trade and withdrawal
+    //     $eligibleTime = $lastTradeCarbon->copy()->addHours(24);
+
+
+    //     if ($user->balance < $amount) {
+    //         return redirect()->back()->withErrors(['error' => 'Insufficient balance.']);
+    //     }
+
+    //     // Calculate fee and net amount
+    //     $fee = ($amount * $setting->withdraw_fee_percentage) / 100;
+    //     $netAmount = $amount - $fee;
+
+    //     // Save withdrawal
+    //     $withdrawal = new Withdrawal();
+    //     $withdrawal->user_id = $user->id;
+    //     $withdrawal->payment_address = $user->withdrawal_address;
+    //     $withdrawal->withdraw_password = bcrypt($request->withdraw_password);
+    //     $withdrawal->status = 'pending';
+    //     $withdrawal->amount = $netAmount;
+    //     $withdrawal->save();
+
+    //     // Deduct from balance
+    //     $user->balance -= $amount;
+    //     $user->save();
+
+    //     return redirect()->back()->with('success', "Withdraw request submitted. Amount: $amount, Fee: $fee, Net: $netAmount");
+    // }
+
+
+    //   NEW WITHDRAW METHODS HERE 
+
     public function withdrawRequest(Request $request)
-    {
-        $request->validate([
-            'amount' => 'required|numeric|min:8',
-            'withdraw_password' => 'required|string',
-        ]);
+{
+    $request->validate([
+        'amount' => 'required|numeric|min:8',
+        'withdraw_password' => 'required|string',
+    ]);
 
-        /** @var \Illuminate\Auth\AuthManager $auth */
-        $auth = auth();
-        $user = auth()->user();
+    $user = auth()->user();
 
-        if (!$user->withdrawal_pin_hash) {
-            return redirect()->back()->withErrors(['error' => 'You have not set a withdrawal PIN.']);
-        }
-
-        if (!Hash::check($request->withdraw_password, $user->withdrawal_pin_hash)) {
-            return redirect()->back()->withErrors(['error' => 'Incorrect withdrawal password.']);
-        }
-
-        if (!$user->withdrawal_address) {
-            return redirect()->back()->withErrors(['error' => 'No withdrawal address set.']);
-        }
-
-        $investments = DB::table('user_investments')
-            ->where('user_id', $user->id)
-            ->get();
-
-        // if ($investments->isEmpty()) {
-        //     return redirect()->back()->withErrors(['error' => 'A minimum of one trade is required prior to a withdrawal.']);
-        // }
-
-        // Filter only real trades with non-null end time
-        $trades = $investments->filter(function ($inv) {
-            return in_array($inv->type, ['buy', 'sell']) && !is_null($inv->game_end_time);
-        });
-
-        if ($trades->count() < 4) {
-            return redirect()->back()->withErrors([
-                'error' => 'You must complete at least 4 valid trades before making a withdrawal.'
-            ]);
-        }
-
-        $setting = Setting::first();
-        if (!$setting) {
-            return redirect()->back()->withErrors([
-                'error' => 'Withdrawal settings not configured.'
-            ]);
-        }
-
-
-        $amount = $request->amount;
-
-        if ($amount < $setting->min_withdraw_amount) {
-            return redirect()->back()->withErrors(['error' => 'Amount is less than the minimum withdrawal limit.']);
-        }
-
-        $lastTradeEndTime = $trades->max('game_end_time');
-
-        if (!$lastTradeEndTime) {
-            return redirect()->back()->withErrors(['error' => 'Could not determine last trade completion time.']);
-        }
-
-        $lastTradeCarbon = Carbon::parse($lastTradeEndTime);
-        $nowUtc = Carbon::now();
-
-        // Require 24 full hours between last trade and withdrawal
-        $eligibleTime = $lastTradeCarbon->copy()->addHours(24);
-
-        // if ($nowUtc->lessThan($eligibleTime)) {
-        //     $remaining = $eligibleTime->diff($nowUtc);
-        //     $remainingHours = $remaining->h;
-        //     $remainingMinutes = $remaining->i;
-        //     $remainingSeconds = $remaining->s;
-
-        //     return redirect()->back()->withErrors([
-        //         'error' => "You must complete at least 4 valid trades before making a withdrawal."
-        //     ]);
-        // }
-        
-
-        if ($user->balance < $amount) {
-            return redirect()->back()->withErrors(['error' => 'Insufficient balance.']);
-        }
-
-        // Calculate fee and net amount
-        $fee = ($amount * $setting->withdraw_fee_percentage) / 100;
-        $netAmount = $amount - $fee;
-
-        // Save withdrawal
-        $withdrawal = new Withdrawal();
-        $withdrawal->user_id = $user->id;
-        $withdrawal->payment_address = $user->withdrawal_address;
-        $withdrawal->withdraw_password = bcrypt($request->withdraw_password);
-        $withdrawal->status = 'pending';
-        $withdrawal->amount = $netAmount;
-        $withdrawal->save();
-
-        // Deduct from balance
-        $user->balance -= $amount;
-        $user->save();
-
-        return redirect()->back()->with('success', "Withdraw request submitted. Amount: $amount, Fee: $fee, Net: $netAmount");
+    if (!$user->withdrawal_pin_hash) {
+        return redirect()->back()->withErrors(['error' => 'You have not set a withdrawal PIN.']);
     }
+
+    if (!Hash::check($request->withdraw_password, $user->withdrawal_pin_hash)) {
+        return redirect()->back()->withErrors(['error' => 'Incorrect withdrawal password.']);
+    }
+
+    if (!$user->withdrawal_address) {
+        return redirect()->back()->withErrors(['error' => 'No withdrawal address set.']);
+    }
+
+    // 🚨 Check if user already made a withdrawal today
+    $todayRequest = Withdrawal::where('user_id', $user->id)
+        ->whereDate('created_at', Carbon::today())
+        ->exists();
+
+    if ($todayRequest) {
+        return redirect()->back()->withErrors(['error' => 'Hi, withdrawal is allowed only once per day.']);
+    }
+
+    $investments = DB::table('user_investments')
+        ->where('user_id', $user->id)
+        ->get();
+
+    $trades = $investments->filter(function ($inv) {
+        return in_array($inv->type, ['buy', 'sell']) && !is_null($inv->game_end_time);
+    });
+
+    if ($trades->count() < 4) {
+        return redirect()->back()->withErrors([
+            'error' => 'You must complete at least 4 valid trades before making a withdrawal.'
+        ]);
+    }
+
+    $setting = Setting::first();
+    if (!$setting) {
+        return redirect()->back()->withErrors([
+            'error' => 'Withdrawal settings not configured.'
+        ]);
+    }
+
+    $amount = $request->amount;
+
+    if ($amount < $setting->min_withdraw_amount) {
+        return redirect()->back()->withErrors(['error' => 'Amount is less than the minimum withdrawal limit.']);
+    }
+
+    if ($user->balance < $amount) {
+        return redirect()->back()->withErrors(['error' => 'Insufficient balance.']);
+    }
+
+    // Calculate fee and net amount
+    $fee = ($amount * $setting->withdraw_fee_percentage) / 100;
+    $netAmount = $amount - $fee;
+
+    // Save withdrawal
+    $withdrawal = new Withdrawal();
+    $withdrawal->user_id = $user->id;
+    $withdrawal->payment_address = $user->withdrawal_address;
+    $withdrawal->withdraw_password = bcrypt($request->withdraw_password);
+    $withdrawal->status = 'pending';
+    $withdrawal->amount = $netAmount;
+    $withdrawal->save();
+
+    // Deduct from balance
+    $user->balance -= $amount;
+    $user->save();
+
+    return redirect()->back()->with('success', "Withdraw request submitted. Amount: $amount, Fee: $fee, Net: $netAmount");
+}
 
 
 
