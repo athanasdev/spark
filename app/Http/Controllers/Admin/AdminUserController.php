@@ -270,6 +270,7 @@ class AdminUserController extends Controller
     //     return redirect()->back()->with('success', 'Withdrawal amount returned to user balance.');
     // }
 
+    
     public function returnWithdraw($id)
     {
         $withdraw = Withdrawal::with('user')->findOrFail($id);
@@ -288,5 +289,9 @@ class AdminUserController extends Controller
             'success',
             "Withdrawal of {$withdraw->amount} (after fee) has been returned as {$returnAmount} to user balance."
         );
+
     }
+
+
 }
+

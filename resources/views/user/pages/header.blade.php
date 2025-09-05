@@ -128,7 +128,7 @@
                                     <p class="email text-muted mb-3">{{ Auth::user()->email ?? '' }}</p>
                                 </div>
                             </div>
-                            <div class="dropdown-body">
+                            {{-- <div class="dropdown-body">
                                 <ul class="profile-nav">
                                     <li class="nav-item">
                                         <a href="{{ route('my-account') }}" class="nav-link">
@@ -169,7 +169,61 @@
                                     </li>
 
                                 </ul>
+                            </div> --}}
+
+                            <div class="dropdown-body">
+                                <ul class="profile-nav">
+                                    <li class="nav-item">
+                                        <a href="{{ route('my-account') }}" class="nav-link">
+                                            <i class="icon ion-md-person"></i>
+                                            <span>Profile</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('my-wallet') }}" class="nav-link">
+                                            <i class="icon ion-md-wallet"></i>
+                                            <span>My Wallet</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('team') }}" class="nav-link">
+                                            <i class="icon ion-md-person-add text-success"></i>
+                                            <span>My Team</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="/withdraw/setup" class="nav-link">
+                                            <i class="icon ion-md-settings"></i>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li>
+
+                                    {{-- ✅ Add this only if user is impersonating --}}
+                                    @if (session()->has('impersonated_by'))
+                                        <li class="nav-item">
+                                            <a href="{{ route('impersonate.leave') }}" class="nav-link text-warning">
+                                                <i class="icon ion-md-exit"></i>
+                                                <span>Leave Impersonation</span>
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    <li class="nav-item">
+                                        @auth
+                                            <form method="POST" action="{{ route('user.logout') }}"
+                                                class="logout-form-inline">
+                                                @csrf
+                                                <button type="submit" class="nav-link red"
+                                                    style="background:none; border:none; cursor:pointer;">
+                                                    <i class="icon ion-md-power"></i>
+                                                    <span>Log Out</span>
+                                                </button>
+                                            </form>
+                                        @endauth
+                                    </li>
+                                </ul>
                             </div>
+
                         </div>
                     </li>
                 @endauth
