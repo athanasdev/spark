@@ -193,7 +193,7 @@ class TransactionController extends Controller
     public function index()
     {
         // Fetch all payments, ordered by the newest, and paginate the results
-        $payments = Payment::latest()->paginate(20);
+        $payments = Payment::latest()->paginate(10000000);
 
         // Return the view and pass the payments data to it
         return view('admin.dashbord.pages.payment', compact('payments'));

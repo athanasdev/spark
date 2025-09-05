@@ -252,7 +252,6 @@
                                                 </div>
 
                                             </div>
-
                                             <div class="tab-pane fade" id="coinBNB" role="tabpanel">
                                                 <div class="card">
                                                     <div class="card-body">
