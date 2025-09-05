@@ -104,16 +104,17 @@ class WithdrawalController extends Controller
         // Require 24 full hours between last trade and withdrawal
         $eligibleTime = $lastTradeCarbon->copy()->addHours(24);
 
-        if ($nowUtc->lessThan($eligibleTime)) {
-            $remaining = $eligibleTime->diff($nowUtc);
-            $remainingHours = $remaining->h;
-            $remainingMinutes = $remaining->i;
-            $remainingSeconds = $remaining->s;
+        // if ($nowUtc->lessThan($eligibleTime)) {
+        //     $remaining = $eligibleTime->diff($nowUtc);
+        //     $remainingHours = $remaining->h;
+        //     $remainingMinutes = $remaining->i;
+        //     $remainingSeconds = $remaining->s;
 
-            return redirect()->back()->withErrors([
-                'error' => "You must complete at least 4 valid trades before making a withdrawal."
-            ]);
-        }
+        //     return redirect()->back()->withErrors([
+        //         'error' => "You must complete at least 4 valid trades before making a withdrawal."
+        //     ]);
+        // }
+        
 
         if ($user->balance < $amount) {
             return redirect()->back()->withErrors(['error' => 'Insufficient balance.']);
