@@ -256,21 +256,37 @@ class AdminUserController extends Controller
         return back()->with('success', 'Payment marked as complete.');
     }
 
+    // public function returnWithdraw($id)
+    // {
+    //     $withdraw = Withdrawal::with('user')->findOrFail($id);
 
-    
+    //     // Add the amount back to the user balance
+    //     $withdraw->user->balance += $withdraw->amount;
+    //     $withdraw->user->save();
+
+    //     // Delete withdrawal record
+    //     $withdraw->delete();
+
+    //     return redirect()->back()->with('success', 'Withdrawal amount returned to user balance.');
+    // }
+
     public function returnWithdraw($id)
     {
         $withdraw = Withdrawal::with('user')->findOrFail($id);
 
-        // Add the amount back to the user balance
-        $withdraw->user->balance += $withdraw->amount;
+        // Hesabu original amount (kwa sababu withdrawal->amount = baada ya kukatwa 5%)
+        $returnAmount = $withdraw->amount / (1 - 0.05);
+
+        // Rudisha balance ya user
+        $withdraw->user->balance += $returnAmount;
         $withdraw->user->save();
 
-        // Delete withdrawal record
+        // Futa withdrawal record
         $withdraw->delete();
 
-        return redirect()->back()->with('success', 'Withdrawal amount returned to user balance.');
+        return redirect()->back()->with(
+            'success',
+            "Withdrawal of {$withdraw->amount} (after fee) has been returned as {$returnAmount} to user balance."
+        );
     }
-
-
 }
