@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-12 col-lg-9">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade" id="settings-profile" role="tabpanel"
+                        <div class="tab-pane fade " id="settings-profile" role="tabpanel"
                             aria-labelledby="settings-profile-tab">
                             <div class="card">
                                 <div class="card-body">

@@ -139,6 +139,8 @@ class DashboardController extends Controller
             'lifetime_pnl',
             'totalWithdraws'
         ));
+
+
     }
 
 
