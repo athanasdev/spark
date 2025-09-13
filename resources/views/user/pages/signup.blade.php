@@ -28,7 +28,7 @@
                 <form action="{{ route('user.register') }}" method="POST">
                     @csrf
                     <span>Create Account</span>
-                    {{-- @include('user.common.alert') --}}
+
                     <div class="form-group">
                         <input type="text" name="username" class="form-control" placeholder="Username" required />
                     </div>
@@ -44,10 +44,20 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <input type="text" name="invitation_code" class="form-control"
-                            placeholder="Referral Code (Optional)" value="{{ $ref ?? old('invitation_code') }}" />
-                    </div>
+                    {{-- Referral handling --}}
+                    @if (!empty($code))
+                        <input type="hidden" name="invitation_code" value="{{ $code }}">
+                        <p class="text-success">
+                            You are joining with referral code from
+                            <strong>{{ $referrer->username ?? 'unknown user' }}</strong>
+                        </p>
+                    @else
+                        <div class="mb-3">
+                            <label>Referral Code (optional)</label>
+                            <input type="text" name="invitation_code" class="form-control"
+                                value="{{ old('invitation_code') }}">
+                        </div>
+                    @endif
 
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder="Password" required />
@@ -86,46 +96,46 @@
     <script src="/client/assets/js/custom.js"></script>
 
     <!-- SweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    @if(session('success'))
-        Swal.fire({
-            icon: 'success',
-            title: '{{ session("success") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 3000,
-            showConfirmButton: false
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: '{{ session('success') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 3000,
+                    showConfirmButton: false
+                });
+            @endif
+
+            @if (session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: '{{ session('error') }}',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 4000,
+                    showConfirmButton: false
+                });
+            @endif
+
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: '{{ $error }}',
+                        toast: true,
+                        position: 'top-end',
+                        timer: 4000,
+                        showConfirmButton: false
+                    });
+                @endforeach
+            @endif
         });
-    @endif
-
-    @if(session('error'))
-        Swal.fire({
-            icon: 'error',
-            title: '{{ session("error") }}',
-            toast: true,
-            position: 'top-end',
-            timer: 4000,
-            showConfirmButton: false
-        });
-    @endif
-
-    @if($errors->any())
-        @foreach ($errors->all() as $error)
-            Swal.fire({
-                icon: 'error',
-                title: '{{ $error }}',
-                toast: true,
-                position: 'top-end',
-                timer: 4000,
-                showConfirmButton: false
-            });
-        @endforeach
-    @endif
-});
-</script>
+    </script>
 
 
 </body>
