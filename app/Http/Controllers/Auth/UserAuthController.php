@@ -3,29 +3,22 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-
-
 class UserAuthController extends Controller
 {
-
     public function showRegisterForm(Request $request)
     {
-        $ref = $request->query('invited_by');
-        return view('user.pages.signup', compact('ref'));
+        return view('user.pages.signup');
     }
-
-
 
     public function register(Request $request)
     {
-
         $request->validate([
             'username' => 'required|string|unique:users,username',
             'email' => 'required|email|unique:users,email',
@@ -47,12 +40,12 @@ class UserAuthController extends Controller
         } while (User::where('unique_id', $uniqueId)->exists());
 
         do {
-            $referralCode = strtoupper(Str::random(6));
+            // Generate a 6-digit random number (e.g., 483920)
+            $referralCode = mt_rand(100000, 999999);
         } while (User::where('referral_code', $referralCode)->exists());
 
         // 3. Create the new user with the referrer_id if found
         $user = User::create([
-
             'username' => $request->username,
             'email' => $request->email,
             'currency' => $request->currency,
@@ -61,9 +54,7 @@ class UserAuthController extends Controller
             'referral_code' => $referralCode,
             'referrer_id' => optional($referrer)->id,
             'balance' => 0.5
-
         ]);
-
 
         Auth::login($user);
 
@@ -79,7 +70,6 @@ class UserAuthController extends Controller
     {
         return view('user.pages.login');
     }
-
 
     public function login(Request $request)
     {
@@ -99,7 +89,6 @@ class UserAuthController extends Controller
                         'success' => false,
                         'message' => 'Your account is inactive. Please contact support.'
                     ], 403);
-
                 }
 
                 return back()->withErrors([
@@ -143,78 +132,75 @@ class UserAuthController extends Controller
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',
         ])->onlyInput('username');
-
-
     }
 
-// public function login(Request $request)
-// {
-//     // Validate input
-//     $credentials = $request->validate([
-//         'username' => 'required|string',
-//         'password' => 'required|string|min:6',
-//     ]);
+    // public function login(Request $request)
+    // {
+    //     // Validate input
+    //     $credentials = $request->validate([
+    //         'username' => 'required|string',
+    //         'password' => 'required|string|min:6',
+    //     ]);
 
-//     // Attempt login
-//     if (!Auth::attempt($credentials)) {
-//         // Invalid credentials
-//         if ($request->ajax()) {
-//             return response()->json([
-//                 'success' => false,
-//                 'message' => 'Invalid username or password.'
-//             ], 401);
-//         }
-//         return back()->withErrors([
-//             'username' => 'Invalid username or password.'
-//         ])->onlyInput('username');
-//     }
+    //     // Attempt login
+    //     if (!Auth::attempt($credentials)) {
+    //         // Invalid credentials
+    //         if ($request->ajax()) {
+    //             return response()->json([
+    //                 'success' => false,
+    //                 'message' => 'Invalid username or password.'
+    //             ], 401);
+    //         }
+    //         return back()->withErrors([
+    //             'username' => 'Invalid username or password.'
+    //         ])->onlyInput('username');
+    //     }
 
-//     $user = Auth::user();
+    //     $user = Auth::user();
 
-//     // Blocked account check
-//     if ($user->status === 'blocked') {
-//         Auth::logout();
+    //     // Blocked account check
+    //     if ($user->status === 'blocked') {
+    //         Auth::logout();
 
-//         if ($request->ajax()) {
-//             return response()->json([
-//                 'success' => false,
-//                 'message' => 'Your account is inactive. Please contact support.'
-//             ], 403);
-//         }
+    //         if ($request->ajax()) {
+    //             return response()->json([
+    //                 'success' => false,
+    //                 'message' => 'Your account is inactive. Please contact support.'
+    //             ], 403);
+    //         }
 
-//         return back()->withErrors([
-//             'username' => 'Your account is inactive. Please contact support.'
-//         ])->withInput();
-//     }
+    //         return back()->withErrors([
+    //             'username' => 'Your account is inactive. Please contact support.'
+    //         ])->withInput();
+    //     }
 
-//     // Regenerate session
-//     $request->session()->regenerate();
+    //     // Regenerate session
+    //     $request->session()->regenerate();
 
-//     // Check withdrawal setup
-//     if (is_null($user->withdrawal_address) || is_null($user->withdrawal_pin_hash)) {
-//         if ($request->ajax()) {
-//             return response()->json([
-//                 'success' => true,
-//                 'message' => 'Please set your withdrawal address and PIN first.',
-//                 'redirect' => route('withdraw.setup')
-//             ]);
-//         }
+    //     // Check withdrawal setup
+    //     if (is_null($user->withdrawal_address) || is_null($user->withdrawal_pin_hash)) {
+    //         if ($request->ajax()) {
+    //             return response()->json([
+    //                 'success' => true,
+    //                 'message' => 'Please set your withdrawal address and PIN first.',
+    //                 'redirect' => route('withdraw.setup')
+    //             ]);
+    //         }
 
-//         return redirect()->route('withdraw.setup')->with('warning', 'Please set your withdrawal address and PIN first.');
-//     }
+    //         return redirect()->route('withdraw.setup')->with('warning', 'Please set your withdrawal address and PIN first.');
+    //     }
 
-//     // Successful login
-//     if ($request->ajax()) {
-//         return response()->json([
-//             'success' => true,
-//             'message' => 'Logged in successfully.',
-//             'redirect' => route('dashboard')
-//         ]);
-//     }
+    //     // Successful login
+    //     if ($request->ajax()) {
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => 'Logged in successfully.',
+    //             'redirect' => route('dashboard')
+    //         ]);
+    //     }
 
-//     return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
-// }
-
+    //     return redirect()->intended(route('dashboard'))->with('success', 'Logged in successfully.');
+    // }
 
     public function logout(Request $request)
     {

@@ -31,6 +31,10 @@
                             role="tab" aria-controls="withdraw-history" aria-selected="false">
                             <i class="icon ion-md-wallet"></i> Withdraws
                         </a>
+                        {{-- <a class="nav-link" id="depost-history-tab" data-toggle="pill" href="#depost-history"
+                            role="tab" aria-controls="dipost-history" aria-selected="false">
+                            <i class="icon ion-md-wallet"></i> Deposts
+                        </a> --}}
                     </div>
                 </div>
                 <div class="col-md-12 col-lg-9">
@@ -187,6 +191,57 @@
                                 </div>
                             </div>
                         </div>
+
+                        {{-- <div class="tab-pane fade" id="depost-history" role="tabpanel"
+                            aria-labelledby="depost-history-tab">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title pl-4">Depost History</h5>
+                                    <div class="wallet-history table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse($withdrawals as $index => $withdrawal)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $withdrawal->created_at ? $withdrawal->created_at->format('d-m-Y') : '-' }}
+                                                        </td>
+                                                        <td>
+                                                            @if ($withdrawal->status === 'complete')
+                                                                <i class="icon ion-md-checkmark-circle-outline text-success"></i>
+                                                            @elseif($withdrawal->status === 'pending')
+                                                                <i class="icon ion-md-close-circle-outline text-warning"></i>
+                                                            @else
+                                                                <i class="icon ion-md-close-circle-outline text-danger"></i>
+                                                            @endif
+                                                            {{ ucfirst($withdrawal->status) }}
+                                                        </td>
+                                                        <td>{{ number_format($withdrawal->amount, 2) }} USDT</td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="4" class="text-center">No withdrawals found
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+
+                                        <!-- Pagination -->
+                                        <div class="d-flex justify-content-center mt-3 pagination-wrapper">
+                                            {{ $withdrawals->links('vendor.pagination.custom') }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
 
 
                     </div>
