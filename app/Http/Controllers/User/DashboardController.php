@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\Deposit;
 use App\Models\GameSetting;
 use App\Models\Payment;
 use App\Models\Transaction;
@@ -128,6 +129,15 @@ class DashboardController extends Controller
             ->where('status', 'complete')
             ->sum('amount');
 
+        $deposts = Deposit::where('user_is', $user->id)
+                         ->where('status', 'finished');
+
+        $payments = Payment::where('user_id', $user->id)
+                ->where('payment_status', 'finished') 
+                ->orderBy('id', 'asc')
+                ->paginate(10);
+
+    
         // --- Pass ALL data to the view ---
         return view('user.pages.account', compact(
             'user',
@@ -137,8 +147,13 @@ class DashboardController extends Controller
             'totalReferralEarning',
             'investedCapital',
             'lifetime_pnl',
-            'totalWithdraws'
+            'totalWithdraws',
+            'deposts',
+            'payments'
+
         ));
+
+
 
 
     }

@@ -208,4 +208,6 @@ Route::get('/check-time', function () {
         'Carbon::now()' => Carbon\Carbon::now()->toDateTimeString(),
         'Carbon::now(UTC)' => Carbon\Carbon::now('UTC')->toDateTimeString(),
     ];
+
 });
+

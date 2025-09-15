@@ -80,7 +80,7 @@
                                                                 <div class="input-group">
                                                                     <input type="text" class="form-control"
                                                                         id="referralLinkInput"
-                                                                        value="{{ config('app.url') }}/register/?invited_by={{ $user->referral_code }}"
+                                                                        value="{{ config('app.url') }}/join/{{ $user->referral_code }}"
                                                                         readonly>
                                                                     <div class="input-group-append">
                                                                         <button class="btn btn-primary" type="button"
@@ -91,6 +91,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                                 {{-- MY TEAMS --}}
                                                 {{-- <div class="card">
                                                     <div class="card-body">

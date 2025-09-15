@@ -195,6 +195,7 @@ class IPNController extends Controller
                 return response()->json(['message' => 'Payment already processed.'], 200);
             }
 
+
             // Only process if payment is finished
             if ($requestData['payment_status'] === 'finished' && $payment->user_id) {
                 $user = User::find($payment->user_id);
@@ -248,7 +249,11 @@ class IPNController extends Controller
                     $payment->save();
 
                     Log::info("User {$user->id} wallet updated. New balance: {$finalBalance}");
+
                 }
+
+                
+
             }
 
             DB::commit();

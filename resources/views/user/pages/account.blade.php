@@ -31,11 +31,13 @@
                             role="tab" aria-controls="withdraw-history" aria-selected="false">
                             <i class="icon ion-md-wallet"></i> Withdraws
                         </a>
-                        {{-- <a class="nav-link" id="depost-history-tab" data-toggle="pill" href="#depost-history"
-                            role="tab" aria-controls="dipost-history" aria-selected="false">
-                            <i class="icon ion-md-wallet"></i> Deposts
-                        </a> --}}
+                        <a class="nav-link" id="deposit-history-tab" data-toggle="pill" href="#deposit-history"
+                            role="tab" aria-controls="diposit-history" aria-selected="false">
+                            <i class="icon ion-md-wallet"></i> Deposits
+                        </a>
+
                     </div>
+
                 </div>
                 <div class="col-md-12 col-lg-9">
                     <div class="tab-content" id="v-pills-tabContent">
@@ -164,11 +166,14 @@
                                                         </td>
                                                         <td>
                                                             @if ($withdrawal->status === 'complete')
-                                                                <i class="icon ion-md-checkmark-circle-outline text-success"></i>
+                                                                <i
+                                                                    class="icon ion-md-checkmark-circle-outline text-success"></i>
                                                             @elseif($withdrawal->status === 'pending')
-                                                                <i class="icon ion-md-close-circle-outline text-warning"></i>
+                                                                <i
+                                                                    class="icon ion-md-close-circle-outline text-warning"></i>
                                                             @else
-                                                                <i class="icon ion-md-close-circle-outline text-danger"></i>
+                                                                <i
+                                                                    class="icon ion-md-close-circle-outline text-danger"></i>
                                                             @endif
                                                             {{ ucfirst($withdrawal->status) }}
                                                         </td>
@@ -192,11 +197,11 @@
                             </div>
                         </div>
 
-                        {{-- <div class="tab-pane fade" id="depost-history" role="tabpanel"
-                            aria-labelledby="depost-history-tab">
+                        <div class="tab-pane fade" id="deposit-history" role="tabpanel"
+                            aria-labelledby="deposit-history-tab">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title pl-4">Depost History</h5>
+                                    <h5 class="card-title pl-4">Deposit History</h5>
                                     <div class="wallet-history table-responsive">
                                         <table class="table">
                                             <thead>
@@ -208,27 +213,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @forelse($withdrawals as $index => $withdrawal)
+                                                @forelse($payments as $index => $payment)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $withdrawal->created_at ? $withdrawal->created_at->format('d-m-Y') : '-' }}
+                                                        <td>{{ $payment->created_at ? $payment->created_at->format('d-m-Y') : '-' }}
                                                         </td>
                                                         <td>
-                                                            @if ($withdrawal->status === 'complete')
+                                                            @if ($payment->payment_status === 'finished')
                                                                 <i class="icon ion-md-checkmark-circle-outline text-success"></i>
-                                                            @elseif($withdrawal->status === 'pending')
-                                                                <i class="icon ion-md-close-circle-outline text-warning"></i>
+                                                            @elseif($payment->payment_status === 'waiting')
+                                                                <i class="icon ion-md-time text-warning"></i>
+                                                            @elseif($payment->payment_status === 'failed')
+                                                                <i
+                                                                    class="icon ion-md-close-circle-outline text-danger"></i>
                                                             @else
-                                                                <i class="icon ion-md-close-circle-outline text-danger"></i>
+                                                                <i
+                                                                    class="icon ion-md-help-circle-outline text-secondary"></i>
                                                             @endif
-                                                            {{ ucfirst($withdrawal->status) }}
+                                                            {{ ucfirst($payment->payment_status) }}
                                                         </td>
-                                                        <td>{{ number_format($withdrawal->amount, 2) }} USDT</td>
+                                                        <td>{{ number_format($payment->price_amount, 2) }}
+                                                            {{ strtoupper($payment->price_currency) }}</td>
                                                     </tr>
                                                 @empty
                                                     <tr>
-                                                        <td colspan="4" class="text-center">No withdrawals found
-                                                        </td>
+                                                        <td colspan="4" class="text-center">No deposits found</td>
                                                     </tr>
                                                 @endforelse
                                             </tbody>
@@ -236,19 +245,18 @@
 
                                         <!-- Pagination -->
                                         <div class="d-flex justify-content-center mt-3 pagination-wrapper">
-                                            {{ $withdrawals->links('vendor.pagination.custom') }}
+                                            {{ $payments->links('vendor.pagination.custom') }}
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
 
 
                     </div>
 
-
                 </div>
-
 
             </div>
         </div>

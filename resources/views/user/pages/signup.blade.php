@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- Mirrored from crypo-laravel-live.netlify.app/signup/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:56:03 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
     <meta charset="UTF-8">
@@ -18,7 +15,6 @@
 </head>
 
 <body id="dark">
-
 
     @include('user.pages.header');
 
@@ -81,10 +77,13 @@
                     <p class="mt-3 text-center">
                         Already have an account? <a href="{{ route('login') }}">Sign In</a>
                     </p>
+
                 </form>
+
             </div>
 
             <h2>Already have an account? <a href="{{ route('login') }}">Sign in here</a></h2>
+
         </div>
     </div>
 
@@ -140,7 +139,5 @@
 
 </body>
 
-
-<!-- Mirrored from crypo-laravel-live.netlify.app/signup/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 26 Feb 2023 05:56:03 GMT -->
 
 </html>
